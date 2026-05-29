@@ -134,6 +134,16 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
         </div>
         <span className="text-muted-foreground/60 text-sm">{project.year}</span>
       </div>
+      <a
+        href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-5 inline-flex items-center justify-center w-full px-6 py-3 rounded-full text-sm tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90"
+        style={{ background: "#c9a84c", color: "#1a0f05" }}
+        onClick={e => e.stopPropagation()}
+      >
+        Заказать
+      </a>
     </article>
   )
 }
