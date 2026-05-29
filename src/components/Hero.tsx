@@ -132,36 +132,27 @@ export function Hero() {
         />
       </div>
 
-      <div
-        ref={contentRef}
-        className="container mx-auto px-6 md:px-12 lg:pt-0 relative z-10 pb-0 pl-1 pr-1 pt-8 md:pt-0"
-        style={{
-          willChange: "transform",
-          transform: "translateY(0px)",
-          perspective: "1000px",
-          transformStyle: "preserve-3d",
-        }}
-      >
-        <div className="mb-72 md:mb-60 lg:mb-80 flex flex-col items-center gap-8">
-          <p className="text-sm tracking-[0.3em] uppercase text-center text-secondary mb-0">{"Производство мебели с регулировкой высоты"}</p>
+      <div ref={contentRef} className="hidden" style={{ willChange: "transform" }} />
 
-          <h1
-            ref={titleRef}
-            className="text-7xl font-medium text-balance text-center text-white mb-0 tracking-tight leading-[0.9] lg:text-8xl"
-          >
-            {"Русский Стол"}
-            <br />
-            <span style={{color: "#e8c87a"}}>{"из живого дуба"}</span>
-          </h1>
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-8 px-6">
+        <p className="text-sm tracking-[0.3em] uppercase text-center text-secondary">{"Производство мебели с регулировкой высоты"}</p>
 
-          <a
-            href="#contact"
-            className="mt-6 inline-flex items-center gap-3 px-8 py-4 text-sm tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90"
-            style={{ background: "#c9a84c", color: "#1a0f05" }}
-          >
-            Заказать стол
-          </a>
-        </div>
+        <h1
+          ref={titleRef}
+          className="text-7xl font-medium text-balance text-center text-white tracking-tight leading-[0.9] lg:text-8xl"
+        >
+          {"Русский Стол"}
+          <br />
+          <span style={{color: "#e8c87a"}}>{"из живого дуба"}</span>
+        </h1>
+
+        <a
+          href="#contact"
+          className="mt-4 inline-flex items-center gap-3 px-8 py-4 text-sm tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90"
+          style={{ background: "#c9a84c", color: "#1a0f05" }}
+        >
+          Заказать стол
+        </a>
       </div>
 
 
