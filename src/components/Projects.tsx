@@ -4,33 +4,33 @@ import { ArrowUpRight } from "lucide-react"
 const projects = [
   {
     id: 1,
-    title: "Резиденция Светлая",
-    category: "Жилой дом",
-    location: "Москва, Россия",
+    title: "Стол «Боярин»",
+    category: "Обеденный стол",
+    location: "Дуб, живой край, масло-воск",
     year: "2024",
     image: "/images/hously-1.png",
   },
   {
     id: 2,
-    title: "Павильон Стекло",
-    category: "Коммерческий объект",
-    location: "Санкт-Петербург, Россия",
-    year: "2023",
+    title: "Стол «Тайга»",
+    category: "Письменный стол",
+    location: "Дуб, брашированная текстура",
+    year: "2024",
     image: "/images/hously-2.png",
   },
   {
     id: 3,
-    title: "Дом у моря",
-    category: "Жилой дом",
-    location: "Сочи, Россия",
+    title: "Стол «Слобода»",
+    category: "Кухонный остров",
+    location: "Дуб, металлические ножки",
     year: "2023",
     image: "/images/hously-3.png",
   },
   {
     id: 4,
-    title: "Северный приют",
-    category: "Гостиничный комплекс",
-    location: "Казань, Россия",
+    title: "Стол «Купец»",
+    category: "Переговорный стол",
+    location: "Дуб, массив 6 см, лак",
     year: "2024",
     image: "/images/hously-4.png",
   },
@@ -69,13 +69,13 @@ export function Projects() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
           <div>
             <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase mb-6">Избранные работы</p>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight">Наши проекты</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight">Наша коллекция</h2>
           </div>
           <a
             href="#"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
           >
-            Смотреть все проекты
+            Смотреть всю коллекцию
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </div>

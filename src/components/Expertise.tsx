@@ -1,30 +1,30 @@
 import { useEffect, useRef, useState } from "react"
-import { Home, Building, Armchair, Trees } from "lucide-react"
+import Icon from "@/components/ui/icon"
 import { HighlightedText } from "./HighlightedText"
 
 const expertiseAreas = [
   {
-    title: "Жилая архитектура",
-    description: "Создаем дома, которые сочетают красоту с комфортом, где каждое пространство служит и форме, и функции.",
-    icon: Home,
+    title: "Подбор древесины",
+    description: "Отбираем доски вручную — только плотный, хорошо высушенный дуб без трещин и пороков. Каждая доска проходит многомесячную выдержку на складе.",
+    icon: "Ruler",
   },
   {
-    title: "Коммерческие объекты",
+    title: "Столярная обработка",
     description:
-      "Проектируем рабочие пространства, которые вдохновляют на продуктивность и отражают ценности передовых организаций.",
-    icon: Building,
+      "Фугование, строгание, склейка щита — всё вручную. Шипы, пазы и соединения делаются с допуском до 0,1 мм, чтобы стол не «гулял» десятилетиями.",
+    icon: "Flame",
   },
   {
-    title: "Дизайн интерьеров",
+    title: "Финишное покрытие",
     description:
-      "Создаем интерьеры, которые гармонируют с архитектурной оболочкой, формируя целостный пространственный опыт.",
-    icon: Armchair,
+      "Используем натуральные масла и воски датского и немецкого производства. Покрытие подчёркивает текстуру дуба и защищает от влаги и пятен.",
+    icon: "Droplets",
   },
   {
-    title: "Градостроительство",
+    title: "Доставка и сборка",
     description:
-      "Формируем сообщества через продуманную интеграцию общественных пространств, зданий и природных элементов.",
-    icon: Trees,
+      "Упаковываем столы в мягкую обрешётку и доставляем по всей России. Мастер приедет и установит стол на месте, отрегулирует ножки.",
+    icon: "Package",
   },
 ]
 
@@ -57,21 +57,19 @@ export function Expertise() {
     <section id="services" ref={sectionRef} className="py-32 md:py-29">
       <div className="container mx-auto px-6 md:px-12">
         <div className="max-w-3xl mb-20">
-          <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase mb-6">Наши услуги</p>
+          <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase mb-6">Как мы делаем</p>
           <h2 className="text-6xl font-medium leading-[1.15] tracking-tight mb-6 text-balance lg:text-8xl">
-            <HighlightedText>Экспертиза</HighlightedText>, отточенная
+            <HighlightedText>Мастерство</HighlightedText>, проверенное
             <br />
-            практикой
+            временем
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            Каждый проект опирается на десятилетия совокупного опыта, создавая архитектуру, которая одновременно инновационна и вневременна.
+            Каждый стол проходит четыре этапа — от выбора бревна до доставки в ваш дом. Без спешки, без компромиссов по качеству.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-x-12 gap-y-16">
-          {expertiseAreas.map((area, index) => {
-            const Icon = area.icon
-            return (
+          {expertiseAreas.map((area, index) => (
               <div
                 key={area.title}
                 ref={(el) => {
@@ -91,13 +89,12 @@ export function Expertise() {
                     transitionDelay: `${index * 150}ms`,
                   }}
                 >
-                  <Icon className="w-10 h-10 mb-4 text-foreground" strokeWidth={1.25} />
+                  <Icon name={area.icon} size={40} className="mb-4 text-foreground" />
                 </div>
                 <h3 className="text-xl font-medium mb-4">{area.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{area.description}</p>
               </div>
-            )
-          })}
+          ))}
         </div>
       </div>
     </section>
