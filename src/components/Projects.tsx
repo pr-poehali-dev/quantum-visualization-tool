@@ -29,12 +29,13 @@ const projects = [
   {
     id: 3,
     title: "Стол «Воевода»",
-    category: "Рабочий стол",
-    location: "Дуб массив, скруглённый край, масло-воск",
+    category: "Письменный стол на стационарном подстолье",
+    location: "Дуб сращенный, бесцветный лак, 140×70×3",
     year: "2024",
+    price: "35 000 ₽",
     images: [
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/6ac65623-d1d9-4598-a141-5ea5172653a2.jpg",
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/06b996c4-5105-4e59-b5d7-3f462602f82d.jpg",
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/0b0a9b03-2ed7-4057-84d9-3bff6d3acb34.jpeg",
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/15bf462a-414f-45cc-9297-b4d3952eeb12.jpeg",
     ],
   },
   {
