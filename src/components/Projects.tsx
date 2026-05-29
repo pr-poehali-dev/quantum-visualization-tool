@@ -17,12 +17,13 @@ const projects = [
   {
     id: 2,
     title: "Стол «Купец»",
-    category: "Рабочий стол",
-    location: "Дуб массив, металлические ножки, лак",
+    category: "Письменный стол с подъёмным механизмом",
+    location: "Дуб сращенный, бесцветный, Лак, 130×70×3",
     year: "2024",
+    price: "45 000 ₽",
     images: [
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/db816fb2-0d1e-4d72-bf74-ae8fe27ff0b2.jpg",
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/9472f4cb-6ff3-419b-967c-12566a2697a9.jpg",
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/51c9deb6-4af4-4896-bca2-ed9a523acb16.jpg",
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/19ac868a-28aa-4bd7-9ac1-b548b6c97ffa.jpg",
     ],
   },
   {
