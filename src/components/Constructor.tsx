@@ -51,6 +51,8 @@ export function Constructor() {
   const [coating, setCoating] = useState("oil-natural")
   const [legsType, setLegsType] = useState("metal-black")
   const [selectedExtras, setSelectedExtras] = useState<string[]>([])
+  const [name, setName] = useState("")
+  const [phone, setPhone] = useState("")
   const [copied, setCopied] = useState(false)
 
   const toggleExtra = (id: string) => {
@@ -60,7 +62,8 @@ export function Constructor() {
   }
 
   const summary = buildSummary(size, coating, legsType, selectedExtras)
-  const orderMessage = `Привет! Хочу заказать стол.\n${summary}`
+  const contactLine = [name && `Имя: ${name}`, phone && `Телефон: ${phone}`].filter(Boolean).join(" · ")
+  const orderMessage = [`Привет! Хочу заказать стол.`, summary, contactLine].filter(Boolean).join("\n")
   const maxUrl = `https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0`
 
   const handleOrder = () => {
@@ -167,6 +170,27 @@ export function Constructor() {
                   {e.label}
                 </button>
               ))}
+            </div>
+          </div>
+
+          {/* Контакты */}
+          <div className="mb-10">
+            <h3 className="text-xs tracking-[0.25em] uppercase text-muted-foreground mb-4">Ваши контакты</h3>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <input
+                type="text"
+                placeholder="Имя"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                className="flex-1 border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors duration-200"
+              />
+              <input
+                type="tel"
+                placeholder="Номер телефона"
+                value={phone}
+                onChange={e => setPhone(e.target.value)}
+                className="flex-1 border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors duration-200"
+              />
             </div>
           </div>
 
