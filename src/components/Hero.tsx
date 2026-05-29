@@ -120,9 +120,15 @@ export function Hero() {
     <section id="hero" ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img
-          src="/images/hously-background.png"
+          src="https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/9472f4cb-6ff3-419b-967c-12566a2697a9.jpg"
           alt="Стол из массива дуба"
           className="w-full h-full object-cover object-center"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(160deg, rgba(20,12,5,0.72) 0%, rgba(35,20,8,0.55) 50%, rgba(15,10,4,0.78) 100%)",
+          }}
         />
       </div>
 
@@ -150,13 +156,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="absolute inset-0 z-20 pointer-events-none">
-        <img
-          src="/images/hously-foreground.png"
-          alt="Мраморная кухонная столешница"
-          className="w-full h-full object-cover object-center"
-        />
-      </div>
+
 
       {animationComplete && (
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce z-30">
