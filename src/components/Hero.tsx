@@ -142,9 +142,11 @@ export function Hero() {
           className="text-7xl font-medium text-balance text-center text-white tracking-tight leading-[0.9] lg:text-8xl"
         >
           {"Русский Стол"}
-          <br />
-          <span style={{color: "#e8c87a"}}>{"из живого дуба"}</span>
         </h1>
+
+        <p className="text-base md:text-lg text-white/70 text-center font-light max-w-md leading-relaxed -mt-4">
+          Натуральная древесина + современные технологии — ваш идеальный стол
+        </p>
 
         <a
           href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
