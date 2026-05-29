@@ -74,7 +74,7 @@ export function Constructor() {
   }
 
   return (
-    <section id="constructor" className="py-24 md:py-32 bg-background">
+    <section id="constructor" className="py-24 md:py-32 bg-secondary/60">
       <div className="container mx-auto px-6 md:px-12">
         <div className="max-w-4xl mx-auto">
           <p className="text-sm tracking-[0.3em] uppercase text-muted-foreground mb-4">Конструктор</p>
