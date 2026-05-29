@@ -201,14 +201,20 @@ export function Constructor() {
                 <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-1">Ваша конфигурация</p>
                 <p className="text-foreground text-sm leading-relaxed">{summary}</p>
               </div>
-              <button
-                onClick={handleOrder}
-                className="inline-flex shrink-0 items-center gap-3 px-8 py-4 text-sm tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90 group"
-                style={{ background: "var(--gold, #c9a84c)", color: "#1a0f05" }}
-              >
-                Заказать
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </button>
+              <div className="flex flex-col items-end gap-1">
+                <button
+                  onClick={handleOrder}
+                  disabled={!phone.trim()}
+                  className="inline-flex shrink-0 items-center gap-3 px-8 py-4 text-sm tracking-widest uppercase font-medium transition-all duration-300 group disabled:opacity-40 disabled:cursor-not-allowed"
+                  style={{ background: "var(--gold, #c9a84c)", color: "#1a0f05" }}
+                >
+                  Заказать
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </button>
+                {!phone.trim() && (
+                  <p className="text-xs text-muted-foreground">Укажите номер телефона</p>
+                )}
+              </div>
             </div>
 
             {copied && (
