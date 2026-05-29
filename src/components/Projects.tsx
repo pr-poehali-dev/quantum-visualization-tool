@@ -6,11 +6,12 @@ const projects = [
     id: 1,
     title: "Стол «Боярин»",
     category: "Письменный стол с подъёмным механизмом",
-    location: "Дуб массив, регулировка высоты, масло",
+    location: "Дуб сращенный, цвет Тик, Лак, 140×80×3",
     year: "2024",
+    price: "50 000 ₽",
     images: [
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/9472f4cb-6ff3-419b-967c-12566a2697a9.jpg",
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/db816fb2-0d1e-4d72-bf74-ae8fe27ff0b2.jpg",
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/a2da19de-001b-4df3-8fa0-95c55ad9837e.jpg",
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/f61ee91f-6ec3-445e-9611-814c88255ba1.jpg",
     ],
   },
   {
@@ -122,6 +123,11 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
           <p className="text-muted-foreground text-sm">
             {project.category} · {project.location}
           </p>
+          {project.price && (
+            <p className="mt-3 text-lg font-semibold" style={{ color: "var(--gold, #c9a84c)" }}>
+              {project.price}
+            </p>
+          )}
         </div>
         <span className="text-muted-foreground/60 text-sm">{project.year}</span>
       </div>
