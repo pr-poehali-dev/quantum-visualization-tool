@@ -19,8 +19,10 @@
     --secondary-foreground: 25 18% 18%;
     --muted: 33 18% 88%;
     --muted-foreground: 25 12% 42%;
-    --accent: 28 35% 52%;
+    --accent: 43 65% 55%;
     --accent-foreground: 25 20% 10%;
+    --gold: #c9a84c;
+    --gold-light: #f5dfa0;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 33 18% 86%;

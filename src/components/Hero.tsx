@@ -145,7 +145,7 @@ export function Hero() {
           >
             {"Русский Стол"}
             <br />
-            <span className="text-orange-200">{"из живого дуба"}</span>
+            <span style={{color: "#e8c87a"}}>{"из живого дуба"}</span>
           </h1>
         </div>
       </div>

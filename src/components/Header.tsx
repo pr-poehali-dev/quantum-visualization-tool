@@ -72,7 +72,7 @@ export function Header() {
             <li key={item.label}>
               <a
                 href={item.href}
-                className="hover:text-[rgb(251,146,60)] transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-[rgb(251,146,60)] after:transition-all after:duration-300 text-white"
+                className="hover:text-[#e8c87a] transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-[#e8c87a] after:transition-all after:duration-300 text-white"
               >
                 {item.label}
               </a>
@@ -129,7 +129,7 @@ export function Header() {
               <li key={item.label}>
                 <a
                   href={item.href}
-                  className="hover:text-[rgb(251,146,60)] transition-colors duration-300 text-white text-4xl font-light block"
+                  className="hover:text-[#e8c87a] transition-colors duration-300 text-white text-4xl font-light block"
                   onClick={closeMobileMenu}
                 >
                   {item.label}
