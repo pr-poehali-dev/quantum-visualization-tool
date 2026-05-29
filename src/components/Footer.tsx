@@ -6,7 +6,7 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <a href="/" className="inline-block mb-6">
-              <img src="/images/hously-logo.svg" alt="Русский Стол" width={120} height={32} className="w-auto h-6" />
+              <span className="text-foreground font-semibold tracking-widest text-xl uppercase">РС</span>
             </a>
             <p className="text-muted-foreground leading-relaxed max-w-sm">
               Производство столов из массива дуба. Ручная работа, натуральные материалы, доставка по всей России.
