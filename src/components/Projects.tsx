@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
 
 const projects = [
   {
@@ -8,7 +8,10 @@ const projects = [
     category: "Письменный стол с подъёмным механизмом",
     location: "Дуб массив, регулировка высоты, масло",
     year: "2024",
-    image: "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/9472f4cb-6ff3-419b-967c-12566a2697a9.jpg",
+    images: [
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/9472f4cb-6ff3-419b-967c-12566a2697a9.jpg",
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/db816fb2-0d1e-4d72-bf74-ae8fe27ff0b2.jpg",
+    ],
   },
   {
     id: 2,
@@ -16,7 +19,10 @@ const projects = [
     category: "Рабочий стол",
     location: "Дуб массив, металлические ножки, лак",
     year: "2024",
-    image: "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/db816fb2-0d1e-4d72-bf74-ae8fe27ff0b2.jpg",
+    images: [
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/db816fb2-0d1e-4d72-bf74-ae8fe27ff0b2.jpg",
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/9472f4cb-6ff3-419b-967c-12566a2697a9.jpg",
+    ],
   },
   {
     id: 3,
@@ -24,7 +30,10 @@ const projects = [
     category: "Рабочий стол",
     location: "Дуб массив, скруглённый край, масло-воск",
     year: "2024",
-    image: "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/6ac65623-d1d9-4598-a141-5ea5172653a2.jpg",
+    images: [
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/6ac65623-d1d9-4598-a141-5ea5172653a2.jpg",
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/06b996c4-5105-4e59-b5d7-3f462602f82d.jpg",
+    ],
   },
   {
     id: 4,
@@ -32,12 +41,95 @@ const projects = [
     category: "Столешница с кабель-каналом",
     location: "Дуб массив, встроенный кабель-менеджер",
     year: "2024",
-    image: "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/06b996c4-5105-4e59-b5d7-3f462602f82d.jpg",
+    images: [
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/06b996c4-5105-4e59-b5d7-3f462602f82d.jpg",
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/6ac65623-d1d9-4598-a141-5ea5172653a2.jpg",
+    ],
   },
 ]
 
+function ProjectCard({ project, index, revealed }: { project: typeof projects[0]; index: number; revealed: boolean }) {
+  const [photoIndex, setPhotoIndex] = useState(0)
+  const [hoveredId, setHoveredId] = useState(false)
+
+  const prev = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setPhotoIndex(i => (i === 0 ? project.images.length - 1 : i - 1))
+  }
+
+  const next = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setPhotoIndex(i => (i === project.images.length - 1 ? 0 : i + 1))
+  }
+
+  return (
+    <article
+      className="group cursor-pointer"
+      onMouseEnter={() => setHoveredId(true)}
+      onMouseLeave={() => setHoveredId(false)}
+    >
+      <div className="relative overflow-hidden aspect-[4/3] mb-6">
+        <img
+          src={project.images[photoIndex]}
+          alt={`${project.title} — фото ${photoIndex + 1}`}
+          className={`w-full h-full object-cover transition-all duration-700 ${
+            hoveredId ? "scale-105" : "scale-100"
+          }`}
+        />
+
+        {/* overlay reveal */}
+        <div
+          className="absolute inset-0 bg-primary origin-top pointer-events-none"
+          style={{
+            transform: revealed ? "scaleY(0)" : "scaleY(1)",
+            transition: "transform 1.5s cubic-bezier(0.76, 0, 0.24, 1)",
+          }}
+        />
+
+        {/* стрелки */}
+        <button
+          onClick={prev}
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 flex items-center justify-center bg-black/40 hover:bg-black/70 text-white transition-all duration-200 rounded-full opacity-0 group-hover:opacity-100"
+          aria-label="Предыдущее фото"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={next}
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 flex items-center justify-center bg-black/40 hover:bg-black/70 text-white transition-all duration-200 rounded-full opacity-0 group-hover:opacity-100"
+          aria-label="Следующее фото"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+
+        {/* точки */}
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+          {project.images.map((_, i) => (
+            <button
+              key={i}
+              onClick={e => { e.stopPropagation(); setPhotoIndex(i) }}
+              className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
+                i === photoIndex ? "bg-white scale-125" : "bg-white/50"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h3 className="text-xl font-medium mb-2 group-hover:underline underline-offset-4">{project.title}</h3>
+          <p className="text-muted-foreground text-sm">
+            {project.category} · {project.location}
+          </p>
+        </div>
+        <span className="text-muted-foreground/60 text-sm">{project.year}</span>
+      </div>
+    </article>
+  )
+}
+
 export function Projects() {
-  const [hoveredId, setHoveredId] = useState<number | null>(null)
   const [revealedImages, setRevealedImages] = useState<Set<number>>(new Set())
   const imageRefs = useRef<(HTMLDivElement | null)[]>([])
 
@@ -82,39 +174,13 @@ export function Projects() {
 
         <div className="grid md:grid-cols-2 gap-6 md:gap-8">
           {projects.map((project, index) => (
-            <article
-              key={project.id}
-              className="group cursor-pointer"
-              onMouseEnter={() => setHoveredId(project.id)}
-              onMouseLeave={() => setHoveredId(null)}
-            >
-              <div ref={(el) => (imageRefs.current[index] = el)} className="relative overflow-hidden aspect-[4/3] mb-6">
-                <img
-                  src={project.image || "/placeholder.svg"}
-                  alt={project.title}
-                  className={`w-full h-full object-cover transition-transform duration-700 ${
-                    hoveredId === project.id ? "scale-105" : "scale-100"
-                  }`}
-                />
-                <div
-                  className="absolute inset-0 bg-primary origin-top"
-                  style={{
-                    transform: revealedImages.has(project.id) ? "scaleY(0)" : "scaleY(1)",
-                    transition: "transform 1.5s cubic-bezier(0.76, 0, 0.24, 1)",
-                  }}
-                />
-              </div>
-
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-xl font-medium mb-2 group-hover:underline underline-offset-4">{project.title}</h3>
-                  <p className="text-muted-foreground text-sm">
-                    {project.category} · {project.location}
-                  </p>
-                </div>
-                <span className="text-muted-foreground/60 text-sm">{project.year}</span>
-              </div>
-            </article>
+            <div key={project.id} ref={(el) => (imageRefs.current[index] = el)}>
+              <ProjectCard
+                project={project}
+                index={index}
+                revealed={revealedImages.has(project.id)}
+              />
+            </div>
           ))}
         </div>
       </div>
