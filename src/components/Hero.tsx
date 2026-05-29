@@ -147,7 +147,7 @@ export function Hero() {
         </h1>
 
         <a
-          href="https://wa.me/79910224526"
+          href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
           target="_blank"
           rel="noopener noreferrer"
           className="mt-4 inline-flex items-center gap-3 px-8 py-4 text-sm tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90"
