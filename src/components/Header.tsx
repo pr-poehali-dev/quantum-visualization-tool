@@ -33,18 +33,19 @@ export function Header() {
     >
       <nav className="container mx-auto px-6 flex items-center justify-between md:px-[24]">
         <a href="/" className="flex items-center gap-2 group" onClick={scrollToTop}>
-          <svg width="64" height="40" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="64" height="50" viewBox="0 0 64 50" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <linearGradient id="logo-grad-h" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="white" stopOpacity="1"/>
-                <stop offset="100%" stopColor="white" stopOpacity="0.6"/>
+              <linearGradient id="logo-gold-h" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#e8c87a"/>
+                <stop offset="50%" stopColor="#f5dfa0"/>
+                <stop offset="100%" stopColor="#c9a84c"/>
               </linearGradient>
             </defs>
             <text
               x="0" y="29"
               fontFamily="Georgia, 'Times New Roman', serif"
               fontSize="36" fontWeight="700"
-              fill="url(#logo-grad-h)"
+              fill="url(#logo-gold-h)"
               fontStyle="italic"
               letterSpacing="-6"
             >Р</text>
@@ -52,10 +53,11 @@ export function Header() {
               x="24" y="29"
               fontFamily="Georgia, 'Times New Roman', serif"
               fontSize="28" fontWeight="400"
-              fill="white" opacity="0.7"
+              fill="url(#logo-gold-h)" opacity="0.8"
               fontStyle="italic"
             >С</text>
-            <text x="1" y="37" fontFamily="sans-serif" fontSize="6" fontWeight="300" fill="white" opacity="0.45" letterSpacing="3">РУССКИЙ СТОЛ</text>
+            <text x="1" y="39" fontFamily="sans-serif" fontSize="6" fontWeight="300" fill="white" opacity="0.5" letterSpacing="3.5">РУССКИЙ</text>
+            <text x="1" y="48" fontFamily="sans-serif" fontSize="6" fontWeight="300" fill="white" opacity="0.35" letterSpacing="5.2">СТОЛ</text>
           </svg>
         </a>
 
