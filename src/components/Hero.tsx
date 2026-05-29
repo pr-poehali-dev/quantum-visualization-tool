@@ -142,7 +142,7 @@ export function Hero() {
           transformStyle: "preserve-3d",
         }}
       >
-        <div className="mb-72 md:mb-60 lg:mb-80">
+        <div className="mb-72 md:mb-60 lg:mb-80 flex flex-col items-center gap-8">
           <p className="text-sm tracking-[0.3em] uppercase text-center text-secondary mb-0">{"Производство мебели с регулировкой высоты"}</p>
 
           <h1
@@ -153,6 +153,14 @@ export function Hero() {
             <br />
             <span style={{color: "#e8c87a"}}>{"из живого дуба"}</span>
           </h1>
+
+          <a
+            href="#contact"
+            className="mt-6 inline-flex items-center gap-3 px-8 py-4 text-sm tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90"
+            style={{ background: "#c9a84c", color: "#1a0f05" }}
+          >
+            Заказать стол
+          </a>
         </div>
       </div>
 
