@@ -33,10 +33,29 @@ export function Header() {
     >
       <nav className="container mx-auto px-6 flex items-center justify-between md:px-[24]">
         <a href="/" className="flex items-center gap-2 group" onClick={scrollToTop}>
-          <svg width="52" height="36" viewBox="0 0 52 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <text x="1" y="28" fontFamily="serif" fontSize="32" fontWeight="700" fill="white" letterSpacing="-4">Р</text>
-            <text x="22" y="28" fontFamily="serif" fontSize="26" fontWeight="400" fill="white" opacity="0.85">С</text>
-            <text x="4" y="35" fontFamily="sans-serif" fontSize="6.5" fontWeight="400" fill="white" opacity="0.55" letterSpacing="2.5">РУССКИЙ СТОЛ</text>
+          <svg width="64" height="40" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logo-grad-h" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="white" stopOpacity="1"/>
+                <stop offset="100%" stopColor="white" stopOpacity="0.6"/>
+              </linearGradient>
+            </defs>
+            <text
+              x="0" y="29"
+              fontFamily="Georgia, 'Times New Roman', serif"
+              fontSize="36" fontWeight="700"
+              fill="url(#logo-grad-h)"
+              fontStyle="italic"
+              letterSpacing="-6"
+            >Р</text>
+            <text
+              x="24" y="29"
+              fontFamily="Georgia, 'Times New Roman', serif"
+              fontSize="28" fontWeight="400"
+              fill="white" opacity="0.7"
+              fontStyle="italic"
+            >С</text>
+            <text x="1" y="37" fontFamily="sans-serif" fontSize="6" fontWeight="300" fill="white" opacity="0.45" letterSpacing="3">РУССКИЙ СТОЛ</text>
           </svg>
         </a>
 
