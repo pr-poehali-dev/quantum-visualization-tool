@@ -16,8 +16,8 @@ export default function Index() {
       <Philosophy />
       <Projects />
       <Expertise />
-      <FAQ />
       <Constructor />
+      <FAQ />
       <CallToAction />
       <Footer />
     </main>
