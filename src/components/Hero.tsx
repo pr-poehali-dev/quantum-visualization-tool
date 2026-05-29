@@ -139,7 +139,8 @@ export function Hero() {
 
         <h1
           ref={titleRef}
-          className="text-7xl font-medium text-balance text-center text-white tracking-tight leading-[0.9] lg:text-8xl"
+          className="text-7xl font-medium text-balance text-center tracking-tight leading-[0.9] lg:text-8xl"
+          style={{ color: "#c9a84c", textShadow: "0 0 40px rgba(201,168,76,0.4), 0 2px 8px rgba(0,0,0,0.6)" }}
         >
           {"Русский Стол"}
         </h1>
