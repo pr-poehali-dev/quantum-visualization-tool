@@ -4,29 +4,28 @@ import Icon from "@/components/ui/icon"
 
 const sizes = [
   { id: "120x70", label: "120 × 70 см", desc: "Компактный" },
-  { id: "140x80", label: "140 × 80 см", desc: "Стандарт" },
+  { id: "140x70", label: "140 × 70 см", desc: "Стандарт" },
   { id: "160x80", label: "160 × 80 см", desc: "Просторный" },
-  { id: "180x90", label: "180 × 90 см", desc: "Большой" },
+  { id: "180x80", label: "180 × 80 см", desc: "Большой" },
   { id: "custom", label: "Свой размер", desc: "Под заказ" },
 ]
 
 const coatings = [
   { id: "oil-natural", label: "Масло натуральное", color: "#c9a060" },
   { id: "oil-dark", label: "Масло тёмное", color: "#6b4226" },
-  { id: "oil-white", label: "Масло белое", color: "#f0ebe3" },
   { id: "lacquer", label: "Лак матовый", color: "#d4b483" },
   { id: "mordant", label: "Морилка венге", color: "#2c1a0e" },
 ]
 
 const legs = [
   { id: "metal-black", label: "Металл чёрный", icon: "Square" },
-  { id: "metal-chrome", label: "Металл хром", icon: "Square" },
-  { id: "wood", label: "Дерево дуб", icon: "TreePine" },
-  { id: "height-adj", label: "Регулировка высоты", icon: "ArrowUpDown" },
+  { id: "metal-white", label: "Металл белый", icon: "Square" },
+  { id: "height-adj-white", label: "Регулировка высоты белый", icon: "ArrowUpDown" },
+  { id: "height-adj-black", label: "Регулировка высоты чёрный", icon: "ArrowUpDown" },
 ]
 
 const extras = [
-  { id: "pc-stand", label: "Подставка для ПК", icon: "Monitor" },
+  { id: "pc-hang", label: "Подвес для ПК", icon: "Monitor" },
   { id: "cable-tray", label: "Лоток для проводов", icon: "Cable" },
 ]
 
@@ -47,7 +46,7 @@ function buildSummary(size: string, coating: string, legsType: string, selectedE
 }
 
 export function Constructor() {
-  const [size, setSize] = useState("140x80")
+  const [size, setSize] = useState("140x70")
   const [coating, setCoating] = useState("oil-natural")
   const [legsType, setLegsType] = useState("metal-black")
   const [selectedExtras, setSelectedExtras] = useState<string[]>([])
