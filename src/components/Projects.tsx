@@ -39,13 +39,14 @@ const projects = [
   },
   {
     id: 4,
-    title: "Столешница «Витязь»",
-    category: "Столешница с кабель-каналом",
-    location: "Дуб массив, встроенный кабель-менеджер",
+    title: "Стол «Витязь»",
+    category: "Письменный стол с подъёмным механизмом",
+    location: "Дуб сращенный, бесцветный лак, 150×60×3",
     year: "2024",
+    price: "45 000 ₽",
     images: [
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/06b996c4-5105-4e59-b5d7-3f462602f82d.jpg",
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/6ac65623-d1d9-4598-a141-5ea5172653a2.jpg",
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/6c76ebd8-62f3-4a85-aa04-6609adb0b4d3.png",
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/eb68bf66-2ef4-40fc-8e75-fc2b6f92cb3b.png",
     ],
   },
 ]
