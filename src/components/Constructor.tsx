@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Copy, Check } from "lucide-react"
 import Icon from "@/components/ui/icon"
 
 const sizes = [
@@ -51,6 +51,7 @@ export function Constructor() {
   const [coating, setCoating] = useState("oil-natural")
   const [legsType, setLegsType] = useState("metal-black")
   const [selectedExtras, setSelectedExtras] = useState<string[]>([])
+  const [copied, setCopied] = useState(false)
 
   const toggleExtra = (id: string) => {
     setSelectedExtras(prev =>
@@ -59,8 +60,16 @@ export function Constructor() {
   }
 
   const summary = buildSummary(size, coating, legsType, selectedExtras)
-  const messageText = encodeURIComponent(`Привет! Хочу заказать стол. ${summary}`)
+  const orderMessage = `Привет! Хочу заказать стол.\n${summary}`
   const maxUrl = `https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0`
+
+  const handleOrder = () => {
+    navigator.clipboard.writeText(orderMessage).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 3000)
+    })
+    window.open(maxUrl, "_blank", "noopener,noreferrer")
+  }
 
   return (
     <section id="constructor" className="py-24 md:py-32 bg-background">
@@ -162,21 +171,32 @@ export function Constructor() {
           </div>
 
           {/* Итог */}
-          <div className="border border-border p-6 bg-secondary/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div>
-              <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-1">Ваша конфигурация</p>
-              <p className="text-foreground text-sm leading-relaxed">{summary}</p>
+          <div className="border border-border p-6 bg-secondary/40">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+              <div>
+                <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-1">Ваша конфигурация</p>
+                <p className="text-foreground text-sm leading-relaxed">{summary}</p>
+              </div>
+              <button
+                onClick={handleOrder}
+                className="inline-flex shrink-0 items-center gap-3 px-8 py-4 text-sm tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90 group"
+                style={{ background: "var(--gold, #c9a84c)", color: "#1a0f05" }}
+              >
+                Заказать
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </button>
             </div>
-            <a
-              href={maxUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex shrink-0 items-center gap-3 px-8 py-4 text-sm tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90 group"
-              style={{ background: "var(--gold, #c9a84c)", color: "#1a0f05" }}
-            >
-              Обсудить заказ
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </a>
+
+            {copied && (
+              <div className="mt-4 flex items-start gap-3 p-4 bg-foreground/5 border border-foreground/10">
+                <Check className="w-4 h-4 mt-0.5 shrink-0 text-green-600" />
+                <div>
+                  <p className="text-sm text-foreground font-medium mb-1">Текст скопирован в буфер обмена</p>
+                  <p className="text-xs text-muted-foreground">Вставьте его в чат мессенджера, который только что открылся:</p>
+                  <p className="text-xs text-foreground mt-1 font-mono bg-border/40 px-2 py-1 rounded">{orderMessage}</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
