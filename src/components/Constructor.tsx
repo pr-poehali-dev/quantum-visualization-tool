@@ -205,7 +205,7 @@ export function Constructor() {
                 <button
                   onClick={handleOrder}
                   disabled={!phone.trim()}
-                  className="inline-flex shrink-0 items-center gap-3 px-8 py-4 text-sm tracking-widest uppercase font-medium transition-all duration-300 group disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="inline-flex shrink-0 items-center gap-3 px-8 py-4 rounded-full text-sm tracking-widest uppercase font-medium transition-all duration-300 group disabled:opacity-40 disabled:cursor-not-allowed"
                   style={{ background: "var(--gold, #c9a84c)", color: "#1a0f05" }}
                 >
                   Заказать

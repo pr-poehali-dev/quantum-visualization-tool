@@ -23,7 +23,7 @@ export function CallToAction() {
               href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-3 bg-primary-foreground text-foreground px-8 py-4 text-sm tracking-wide hover:bg-primary-foreground/90 transition-colors duration-300 group"
+              className="inline-flex items-center justify-center gap-3 bg-primary-foreground text-foreground px-8 py-4 rounded-full text-sm tracking-wide hover:bg-primary-foreground/90 transition-colors duration-300 group"
             >
               Обсудить заказ
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -32,7 +32,7 @@ export function CallToAction() {
               href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 border border-primary-foreground/30 px-8 py-4 text-sm tracking-wide hover:bg-primary-foreground/10 transition-colors duration-300"
+              className="inline-flex items-center justify-center gap-2 border border-primary-foreground/30 px-8 py-4 rounded-full text-sm tracking-wide hover:bg-primary-foreground/10 transition-colors duration-300"
             >
               Позвонить нам
             </a>
