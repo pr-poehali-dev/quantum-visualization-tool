@@ -65,10 +65,10 @@ export function Header() {
           {[
             { label: "Главная", href: "#hero" },
             { label: "О нас", href: "#about" },
-            { label: "Коллекция", href: "#projects" },
-            { label: "Как мы делаем", href: "#services" },
+            { label: "Работы", href: "#projects" },
+            { label: "Процесс", href: "#services" },
             { label: "Конструктор", href: "#constructor" },
-            { label: "Вопросы", href: "#faq" },
+            { label: "FAQ", href: "#faq" },
           ].map((item) => (
             <li key={item.label}>
               <a
@@ -125,10 +125,10 @@ export function Header() {
             {[
               { label: "Главная", href: "#hero" },
               { label: "О нас", href: "#about" },
-              { label: "Коллекция", href: "#projects" },
-              { label: "Как мы делаем", href: "#services" },
+              { label: "Работы", href: "#projects" },
+              { label: "Процесс", href: "#services" },
               { label: "Конструктор", href: "#constructor" },
-              { label: "Вопросы", href: "#faq" },
+              { label: "FAQ", href: "#faq" },
             ].map((item) => (
               <li key={item.label}>
                 <a
