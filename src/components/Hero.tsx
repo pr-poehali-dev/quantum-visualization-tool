@@ -147,7 +147,9 @@ export function Hero() {
         </h1>
 
         <a
-          href="#contact"
+          href="https://wa.me/79910224526"
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-4 inline-flex items-center gap-3 px-8 py-4 text-sm tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90"
           style={{ background: "#c9a84c", color: "#1a0f05" }}
         >
