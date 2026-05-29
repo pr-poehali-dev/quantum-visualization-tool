@@ -33,7 +33,11 @@ export function Header() {
     >
       <nav className="container mx-auto px-6 flex items-center justify-between md:px-[24]">
         <a href="/" className="flex items-center gap-2 group" onClick={scrollToTop}>
-          <span className="text-white font-semibold tracking-widest text-xl uppercase">РС</span>
+          <svg width="52" height="36" viewBox="0 0 52 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <text x="1" y="28" fontFamily="serif" fontSize="32" fontWeight="700" fill="white" letterSpacing="-4">Р</text>
+            <text x="22" y="28" fontFamily="serif" fontSize="26" fontWeight="400" fill="white" opacity="0.85">С</text>
+            <text x="4" y="35" fontFamily="sans-serif" fontSize="6.5" fontWeight="400" fill="white" opacity="0.55" letterSpacing="2.5">РУССКИЙ СТОЛ</text>
+          </svg>
         </a>
 
         <ul className="hidden md:flex items-center gap-10 text-sm tracking-wide">

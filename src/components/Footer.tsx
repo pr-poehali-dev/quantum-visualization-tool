@@ -6,7 +6,11 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <a href="/" className="inline-block mb-6">
-              <span className="text-foreground font-semibold tracking-widest text-xl uppercase">РС</span>
+              <svg width="52" height="36" viewBox="0 0 52 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <text x="1" y="28" fontFamily="serif" fontSize="32" fontWeight="700" fill="currentColor" letterSpacing="-4">Р</text>
+              <text x="22" y="28" fontFamily="serif" fontSize="26" fontWeight="400" fill="currentColor" opacity="0.75">С</text>
+              <text x="4" y="35" fontFamily="sans-serif" fontSize="6.5" fontWeight="400" fill="currentColor" opacity="0.45" letterSpacing="2.5">РУССКИЙ СТОЛ</text>
+            </svg>
             </a>
             <p className="text-muted-foreground leading-relaxed max-w-sm">
               Производство столов из массива дуба. Ручная работа, натуральные материалы, доставка по всей России.
