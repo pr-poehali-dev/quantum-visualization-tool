@@ -1,20 +1,22 @@
 import { useState } from "react"
-import { ArrowRight, Copy, Check } from "lucide-react"
+import { ArrowRight, Check } from "lucide-react"
 import Icon from "@/components/ui/icon"
 
+const BASE_PRICE = 35000
+
 const sizes = [
-  { id: "120x70", label: "120 × 70 см", desc: "Компактный" },
-  { id: "140x70", label: "140 × 70 см", desc: "Стандарт" },
-  { id: "160x80", label: "160 × 80 см", desc: "Просторный" },
-  { id: "180x80", label: "180 × 80 см", desc: "Большой" },
-  { id: "custom", label: "Свой размер", desc: "Под заказ" },
+  { id: "120x70", label: "120 × 70 см", desc: "Компактный", price: 10000 },
+  { id: "140x70", label: "140 × 70 см", desc: "Стандарт", price: 15000 },
+  { id: "150x80", label: "150 × 80 см", desc: "Просторный", price: 20000 },
+  { id: "180x80", label: "180 × 80 см", desc: "Большой", price: 25000 },
+  { id: "custom", label: "Свой размер", desc: "Под заказ", price: 0 },
 ]
 
 const coatings = [
-  { id: "oil-natural", label: "Масло натуральное", color: "#c9a060" },
-  { id: "oil-dark", label: "Масло тёмное", color: "#6b4226" },
-  { id: "lacquer", label: "Лак матовый", color: "#d4b483" },
-  { id: "mordant", label: "Морилка венге", color: "#2c1a0e" },
+  { id: "oil-natural", label: "Масло натуральное", color: "#c9a060", price: 0 },
+  { id: "lacquer", label: "Лак матовый", color: "#d4b483", price: 0 },
+  { id: "oil-dark", label: "Масло тёмное", color: "#6b4226", price: 2000 },
+  { id: "mordant", label: "Морилка венге", color: "#2c1a0e", price: 2000 },
 ]
 
 const legs = [
@@ -45,6 +47,13 @@ function buildSummary(size: string, coating: string, legsType: string, selectedE
   return parts.join(" · ")
 }
 
+function calcPrice(size: string, coating: string) {
+  const sizePrice = sizes.find(s => s.id === size)?.price ?? 0
+  const coatingPrice = coatings.find(c => c.id === coating)?.price ?? 0
+  if (size === "custom") return null
+  return BASE_PRICE + sizePrice + coatingPrice
+}
+
 export function Constructor() {
   const [size, setSize] = useState("140x70")
   const [coating, setCoating] = useState("oil-natural")
@@ -64,6 +73,10 @@ export function Constructor() {
   const contactLine = [name && `Имя: ${name}`, phone && `Телефон: ${phone}`].filter(Boolean).join(" · ")
   const orderMessage = [`Привет! Хочу заказать стол.`, summary, contactLine].filter(Boolean).join("\n")
   const maxUrl = `https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0`
+
+  const totalPrice = calcPrice(size, coating)
+  const sizePrice = sizes.find(s => s.id === size)?.price ?? 0
+  const coatingPrice = coatings.find(c => c.id === coating)?.price ?? 0
 
   const handleOrder = () => {
     navigator.clipboard.writeText(orderMessage).then(() => {
@@ -101,6 +114,14 @@ export function Constructor() {
                 >
                   <span className="block font-medium">{s.label}</span>
                   <span className="block text-xs opacity-60 mt-0.5">{s.desc}</span>
+                  {s.price > 0 && (
+                    <span className={`block text-xs mt-1 font-medium ${size === s.id ? "opacity-80" : "text-amber-700"}`}>
+                      +{s.price.toLocaleString("ru-RU")} ₽
+                    </span>
+                  )}
+                  {s.id === "custom" && (
+                    <span className="block text-xs mt-1 opacity-50">по запросу</span>
+                  )}
                 </button>
               ))}
             </div>
@@ -114,17 +135,24 @@ export function Constructor() {
                 <button
                   key={c.id}
                   onClick={() => setCoating(c.id)}
-                  className={`flex items-center gap-3 px-5 py-3 border text-sm transition-all duration-200 ${
+                  className={`flex flex-col items-start px-5 py-3 border text-sm transition-all duration-200 ${
                     coating === c.id
                       ? "border-foreground bg-foreground text-primary-foreground"
                       : "border-border text-foreground hover:border-foreground/50"
                   }`}
                 >
-                  <span
-                    className="w-5 h-5 rounded-full border border-black/10 shrink-0"
-                    style={{ background: c.color }}
-                  />
-                  {c.label}
+                  <span className="flex items-center gap-3">
+                    <span
+                      className="w-5 h-5 rounded-full border border-black/10 shrink-0"
+                      style={{ background: c.color }}
+                    />
+                    {c.label}
+                  </span>
+                  {c.price > 0 && (
+                    <span className={`text-xs mt-1 ml-8 font-medium ${coating === c.id ? "opacity-80" : "text-amber-700"}`}>
+                      +{c.price.toLocaleString("ru-RU")} ₽
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
@@ -170,6 +198,37 @@ export function Constructor() {
                 </button>
               ))}
             </div>
+          </div>
+
+          {/* Калькулятор */}
+          <div className="mb-10 border border-border p-6 bg-background/60">
+            <h3 className="text-xs tracking-[0.25em] uppercase text-muted-foreground mb-5">Расчёт стоимости</h3>
+            {totalPrice === null ? (
+              <p className="text-foreground text-sm">Стоимость рассчитывается индивидуально — свяжитесь с нами.</p>
+            ) : (
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between text-muted-foreground">
+                  <span>Базовая цена</span>
+                  <span>{BASE_PRICE.toLocaleString("ru-RU")} ₽</span>
+                </div>
+                {sizePrice > 0 && (
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>Размер {sizes.find(s => s.id === size)?.label}</span>
+                    <span>+{sizePrice.toLocaleString("ru-RU")} ₽</span>
+                  </div>
+                )}
+                {coatingPrice > 0 && (
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>{coatings.find(c => c.id === coating)?.label}</span>
+                    <span>+{coatingPrice.toLocaleString("ru-RU")} ₽</span>
+                  </div>
+                )}
+                <div className="border-t border-border pt-3 mt-3 flex justify-between items-center">
+                  <span className="font-medium text-foreground text-base">Итого</span>
+                  <span className="text-2xl font-semibold text-foreground">{totalPrice.toLocaleString("ru-RU")} ₽</span>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Контакты */}
@@ -227,6 +286,7 @@ export function Constructor() {
               </div>
             )}
           </div>
+
         </div>
       </div>
     </section>
