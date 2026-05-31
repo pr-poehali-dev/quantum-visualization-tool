@@ -73,7 +73,8 @@ export function Constructor() {
 
   const summary = buildSummary(size, coating, legsType, selectedExtras)
   const contactLine = [name && `Имя: ${name}`, phone && `Телефон: ${phone}`].filter(Boolean).join(" · ")
-  const orderMessage = [`Привет! Хочу заказать стол.`, summary, contactLine].filter(Boolean).join("\n")
+  const priceLine = totalPrice ? `Итого: ${totalPrice.toLocaleString("ru-RU")} ₽` : "Итого: под расчёт (нестандартный размер)"
+  const orderMessage = [`Привет! Хочу заказать стол.`, summary, priceLine, contactLine].filter(Boolean).join("\n")
   const maxUrl = `https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0`
 
   const totalPrice = calcPrice(size, coating, legsType, selectedExtras)
