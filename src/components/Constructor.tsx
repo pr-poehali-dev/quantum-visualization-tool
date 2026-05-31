@@ -221,10 +221,6 @@ export function Constructor() {
               <p className="text-foreground text-sm">Стоимость рассчитывается индивидуально — свяжитесь с нами.</p>
             ) : (
               <div className="space-y-2 text-sm">
-                <div className="flex justify-between text-muted-foreground">
-                  <span>Базовая цена</span>
-                  <span>{BASE_PRICE.toLocaleString("ru-RU")} ₽</span>
-                </div>
                 {sizePrice > 0 && (
                   <div className="flex justify-between text-muted-foreground">
                     <span>Размер {sizes.find(s => s.id === size)?.label}</span>
