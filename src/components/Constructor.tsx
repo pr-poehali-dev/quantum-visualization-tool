@@ -2,7 +2,7 @@ import { useState } from "react"
 import { ArrowRight, Check } from "lucide-react"
 import Icon from "@/components/ui/icon"
 
-const BASE_PRICE = 35000
+const BASE_PRICE = 28000
 
 const sizes = [
   { id: "120x70", label: "120 × 70 см", desc: "Компактный", price: 10000 },
@@ -27,8 +27,8 @@ const legs = [
 ]
 
 const extras = [
-  { id: "pc-hang", label: "Подвес для ПК", icon: "Monitor" },
-  { id: "cable-tray", label: "Лоток для проводов", icon: "Cable" },
+  { id: "pc-hang", label: "Подвес для ПК", icon: "Monitor", price: 5000 },
+  { id: "cable-tray", label: "Лоток для проводов", icon: "Cable", price: 5000 },
 ]
 
 function buildSummary(size: string, coating: string, legsType: string, selectedExtras: string[]) {
@@ -47,12 +47,13 @@ function buildSummary(size: string, coating: string, legsType: string, selectedE
   return parts.join(" · ")
 }
 
-function calcPrice(size: string, coating: string, legsType: string) {
+function calcPrice(size: string, coating: string, legsType: string, selectedExtras: string[]) {
   const sizePrice = sizes.find(s => s.id === size)?.price ?? 0
   const coatingPrice = coatings.find(c => c.id === coating)?.price ?? 0
   const legsPrice = legs.find(l => l.id === legsType)?.price ?? 0
+  const extrasPrice = selectedExtras.reduce((sum, id) => sum + (extras.find(e => e.id === id)?.price ?? 0), 0)
   if (size === "custom") return null
-  return BASE_PRICE + sizePrice + coatingPrice + legsPrice
+  return BASE_PRICE + sizePrice + coatingPrice + legsPrice + extrasPrice
 }
 
 export function Constructor() {
@@ -75,10 +76,11 @@ export function Constructor() {
   const orderMessage = [`Привет! Хочу заказать стол.`, summary, contactLine].filter(Boolean).join("\n")
   const maxUrl = `https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0`
 
-  const totalPrice = calcPrice(size, coating, legsType)
+  const totalPrice = calcPrice(size, coating, legsType, selectedExtras)
   const sizePrice = sizes.find(s => s.id === size)?.price ?? 0
   const coatingPrice = coatings.find(c => c.id === coating)?.price ?? 0
   const legsPrice = legs.find(l => l.id === legsType)?.price ?? 0
+  const extrasPrice = selectedExtras.reduce((sum, id) => sum + (extras.find(e => e.id === id)?.price ?? 0), 0)
 
   const handleOrder = () => {
     navigator.clipboard.writeText(orderMessage).then(() => {
@@ -194,14 +196,19 @@ export function Constructor() {
                 <button
                   key={e.id}
                   onClick={() => toggleExtra(e.id)}
-                  className={`flex items-center gap-2 px-5 py-3 border text-sm transition-all duration-200 ${
+                  className={`flex flex-col items-start px-5 py-3 border text-sm transition-all duration-200 ${
                     selectedExtras.includes(e.id)
                       ? "border-foreground bg-foreground text-primary-foreground"
                       : "border-border text-foreground hover:border-foreground/50"
                   }`}
                 >
-                  <Icon name={e.icon} size={16} />
-                  {e.label}
+                  <span className="flex items-center gap-2">
+                    <Icon name={e.icon} size={16} />
+                    {e.label}
+                  </span>
+                  <span className={`text-xs mt-1 font-medium ${selectedExtras.includes(e.id) ? "opacity-80" : "text-amber-700"}`}>
+                    +{e.price.toLocaleString("ru-RU")} ₽
+                  </span>
                 </button>
               ))}
             </div>
@@ -234,6 +241,12 @@ export function Constructor() {
                   <div className="flex justify-between text-muted-foreground">
                     <span>Ножки: {legs.find(l => l.id === legsType)?.label}</span>
                     <span>+{legsPrice.toLocaleString("ru-RU")} ₽</span>
+                  </div>
+                )}
+                {extrasPrice > 0 && (
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>Дополнения</span>
+                    <span>+{extrasPrice.toLocaleString("ru-RU")} ₽</span>
                   </div>
                 )}
                 <div className="border-t border-border pt-3 mt-3 flex justify-between items-center">
