@@ -20,10 +20,10 @@ const coatings = [
 ]
 
 const legs = [
-  { id: "metal-black", label: "Металл чёрный", icon: "Square" },
-  { id: "metal-white", label: "Металл белый", icon: "Square" },
-  { id: "height-adj-white", label: "Регулировка высоты белый", icon: "ArrowUpDown" },
-  { id: "height-adj-black", label: "Регулировка высоты чёрный", icon: "ArrowUpDown" },
+  { id: "metal-black", label: "Металл чёрный", icon: "Square", price: 10000 },
+  { id: "metal-white", label: "Металл белый", icon: "Square", price: 10000 },
+  { id: "height-adj-white", label: "Регулировка высоты белый", icon: "ArrowUpDown", price: 25000 },
+  { id: "height-adj-black", label: "Регулировка высоты чёрный", icon: "ArrowUpDown", price: 25000 },
 ]
 
 const extras = [
@@ -47,11 +47,12 @@ function buildSummary(size: string, coating: string, legsType: string, selectedE
   return parts.join(" · ")
 }
 
-function calcPrice(size: string, coating: string) {
+function calcPrice(size: string, coating: string, legsType: string) {
   const sizePrice = sizes.find(s => s.id === size)?.price ?? 0
   const coatingPrice = coatings.find(c => c.id === coating)?.price ?? 0
+  const legsPrice = legs.find(l => l.id === legsType)?.price ?? 0
   if (size === "custom") return null
-  return BASE_PRICE + sizePrice + coatingPrice
+  return BASE_PRICE + sizePrice + coatingPrice + legsPrice
 }
 
 export function Constructor() {
@@ -74,9 +75,10 @@ export function Constructor() {
   const orderMessage = [`Привет! Хочу заказать стол.`, summary, contactLine].filter(Boolean).join("\n")
   const maxUrl = `https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0`
 
-  const totalPrice = calcPrice(size, coating)
+  const totalPrice = calcPrice(size, coating, legsType)
   const sizePrice = sizes.find(s => s.id === size)?.price ?? 0
   const coatingPrice = coatings.find(c => c.id === coating)?.price ?? 0
+  const legsPrice = legs.find(l => l.id === legsType)?.price ?? 0
 
   const handleOrder = () => {
     navigator.clipboard.writeText(orderMessage).then(() => {
@@ -166,14 +168,19 @@ export function Constructor() {
                 <button
                   key={l.id}
                   onClick={() => setLegsType(l.id)}
-                  className={`flex items-center gap-2 px-5 py-3 border text-sm transition-all duration-200 ${
+                  className={`flex flex-col items-start px-5 py-3 border text-sm transition-all duration-200 ${
                     legsType === l.id
                       ? "border-foreground bg-foreground text-primary-foreground"
                       : "border-border text-foreground hover:border-foreground/50"
                   }`}
                 >
-                  <Icon name={l.icon} size={16} />
-                  {l.label}
+                  <span className="flex items-center gap-2">
+                    <Icon name={l.icon} size={16} />
+                    {l.label}
+                  </span>
+                  <span className={`text-xs mt-1 font-medium ${legsType === l.id ? "opacity-80" : "text-amber-700"}`}>
+                    +{l.price.toLocaleString("ru-RU")} ₽
+                  </span>
                 </button>
               ))}
             </div>
@@ -221,6 +228,12 @@ export function Constructor() {
                   <div className="flex justify-between text-muted-foreground">
                     <span>{coatings.find(c => c.id === coating)?.label}</span>
                     <span>+{coatingPrice.toLocaleString("ru-RU")} ₽</span>
+                  </div>
+                )}
+                {legsPrice > 0 && (
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>Ножки: {legs.find(l => l.id === legsType)?.label}</span>
+                    <span>+{legsPrice.toLocaleString("ru-RU")} ₽</span>
                   </div>
                 )}
                 <div className="border-t border-border pt-3 mt-3 flex justify-between items-center">
