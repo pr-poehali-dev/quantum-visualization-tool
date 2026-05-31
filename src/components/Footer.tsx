@@ -76,7 +76,7 @@ export function Footer() {
               </li>
               <li>
                 <a href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                  Макс
+                  MAX
                 </a>
               </li>
             </ul>
