@@ -70,23 +70,8 @@ export function Footer() {
             <h4 className="text-sm font-medium mb-4">Связь</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
-                <a href="mailto:hello@russkiy-stol.ru" className="hover:text-foreground transition-colors">
-                  hello@russkiy-stol.ru
-                </a>
-              </li>
-              <li>
-                <a href="tel:+74951234567" className="hover:text-foreground transition-colors">
-                  +7 (495) 123-45-67
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  Телеграм
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  ВКонтакте
+                <a href="mailto:g_t_2009@mail.ru" className="hover:text-foreground transition-colors">
+                  g_t_2009@mail.ru
                 </a>
               </li>
             </ul>
