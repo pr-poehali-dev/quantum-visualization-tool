@@ -135,7 +135,7 @@ export function Hero() {
       <div ref={contentRef} className="hidden" style={{ willChange: "transform" }} />
 
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-8 px-6">
-        <p className="text-sm tracking-[0.3em] uppercase text-center text-secondary">{"Производство мебели с регулировкой высоты"}</p>
+        <p className="text-sm tracking-[0.3em] uppercase text-center text-secondary">{"Письменные и компьютерные столы с регулировкой высоты"}</p>
 
         <h1
           ref={titleRef}
