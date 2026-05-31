@@ -1,11 +1,11 @@
 import { useState } from "react"
-import { ArrowRight, Check } from "lucide-react"
+import { ArrowRight, Check, Copy } from "lucide-react"
 import Icon from "@/components/ui/icon"
 
-const BASE_PRICE = 28000
+const BASE_PRICE = 10000
 
 const sizes = [
-  { id: "120x70", label: "120 × 70 см", desc: "Компактный", price: 10000 },
+  { id: "120x60", label: "120 × 60 см", desc: "Компактный", price: 10000 },
   { id: "140x70", label: "140 × 70 см", desc: "Стандарт", price: 15000 },
   { id: "150x80", label: "150 × 80 см", desc: "Просторный", price: 20000 },
   { id: "180x80", label: "180 × 80 см", desc: "Большой", price: 25000 },
@@ -281,9 +281,26 @@ export function Constructor() {
           {/* Итог */}
           <div className="border border-border p-6 bg-secondary/40">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-              <div>
+              <div className="flex-1">
                 <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-1">Ваша конфигурация</p>
-                <p className="text-foreground text-sm leading-relaxed">{summary}</p>
+                <p className="text-foreground text-sm leading-relaxed mb-3">{summary}</p>
+                <div className="flex items-center gap-4">
+                  {totalPrice !== null && (
+                    <p className="text-xl font-semibold text-foreground">{totalPrice.toLocaleString("ru-RU")} ₽</p>
+                  )}
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(orderMessage).then(() => {
+                        setCopied(true)
+                        setTimeout(() => setCopied(false), 3000)
+                      })
+                    }}
+                    className="inline-flex items-center gap-2 px-4 py-2 border border-border text-xs text-muted-foreground hover:border-foreground/50 hover:text-foreground transition-all duration-200"
+                  >
+                    {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                    {copied ? "Скопировано" : "Скопировать"}
+                  </button>
+                </div>
               </div>
               <div className="flex flex-col items-end gap-1">
                 <button
