@@ -145,10 +145,10 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
         </div>
         <span className="text-muted-foreground/60 text-sm">{project.year}</span>
       </div>
-      <div className="mt-5 space-y-3" onClick={e => e.stopPropagation()}>
-        <div className="p-3 bg-secondary/80 border border-border text-xs text-muted-foreground font-mono leading-relaxed whitespace-pre-line">
-          {orderMessage}
-        </div>
+      <div className="mt-5 space-y-2" onClick={e => e.stopPropagation()}>
+        <p className="text-xs text-muted-foreground">
+          {copied ? "✓ Текст скопирован — теперь откройте Макс и вставьте его в сообщение" : "Шаг 1 — скопируйте заявку, Шаг 2 — отправьте в Макс"}
+        </p>
         <div className="flex gap-2">
           <button
             onClick={handleCopy}
