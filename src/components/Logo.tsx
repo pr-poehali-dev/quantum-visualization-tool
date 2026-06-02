@@ -14,7 +14,7 @@ export function Logo({ size = 56, showText = true, className, dark = false }: Lo
   const topId = `seal-top-${gid}`
   const bottomId = `seal-bottom-${gid}`
 
-  const ink = dark ? "#7a5a1f" : "#cda64f"
+  const ink = dark ? "#8a651c" : "#e6c766"
 
   return (
     <div className={`flex items-center gap-3 ${className ?? ""}`}>
@@ -32,18 +32,18 @@ export function Logo({ size = 56, showText = true, className, dark = false }: Lo
             <stop offset="55%" stopColor={ink} />
             <stop offset="100%" stopColor={dark ? "#5e4416" : "#a8842f"} />
           </linearGradient>
-          {/* rough worn-stamp texture */}
+          {/* subtle worn-stamp texture — kept light so it stays crisp */}
           <filter id={roughId} x="-20%" y="-20%" width="140%" height="140%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" />
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.8" />
           </filter>
         </defs>
 
         <g filter={`url(#${roughId})`} stroke={`url(#${inkId})`} fill={`url(#${inkId})`}>
           {/* double aged ring */}
-          <circle cx="50" cy="50" r="47" strokeWidth="2.4" fill="none" />
-          <circle cx="50" cy="50" r="42.5" strokeWidth="1" fill="none" opacity="0.7" />
-          <circle cx="50" cy="50" r="33" strokeWidth="1.2" fill="none" opacity="0.55" />
+          <circle cx="50" cy="50" r="47" strokeWidth="3.4" fill="none" />
+          <circle cx="50" cy="50" r="42.5" strokeWidth="1.4" fill="none" opacity="0.85" />
+          <circle cx="50" cy="50" r="33" strokeWidth="1.6" fill="none" opacity="0.7" />
 
           {/* circular legend */}
           <path id={topId} d="M 22 50 A 28 28 0 0 1 78 50" fill="none" stroke="none" />
@@ -78,12 +78,20 @@ export function Logo({ size = 56, showText = true, className, dark = false }: Lo
       {showText && (
         <div className="flex flex-col leading-none">
           <span
-            className="text-lg font-medium tracking-tight"
-            style={{ color: dark ? "#a8842f" : "#e6c766", fontFamily: "Rubik, sans-serif" }}
+            className="text-2xl tracking-wide"
+            style={{
+              color: dark ? "#a8842f" : "#e6c766",
+              fontFamily: "'Playfair Display', Georgia, serif",
+              fontWeight: 600,
+              fontStyle: "italic",
+            }}
           >
-            Русский Стол
+            Русский&nbsp;Стол
           </span>
-          <span className={`text-[10px] tracking-[0.25em] uppercase mt-1 ${dark ? "text-foreground/50" : "text-white/50"}`}>
+          <span
+            className={`text-[10px] tracking-[0.35em] uppercase mt-1.5 ${dark ? "text-foreground/50" : "text-white/55"}`}
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          >
             Мебель из дуба
           </span>
         </div>
