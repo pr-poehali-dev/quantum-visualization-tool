@@ -140,9 +140,9 @@ body::after {
 
 /* Elegant hero title */
 .hero-title {
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Rubik", system-ui, sans-serif;
   font-weight: 600;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.02em;
 }
 
 .hero-title-gold {
@@ -162,7 +162,6 @@ body::after {
 }
 
 .hero-title-accent {
-  font-style: italic;
   font-weight: 700;
 }
 
