@@ -144,19 +144,10 @@ export function Hero() {
 
         <h1
           ref={titleRef}
-          className="hero-reveal text-7xl font-medium text-balance text-center tracking-tight leading-[0.9] lg:text-9xl"
+          className="hero-reveal hero-title hero-title-gold text-7xl text-balance text-center leading-[0.95] lg:text-[10rem]"
           style={{ animationDelay: "0.3s" }}
         >
-          <span
-            style={{
-              color: "#e6c766",
-              WebkitTextStroke: "1px rgba(40,24,8,0.55)",
-              textShadow: "0 0 50px rgba(201,168,76,0.45), 0 4px 16px rgba(0,0,0,0.75)",
-            }}
-          >
-            Русский{" "}
-          </span>
-          <span className="wood-text">Стол</span>
+          Русский <span className="hero-title-accent">Стол</span>
         </h1>
 
         <p

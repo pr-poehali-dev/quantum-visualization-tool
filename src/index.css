@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Rubik:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Rubik:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -138,17 +138,32 @@ body::after {
   animation: hero-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* Wood texture text */
-.wood-text {
-  background-image: url("https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/9571afe2-40e0-4c8e-bd55-e7b72f9bb06b.jpg");
-  background-size: cover;
-  background-position: center;
+/* Elegant hero title */
+.hero-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.hero-title-gold {
+  background: linear-gradient(
+    180deg,
+    #fbe9b0 0%,
+    #e6c766 45%,
+    #c9a84c 70%,
+    #a8842f 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.7)) brightness(1.25)
-    saturate(1.2);
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.7))
+    drop-shadow(0 0 28px rgba(201, 168, 76, 0.35));
+}
+
+.hero-title-accent {
+  font-style: italic;
+  font-weight: 700;
 }
 
 /* Adding stroke drawing animation for expertise icons */
