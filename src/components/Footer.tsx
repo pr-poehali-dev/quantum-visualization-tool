@@ -8,7 +8,7 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <a href="/" className="inline-block mb-6">
-              <Logo size={60} dark />
+              <Logo size={76} dark />
             </a>
             <p className="text-muted-foreground leading-relaxed max-w-sm">
               Производство столов из массива дуба. Ручная работа, натуральные материалы, доставка по всей России.

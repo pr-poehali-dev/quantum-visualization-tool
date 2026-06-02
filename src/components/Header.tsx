@@ -34,7 +34,7 @@ export function Header() {
     >
       <nav className="container mx-auto px-6 flex items-center justify-between md:px-[24]">
         <a href="/" className="group" onClick={scrollToTop}>
-          <Logo size={52} />
+          <Logo size={64} />
         </a>
 
         <ul className="hidden md:flex items-center gap-10 text-sm tracking-wide">

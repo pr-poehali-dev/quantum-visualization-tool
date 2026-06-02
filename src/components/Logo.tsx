@@ -2,22 +2,19 @@ import { useId } from "react"
 
 type LogoProps = {
   size?: number
-  showText?: boolean
   className?: string
   dark?: boolean
 }
 
-export function Logo({ size = 56, showText = true, className, dark = false }: LogoProps) {
+export function Logo({ size = 64, className, dark = false }: LogoProps) {
   const gid = useId().replace(/:/g, "")
   const inkId = `seal-ink-${gid}`
   const roughId = `seal-rough-${gid}`
-  const topId = `seal-top-${gid}`
-  const bottomId = `seal-bottom-${gid}`
 
   const ink = dark ? "#8a651c" : "#e6c766"
 
   return (
-    <div className={`flex items-center gap-3 ${className ?? ""}`}>
+    <div className={`flex items-center ${className ?? ""}`}>
       <svg
         width={size}
         height={size}
@@ -40,62 +37,25 @@ export function Logo({ size = 56, showText = true, className, dark = false }: Lo
         </defs>
 
         <g filter={`url(#${roughId})`} stroke={`url(#${inkId})`} fill={`url(#${inkId})`}>
-          {/* double aged ring */}
+          {/* aged rings */}
           <circle cx="50" cy="50" r="47" strokeWidth="3.4" fill="none" />
           <circle cx="50" cy="50" r="42.5" strokeWidth="1.4" fill="none" opacity="0.85" />
-          <circle cx="50" cy="50" r="33" strokeWidth="1.6" fill="none" opacity="0.7" />
 
-          {/* circular legend */}
-          <path id={topId} d="M 22 50 A 28 28 0 0 1 78 50" fill="none" stroke="none" />
-          <path id={bottomId} d="M 78 50 A 28 28 0 0 1 22 50" fill="none" stroke="none" />
-          <text fontFamily="Georgia, 'Times New Roman', serif" fontSize="6.5" letterSpacing="3.5" stroke="none" fontWeight="600">
-            <textPath href={`#${topId}`} startOffset="50%" textAnchor="middle">★ РУССКИЙ ★</textPath>
-          </text>
-          <text fontFamily="Georgia, 'Times New Roman', serif" fontSize="6.5" letterSpacing="3.5" stroke="none" fontWeight="600">
-            <textPath href={`#${bottomId}`} startOffset="50%" textAnchor="middle">МЕБЕЛЬ ИЗ ДУБА</textPath>
-          </text>
+          {/* Р и С — крупные, раздельные буквы-печать */}
+          <text
+            x="50" y="68"
+            textAnchor="middle"
+            fontFamily="Georgia, 'Times New Roman', serif"
+            fontSize="48" fontWeight="700"
+            stroke="none"
+            letterSpacing="2"
+          >РС</text>
 
-          {/* ── РС monogram sharing a common central stem ── */}
-          <g stroke="none" fillRule="evenodd">
-            {/* shared central vertical stem */}
-            <rect x="48" y="36" width="4.5" height="30" />
-            {/* Р — bowl on the left top, hanging off the stem */}
-            <path
-              d="M 48 36 L 36 36 A 8.5 8.5 0 0 1 36 53 L 48 53 L 48 48.5 L 37.5 48.5 A 4 4 0 0 0 37.5 40.5 L 48 40.5 Z"
-            />
-            {/* С — open arc on the right, embracing the stem */}
-            <path
-              d="M 64 40 A 13 13 0 1 0 64 62 L 60.5 58 A 8.5 8.5 0 1 1 60.5 44 Z"
-            />
-          </g>
-
-          {/* tiny flank ornaments */}
-          <text x="13" y="53" fontSize="7" stroke="none">❦</text>
-          <text x="81" y="53" fontSize="7" stroke="none">❦</text>
+          {/* flank ornaments */}
+          <text x="11" y="54" fontSize="8" stroke="none">❦</text>
+          <text x="82" y="54" fontSize="8" stroke="none">❦</text>
         </g>
       </svg>
-
-      {showText && (
-        <div className="flex flex-col leading-none">
-          <span
-            className="text-2xl tracking-wide"
-            style={{
-              color: dark ? "#a8842f" : "#e6c766",
-              fontFamily: "'Playfair Display', Georgia, serif",
-              fontWeight: 600,
-              fontStyle: "italic",
-            }}
-          >
-            Русский&nbsp;Стол
-          </span>
-          <span
-            className={`text-[10px] tracking-[0.35em] uppercase mt-1.5 ${dark ? "text-foreground/50" : "text-white/55"}`}
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-          >
-            Мебель из дуба
-          </span>
-        </div>
-      )}
     </div>
   )
 }
