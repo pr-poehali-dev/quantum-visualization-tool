@@ -120,20 +120,14 @@ export function Hero() {
     <section id="hero" ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img
-          src="https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/62c7a3ec-24ec-468e-995c-948e0b34c315.jpg"
-          alt="Стол из массива дуба"
+          src="https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/25481e25-06df-45d4-b875-26360f941b8f.jpg"
+          alt="Рабочий кабинет со столом из массива дуба"
           className="w-full h-full object-cover object-center"
         />
         <div
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(160deg, rgba(20,12,5,0.45) 0%, rgba(35,20,8,0.30) 50%, rgba(15,10,4,0.50) 100%)",
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(to top, rgba(200,170,120,0.45) 0%, rgba(200,170,120,0.15) 30%, transparent 60%)",
+            background: "linear-gradient(160deg, rgba(25,15,6,0.55) 0%, rgba(30,18,8,0.35) 50%, rgba(20,12,5,0.45) 100%)",
           }}
         />
       </div>
