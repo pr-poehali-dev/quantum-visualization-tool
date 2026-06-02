@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowUpRight, ChevronLeft, ChevronRight, Copy, Check } from "lucide-react"
 
 const projects = [
   {
@@ -55,6 +55,17 @@ const projects = [
 function ProjectCard({ project, index, revealed }: { project: typeof projects[0]; index: number; revealed: boolean }) {
   const [photoIndex, setPhotoIndex] = useState(0)
   const [hoveredId, setHoveredId] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  const orderMessage = `Привет! Хочу заказать стол.\nМодель: ${project.title}\n${project.category}\n${project.location}\nЦена: ${project.price}`
+
+  const handleCopy = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    navigator.clipboard.writeText(orderMessage).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 3000)
+    })
+  }
 
   const prev = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -134,16 +145,29 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
         </div>
         <span className="text-muted-foreground/60 text-sm">{project.year}</span>
       </div>
-      <a
-        href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-5 inline-flex items-center justify-center w-full px-6 py-3 rounded-full text-sm tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90"
-        style={{ background: "#c9a84c", color: "#1a0f05" }}
-        onClick={e => e.stopPropagation()}
-      >
-        Заказать
-      </a>
+      <div className="mt-5 space-y-3" onClick={e => e.stopPropagation()}>
+        <div className="p-3 bg-secondary/80 border border-border text-xs text-muted-foreground font-mono leading-relaxed whitespace-pre-line">
+          {orderMessage}
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={handleCopy}
+            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-border text-xs tracking-widest uppercase font-medium transition-all duration-200 hover:border-foreground/50 hover:text-foreground"
+          >
+            {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+            {copied ? "Скопировано" : "Скопировать"}
+          </button>
+          <a
+            href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90"
+            style={{ background: "#c9a84c", color: "#1a0f05" }}
+          >
+            Открыть Макс
+          </a>
+        </div>
+      </div>
     </article>
   )
 }
