@@ -134,18 +134,30 @@ export function Hero() {
 
       <div ref={contentRef} className="hidden" style={{ willChange: "transform" }} />
 
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-8 px-6">
-        <p className="text-sm tracking-[0.3em] uppercase text-center text-secondary">{"Письменные и компьютерные столы с регулировкой высоты"}</p>
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6 px-6">
+        <p
+          className="text-sm md:text-base tracking-[0.3em] uppercase text-center text-white/90 max-w-xl"
+          style={{ textShadow: "0 2px 12px rgba(0,0,0,0.85), 0 0 4px rgba(0,0,0,0.6)" }}
+        >
+          {"Письменные и компьютерные столы с регулировкой высоты"}
+        </p>
 
         <h1
           ref={titleRef}
-          className="text-7xl font-medium text-balance text-center tracking-tight leading-[0.9] lg:text-8xl"
-          style={{ color: "#c9a84c", textShadow: "0 0 40px rgba(201,168,76,0.4), 0 2px 8px rgba(0,0,0,0.6)" }}
+          className="text-7xl font-medium text-balance text-center tracking-tight leading-[0.9] lg:text-9xl"
+          style={{
+            color: "#e6c766",
+            WebkitTextStroke: "1px rgba(40,24,8,0.55)",
+            textShadow: "0 0 50px rgba(201,168,76,0.45), 0 4px 16px rgba(0,0,0,0.75)",
+          }}
         >
           {"Русский Стол"}
         </h1>
 
-        <p className="text-base md:text-lg text-white/70 text-center font-light max-w-md leading-relaxed -mt-4">
+        <p
+          className="text-base md:text-xl text-white text-center font-light max-w-lg leading-relaxed"
+          style={{ textShadow: "0 2px 14px rgba(0,0,0,0.9), 0 0 6px rgba(0,0,0,0.7)" }}
+        >
           Натуральная древесина + современные технологии — ваш идеальный стол
         </p>
 
@@ -153,8 +165,8 @@ export function Hero() {
           href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 inline-flex items-center gap-3 px-8 py-4 rounded-full text-sm tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90"
-          style={{ background: "#c9a84c", color: "#1a0f05" }}
+          className="mt-6 inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90"
+          style={{ background: "#c9a84c", color: "#1a0f05", boxShadow: "0 8px 30px rgba(0,0,0,0.4)" }}
         >
           Заказать стол
         </a>
