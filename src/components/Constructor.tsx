@@ -93,8 +93,12 @@ export function Constructor() {
   return (
     <section id="constructor" className="py-24 md:py-32 bg-secondary/60">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-sm tracking-[0.3em] uppercase text-muted-foreground mb-4">Конструктор</p>
+        <div className="max-w-4xl mx-auto relative">
+          <span className="absolute -top-8 right-0 text-[10rem] font-bold leading-none select-none pointer-events-none text-foreground/[0.04] lg:text-[14rem]">04</span>
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-0.5 h-8 bg-[var(--gold)] shrink-0" />
+            <p className="text-sm tracking-[0.3em] uppercase text-muted-foreground">Конструктор</p>
+          </div>
           <h2 className="text-3xl md:text-5xl font-medium tracking-tight mb-4 text-foreground">
             Соберите свой стол
           </h2>
