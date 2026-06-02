@@ -10,6 +10,8 @@ export function Logo({ size = 64, className, dark = false }: LogoProps) {
   const gid = useId().replace(/:/g, "")
   const inkId = `seal-ink-${gid}`
   const roughId = `seal-rough-${gid}`
+  const topId = `seal-top-${gid}`
+  const bottomId = `seal-bottom-${gid}`
 
   const ink = dark ? "#8a651c" : "#e6c766"
 
@@ -40,20 +42,27 @@ export function Logo({ size = 64, className, dark = false }: LogoProps) {
           {/* aged rings */}
           <circle cx="50" cy="50" r="47" strokeWidth="3.4" fill="none" />
           <circle cx="50" cy="50" r="42.5" strokeWidth="1.4" fill="none" opacity="0.85" />
+          <circle cx="50" cy="50" r="33" strokeWidth="1.2" fill="none" opacity="0.6" />
+
+          {/* circular legend */}
+          <path id={topId} d="M 22 50 A 28 28 0 0 1 78 50" fill="none" stroke="none" />
+          <path id={bottomId} d="M 78 50 A 28 28 0 0 1 22 50" fill="none" stroke="none" />
+          <text fontFamily="Georgia, 'Times New Roman', serif" fontSize="6.5" letterSpacing="3" stroke="none" fontWeight="600">
+            <textPath href={`#${topId}`} startOffset="50%" textAnchor="middle">★ РУССКИЙ ★</textPath>
+          </text>
+          <text fontFamily="Georgia, 'Times New Roman', serif" fontSize="6.5" letterSpacing="3" stroke="none" fontWeight="600">
+            <textPath href={`#${bottomId}`} startOffset="50%" textAnchor="middle">МЕБЕЛЬ ИЗ ДУБА</textPath>
+          </text>
 
           {/* Р и С — крупные, раздельные буквы-печать */}
           <text
-            x="50" y="68"
+            x="50" y="61"
             textAnchor="middle"
             fontFamily="Georgia, 'Times New Roman', serif"
-            fontSize="48" fontWeight="700"
+            fontSize="34" fontWeight="700"
             stroke="none"
             letterSpacing="2"
           >РС</text>
-
-          {/* flank ornaments */}
-          <text x="11" y="54" fontSize="8" stroke="none">❦</text>
-          <text x="82" y="54" fontSize="8" stroke="none">❦</text>
         </g>
       </svg>
     </div>
