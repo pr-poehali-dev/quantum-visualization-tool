@@ -130,6 +130,12 @@ export function Hero() {
             background: "linear-gradient(160deg, rgba(20,12,5,0.45) 0%, rgba(35,20,8,0.30) 50%, rgba(15,10,4,0.50) 100%)",
           }}
         />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to top, rgba(200,170,120,0.45) 0%, rgba(200,170,120,0.15) 30%, transparent 60%)",
+          }}
+        />
       </div>
 
       <div ref={contentRef} className="hidden" style={{ willChange: "transform" }} />
