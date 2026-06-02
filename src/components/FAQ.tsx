@@ -42,9 +42,8 @@ export function FAQ() {
   }
 
   return (
-    <section id="faq" className="py-20 md:py-29 relative" style={{backgroundImage: 'url(https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/9571afe2-40e0-4c8e-bd55-e7b72f9bb06b.jpg)', backgroundSize: 'cover', backgroundPosition: 'center'}}>
-      <div className="absolute inset-0 bg-primary/85" />
-      <div className="relative z-10 container mx-auto px-6 md:px-12">
+    <section id="faq" className="py-20 md:py-29">
+      <div className="container mx-auto px-6 md:px-12">
         <div className="max-w-3xl mb-16">
           <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase mb-6">Вопросы</p>
           <h2 className="text-6xl font-medium leading-[1.15] tracking-tight mb-6 text-balance lg:text-7xl">
