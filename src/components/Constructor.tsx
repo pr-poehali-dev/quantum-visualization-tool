@@ -10,8 +10,8 @@ const PRICE_PER_10CM = 2000
 const coatings = [
   { id: "oil-natural", label: "Масло натуральное", color: "#c9a060", price: 0 },
   { id: "lacquer", label: "Лак матовый", color: "#d4b483", price: 0 },
-  { id: "oil-dark", label: "Масло тёмное", color: "#6b4226", price: 2000 },
-  { id: "mordant", label: "Морилка венге", color: "#2c1a0e", price: 2000 },
+  { id: "oil-dark", label: "Морилка орех/лак", color: "#6b4226", price: 2000 },
+  { id: "mordant", label: "Морилка венге/лак", color: "#2c1a0e", price: 2000 },
 ]
 
 const legs = [
