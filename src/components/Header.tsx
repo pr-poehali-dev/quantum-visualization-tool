@@ -1,22 +1,20 @@
 import { useState, useEffect, MouseEvent } from "react"
 import { cn } from "../lib/utils"
 import { Logo } from "./Logo"
+import { ContactModal } from "./ContactModal"
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [contactOpen, setContactOpen] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
+    const handleScroll = () => { setScrolled(window.scrollY > 50) }
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const closeMobileMenu = () => {
-    setMobileMenuOpen(false)
-  }
+  const closeMobileMenu = () => setMobileMenuOpen(false)
 
   const scrollToTop = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
@@ -24,88 +22,21 @@ export function Header() {
   }
 
   return (
-    <header
-      className={cn(
-        "fixed z-50 transition-all duration-500 my-0 py-0 rounded-none",
-        scrolled || mobileMenuOpen
-          ? "bg-primary backdrop-blur-md py-4 top-4 left-4 right-4 rounded-2xl"
-          : "bg-transparent py-4 top-0 left-0 right-0",
-      )}
-    >
-      <nav className="container mx-auto px-6 flex items-center justify-between md:px-[24]">
-        <a href="/" className="group" onClick={scrollToTop}>
-          <Logo size={64} />
-        </a>
-
-        <ul className="hidden md:flex items-center gap-10 text-sm tracking-wide">
-          {[
-            { label: "Главная", href: "#hero" },
-            { label: "О нас", href: "#about" },
-            { label: "Работы", href: "#projects" },
-            { label: "Процесс", href: "#services" },
-            { label: "FAQ", href: "#faq" },
-          ].map((item) => (
-            <li key={item.label}>
-              <a
-                href={item.href}
-                className="hover:text-[#e8c87a] transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-[#e8c87a] after:transition-all after:duration-300 text-white"
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-          <li>
-            <a
-              href="#constructor"
-              className="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
-              style={{ background: "var(--gold)", color: "#1a0f05" }}
-            >
-              Конструктор
-            </a>
-          </li>
-        </ul>
-
-        <a
-          href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(
-            "hidden md:inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full transition-all duration-300",
-            scrolled
-              ? "bg-white text-foreground border border-foreground/20 hover:bg-foreground hover:text-white"
-              : "bg-white text-foreground border border-foreground/20 hover:bg-foreground hover:text-white",
-          )}
-        >
-          Связаться
-        </a>
-
-        <button
-          className="md:hidden z-50 transition-colors duration-300 text-white"
-          aria-label={mobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          ) : (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <line x1="4" y1="8" x2="20" y2="8" />
-              <line x1="4" y1="16" x2="20" y2="16" />
-            </svg>
-          )}
-        </button>
-      </nav>
-
-      <div
+    <>
+      <header
         className={cn(
-          "md:hidden overflow-hidden transition-all duration-300 ease-in-out",
-          mobileMenuOpen ? "max-h-[600px] opacity-100 mt-8" : "max-h-0 opacity-0",
+          "fixed z-50 transition-all duration-500 my-0 py-0 rounded-none",
+          scrolled || mobileMenuOpen
+            ? "bg-primary backdrop-blur-md py-4 top-4 left-4 right-4 rounded-2xl"
+            : "bg-transparent py-4 top-0 left-0 right-0",
         )}
       >
-        <div className="container mx-auto px-6">
-          <ul className="flex flex-col gap-6 mb-8">
+        <nav className="container mx-auto px-6 flex items-center justify-between md:px-[24]">
+          <a href="/" className="group" onClick={scrollToTop}>
+            <Logo size={64} />
+          </a>
+
+          <ul className="hidden md:flex items-center gap-10 text-sm tracking-wide">
             {[
               { label: "Главная", href: "#hero" },
               { label: "О нас", href: "#about" },
@@ -116,8 +47,7 @@ export function Header() {
               <li key={item.label}>
                 <a
                   href={item.href}
-                  className="hover:text-[#e8c87a] transition-colors duration-300 text-white text-4xl font-light block"
-                  onClick={closeMobileMenu}
+                  className="hover:text-[#e8c87a] transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-[#e8c87a] after:transition-all after:duration-300 text-white"
                 >
                   {item.label}
                 </a>
@@ -126,26 +56,91 @@ export function Header() {
             <li>
               <a
                 href="#constructor"
-                className="inline-block px-6 py-2 text-2xl font-medium rounded-full transition-all duration-300"
+                className="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
                 style={{ background: "var(--gold)", color: "#1a0f05" }}
-                onClick={closeMobileMenu}
               >
                 Конструктор
               </a>
             </li>
           </ul>
 
-          <a
-            href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 text-sm px-5 py-2.5 rounded-full bg-white text-foreground border border-foreground/20 hover:bg-foreground hover:text-white transition-all duration-300 mb-4"
-            onClick={closeMobileMenu}
+          <button
+            onClick={() => setContactOpen(true)}
+            className={cn(
+              "hidden md:inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full transition-all duration-300",
+              "bg-white text-foreground border border-foreground/20 hover:bg-foreground hover:text-white",
+            )}
           >
             Связаться
-          </a>
+          </button>
+
+          <button
+            className="md:hidden z-50 transition-colors duration-300 text-white"
+            aria-label={mobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            ) : (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <line x1="4" y1="8" x2="20" y2="8" />
+                <line x1="4" y1="16" x2="20" y2="16" />
+              </svg>
+            )}
+          </button>
+        </nav>
+
+        <div
+          className={cn(
+            "md:hidden overflow-hidden transition-all duration-300 ease-in-out",
+            mobileMenuOpen ? "max-h-[600px] opacity-100 mt-8" : "max-h-0 opacity-0",
+          )}
+        >
+          <div className="container mx-auto px-6">
+            <ul className="flex flex-col gap-6 mb-8">
+              {[
+                { label: "Главная", href: "#hero" },
+                { label: "О нас", href: "#about" },
+                { label: "Работы", href: "#projects" },
+                { label: "Процесс", href: "#services" },
+                { label: "FAQ", href: "#faq" },
+              ].map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    className="hover:text-[#e8c87a] transition-colors duration-300 text-white text-4xl font-light block"
+                    onClick={closeMobileMenu}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="#constructor"
+                  className="inline-block px-6 py-2 text-2xl font-medium rounded-full transition-all duration-300"
+                  style={{ background: "var(--gold)", color: "#1a0f05" }}
+                  onClick={closeMobileMenu}
+                >
+                  Конструктор
+                </a>
+              </li>
+            </ul>
+
+            <button
+              onClick={() => { closeMobileMenu(); setContactOpen(true) }}
+              className="inline-flex items-center justify-center gap-2 text-sm px-5 py-2.5 rounded-full bg-white text-foreground border border-foreground/20 hover:bg-foreground hover:text-white transition-all duration-300 mb-4"
+            >
+              Связаться
+            </button>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
+    </>
   )
 }

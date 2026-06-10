@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { ArrowRight, Check, Copy } from "lucide-react"
 import Icon from "@/components/ui/icon"
+import { ContactModal } from "./ContactModal"
 
 const BASE_PRICE = 10000
 const LENGTH_BASE = 100
@@ -49,6 +50,7 @@ export function Constructor() {
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [copied, setCopied] = useState(false)
+  const [contactOpen, setContactOpen] = useState(false)
 
   const toggleExtra = (id: string) =>
     setSelectedExtras(prev =>
@@ -75,14 +77,9 @@ export function Constructor() {
   const contactLine = [name && `Имя: ${name}`, phone && `Телефон: ${phone}`].filter(Boolean).join(" · ")
   const priceLine = `Итого: ${totalPrice.toLocaleString("ru-RU")} ₽`
   const orderMessage = [`Привет! Хочу заказать стол.`, summary, priceLine, contactLine].filter(Boolean).join("\n")
-  const maxUrl = `https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0`
 
   const handleOrder = () => {
-    navigator.clipboard.writeText(orderMessage).then(() => {
-      setCopied(true)
-      setTimeout(() => setCopied(false), 3000)
-    })
-    window.open(maxUrl, "_blank", "noopener,noreferrer")
+    setContactOpen(true)
   }
 
   const activeBtn = "border-[var(--gold)] bg-foreground text-background"
@@ -326,33 +323,20 @@ export function Constructor() {
 
               <button
                 onClick={handleOrder}
-                disabled={!phone.trim()}
-                className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 text-sm tracking-widest uppercase font-medium transition-all duration-300 group disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 text-sm tracking-widest uppercase font-medium transition-all duration-300 group hover:opacity-90"
                 style={{ background: "var(--gold, #c9a84c)", color: "#1a0f05" }}
               >
                 Заказать стол
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>
 
-              {!phone.trim() && (
-                <p className="text-center text-[11px] text-white/25">Укажите номер телефона</p>
-              )}
-
-              {copied && (
-                <div className="p-4 border border-white/10 bg-white/5 flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-0.5 shrink-0 text-green-400" />
-                  <div>
-                    <p className="text-sm text-white font-medium mb-0.5">Текст скопирован</p>
-                    <p className="text-xs text-white/35">Вставьте в чат мессенджера, который открылся</p>
-                  </div>
-                </div>
-              )}
-
             </div>
           </div>
 
         </div>
       </div>
+
+      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} message={orderMessage} />
     </section>
   )
 }

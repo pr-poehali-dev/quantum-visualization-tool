@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { ArrowDown } from "lucide-react"
+import { ContactModal } from "./ContactModal"
 
 export function Hero() {
   const contentRef = useRef<HTMLDivElement>(null)
@@ -7,6 +8,7 @@ export function Hero() {
   const titleRef = useRef<HTMLHeadingElement>(null)
   const [animationProgress, setAnimationProgress] = useState(0)
   const [animationComplete, setAnimationComplete] = useState(false)
+  const [contactOpen, setContactOpen] = useState(false)
   const accumulatedScrollRef = useRef(0)
   const touchStartY = useRef<number>(0)
   const lastTouchY = useRef<number>(0)
@@ -157,18 +159,16 @@ export function Hero() {
           Натуральная древесина + современные технологии — ваш идеальный стол
         </p>
 
-        <a
-          href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          onClick={() => setContactOpen(true)}
           className="hero-reveal mt-6 inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90"
           style={{ background: "#c9a84c", color: "#1a0f05", boxShadow: "0 8px 30px rgba(0,0,0,0.4)", animationDelay: "0.7s" }}
         >
           Заказать стол
-        </a>
+        </button>
       </div>
 
-
+      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
 
       {animationComplete && (
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce z-30">

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { ArrowUpRight, ChevronLeft, ChevronRight, Copy, Check } from "lucide-react"
+import { ContactModal } from "./ContactModal"
 
 const projects = [
   {
@@ -56,6 +57,7 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
   const [photoIndex, setPhotoIndex] = useState(0)
   const [hovered, setHovered] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [contactOpen, setContactOpen] = useState(false)
 
   const orderMessage = `Привет! Хочу заказать стол.\nМодель: ${project.title}\n${project.category}\n${project.location}\nЦена: ${project.price}`
 
@@ -154,25 +156,22 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
 
         {/* кнопки */}
         <div className="mt-4 space-y-2" onClick={e => e.stopPropagation()}>
-          <p className="text-[10px] text-white/25 tracking-wide">
-            {copied ? "✓ Скопировано — вставьте в Макс" : "Шаг 1 — скопируйте заявку · Шаг 2 — отправьте в Макс"}
-          </p>
           <div className="flex gap-2">
             <button onClick={handleCopy}
               className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-white/15 text-xs tracking-widest uppercase font-medium text-white/60 hover:border-white/40 hover:text-white transition-all duration-200">
               {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
               {copied ? "Скопировано" : "Скопировать"}
             </button>
-            <a
-              href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
-              target="_blank" rel="noopener noreferrer"
+            <button
+              onClick={() => setContactOpen(true)}
               className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90"
               style={{ background: "var(--gold)", color: "#1a0f05" }}>
-              Открыть Макс
-            </a>
+              Заказать
+            </button>
           </div>
         </div>
       </div>
+      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} message={orderMessage} />
     </article>
   )
 }

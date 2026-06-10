@@ -1,7 +1,11 @@
+import { useState } from "react"
 import { Logo } from "./Logo"
+import { ContactModal } from "./ContactModal"
 
 export function Footer() {
+  const [contactOpen, setContactOpen] = useState(false)
   return (
+    <>
     <footer className="py-16 md:py-24 border-t border-border">
       <div className="container mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-4 gap-12 mb-16">
@@ -52,9 +56,9 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                  MAX
-                </a>
+                <button onClick={() => setContactOpen(true)} className="hover:text-foreground transition-colors">
+                  Написать нам
+                </button>
               </li>
             </ul>
           </div>
@@ -74,5 +78,7 @@ export function Footer() {
         </div>
       </div>
     </footer>
+    <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
+    </>
   )
 }
