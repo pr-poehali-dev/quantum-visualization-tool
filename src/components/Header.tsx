@@ -43,7 +43,6 @@ export function Header() {
             { label: "О нас", href: "#about" },
             { label: "Работы", href: "#projects" },
             { label: "Процесс", href: "#services" },
-            { label: "Конструктор", href: "#constructor" },
             { label: "FAQ", href: "#faq" },
           ].map((item) => (
             <li key={item.label}>
@@ -55,6 +54,15 @@ export function Header() {
               </a>
             </li>
           ))}
+          <li>
+            <a
+              href="#constructor"
+              className="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+              style={{ background: "var(--gold)", color: "#1a0f05" }}
+            >
+              Конструктор
+            </a>
+          </li>
         </ul>
 
         <a
@@ -103,7 +111,6 @@ export function Header() {
               { label: "О нас", href: "#about" },
               { label: "Работы", href: "#projects" },
               { label: "Процесс", href: "#services" },
-              { label: "Конструктор", href: "#constructor" },
               { label: "FAQ", href: "#faq" },
             ].map((item) => (
               <li key={item.label}>
@@ -116,6 +123,16 @@ export function Header() {
                 </a>
               </li>
             ))}
+            <li>
+              <a
+                href="#constructor"
+                className="inline-block px-6 py-2 text-2xl font-medium rounded-full transition-all duration-300"
+                style={{ background: "var(--gold)", color: "#1a0f05" }}
+                onClick={closeMobileMenu}
+              >
+                Конструктор
+              </a>
+            </li>
           </ul>
 
           <a
