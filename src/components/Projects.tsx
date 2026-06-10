@@ -54,7 +54,7 @@ const projects = [
 
 function ProjectCard({ project, index, revealed }: { project: typeof projects[0]; index: number; revealed: boolean }) {
   const [photoIndex, setPhotoIndex] = useState(0)
-  const [hoveredId, setHoveredId] = useState(false)
+  const [hovered, setHovered] = useState(false)
   const [copied, setCopied] = useState(false)
 
   const orderMessage = `Привет! Хочу заказать стол.\nМодель: ${project.title}\n${project.category}\n${project.location}\nЦена: ${project.price}`
@@ -79,93 +79,98 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
 
   return (
     <article
-      className="group cursor-pointer"
-      onMouseEnter={() => setHoveredId(true)}
-      onMouseLeave={() => setHoveredId(false)}
+      className="group relative cursor-pointer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      <div className="relative overflow-hidden aspect-[4/3] mb-6">
+      {/* номер карточки — декор */}
+      <span
+        className="absolute -top-5 -left-2 text-[5rem] font-bold leading-none select-none pointer-events-none z-0 transition-opacity duration-500"
+        style={{ color: "var(--gold)", opacity: hovered ? 0.18 : 0.07 }}
+      >
+        {String(index + 1).padStart(2, "0")}
+      </span>
+
+      {/* фото */}
+      <div className="relative overflow-hidden aspect-[4/3] mb-0 z-10 border border-white/10">
         <img
           src={project.images[photoIndex]}
           alt={`${project.title} — фото ${photoIndex + 1}`}
-          className={`w-full h-full object-cover transition-all duration-700 ${
-            hoveredId ? "scale-105" : "scale-100"
-          }`}
+          className={`w-full h-full object-cover transition-all duration-700 ${hovered ? "scale-105" : "scale-100"}`}
         />
 
-        {/* overlay reveal */}
+        {/* reveal overlay */}
         <div
-          className="absolute inset-0 bg-primary origin-top pointer-events-none"
+          className="absolute inset-0 origin-top pointer-events-none"
           style={{
+            background: "hsl(25 20% 8%)",
             transform: revealed ? "scaleY(0)" : "scaleY(1)",
             transition: "transform 1.5s cubic-bezier(0.76, 0, 0.24, 1)",
           }}
         />
 
+        {/* тёмный градиент снизу */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+
+        {/* год + цена поверх фото */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-end">
+          <span className="text-white/50 text-xs tracking-widest uppercase">{project.year}</span>
+          <span className="text-lg font-bold tabular-nums" style={{ color: "var(--gold)" }}>{project.price}</span>
+        </div>
+
         {/* стрелки */}
-        <button
-          onClick={prev}
-          className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 flex items-center justify-center bg-black/40 hover:bg-black/70 text-white transition-all duration-200 rounded-full opacity-0 group-hover:opacity-100"
-          aria-label="Предыдущее фото"
-        >
-          <ChevronLeft className="w-5 h-5" />
+        <button onClick={prev}
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center bg-black/50 hover:bg-black/80 text-white transition-all duration-200 rounded-full opacity-0 group-hover:opacity-100">
+          <ChevronLeft className="w-4 h-4" />
         </button>
-        <button
-          onClick={next}
-          className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 flex items-center justify-center bg-black/40 hover:bg-black/70 text-white transition-all duration-200 rounded-full opacity-0 group-hover:opacity-100"
-          aria-label="Следующее фото"
-        >
-          <ChevronRight className="w-5 h-5" />
+        <button onClick={next}
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center bg-black/50 hover:bg-black/80 text-white transition-all duration-200 rounded-full opacity-0 group-hover:opacity-100">
+          <ChevronRight className="w-4 h-4" />
         </button>
 
         {/* точки */}
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+        <div className="absolute top-3 right-3 flex gap-1.5 z-10">
           {project.images.map((_, i) => (
-            <button
-              key={i}
-              onClick={e => { e.stopPropagation(); setPhotoIndex(i) }}
-              className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
-                i === photoIndex ? "bg-white scale-125" : "bg-white/50"
-              }`}
+            <button key={i} onClick={e => { e.stopPropagation(); setPhotoIndex(i) }}
+              className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${i === photoIndex ? "bg-white scale-125" : "bg-white/40"}`}
             />
           ))}
         </div>
       </div>
 
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h3 className="text-xl font-medium mb-2 group-hover:underline underline-offset-4">{project.title}</h3>
-          <p className="text-muted-foreground text-sm">
-            {project.category} · {project.location}
-          </p>
-          {project.price && (
-            <p className="mt-3 text-lg font-semibold" style={{ color: "var(--gold, #c9a84c)" }}>
-              {project.price}
-            </p>
-          )}
-        </div>
-        <span className="text-muted-foreground/60 text-sm">{project.year}</span>
-      </div>
-      <div className="mt-5 space-y-2" onClick={e => e.stopPropagation()}>
-        <p className="text-xs text-muted-foreground">
-          {copied ? "✓ Текст скопирован — теперь откройте Макс и вставьте его в сообщение" : "Шаг 1 — скопируйте заявку, Шаг 2 — отправьте в Макс"}
+      {/* инфо-блок */}
+      <div className="relative z-10 p-5 border border-t-0 border-white/10 bg-white/[0.04]">
+        {/* золотая черта слева */}
+        <div className="absolute left-0 top-0 bottom-0 w-0.5 transition-all duration-300"
+          style={{ background: hovered ? "var(--gold)" : "transparent" }} />
+
+        <h3 className="text-lg font-semibold text-white mb-1 group-hover:underline underline-offset-4">
+          {project.title}
+        </h3>
+        <p className="text-white/45 text-xs leading-relaxed">
+          {project.category}
         </p>
-        <div className="flex gap-2">
-          <button
-            onClick={handleCopy}
-            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-border text-xs tracking-widest uppercase font-medium transition-all duration-200 hover:border-foreground/50 hover:text-foreground"
-          >
-            {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-            {copied ? "Скопировано" : "Скопировать"}
-          </button>
-          <a
-            href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90"
-            style={{ background: "#c9a84c", color: "#1a0f05" }}
-          >
-            Открыть Макс
-          </a>
+        <p className="text-white/30 text-xs mt-0.5">{project.location}</p>
+
+        {/* кнопки */}
+        <div className="mt-4 space-y-2" onClick={e => e.stopPropagation()}>
+          <p className="text-[10px] text-white/25 tracking-wide">
+            {copied ? "✓ Скопировано — вставьте в Макс" : "Шаг 1 — скопируйте заявку · Шаг 2 — отправьте в Макс"}
+          </p>
+          <div className="flex gap-2">
+            <button onClick={handleCopy}
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-white/15 text-xs tracking-widest uppercase font-medium text-white/60 hover:border-white/40 hover:text-white transition-all duration-200">
+              {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+              {copied ? "Скопировано" : "Скопировать"}
+            </button>
+            <a
+              href="https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
+              target="_blank" rel="noopener noreferrer"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90"
+              style={{ background: "var(--gold)", color: "#1a0f05" }}>
+              Открыть Макс
+            </a>
+          </div>
         </div>
       </div>
     </article>
@@ -190,46 +195,50 @@ export function Projects() {
       },
       { threshold: 0.2 },
     )
-
-    imageRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref)
-    })
-
+    imageRefs.current.forEach((ref) => { if (ref) observer.observe(ref) })
     return () => observer.disconnect()
   }, [])
 
   return (
-    <section id="projects" className="py-32 md:py-29 bg-secondary/50">
-      <div className="container mx-auto px-6 md:px-12">
+    <section id="projects" className="py-32 relative overflow-hidden"
+      style={{ background: "hsl(25 20% 8%)" }}>
+
+      {/* декоративный свет */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] opacity-[0.04]"
+          style={{ background: "radial-gradient(ellipse, var(--gold) 0%, transparent 70%)" }} />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] opacity-[0.03]"
+          style={{ background: "radial-gradient(circle, var(--gold) 0%, transparent 70%)" }} />
+        <span className="absolute -bottom-4 left-0 text-[16rem] font-bold leading-none text-white/[0.015] hidden lg:block">02</span>
+      </div>
+
+      <div className="container mx-auto px-6 md:px-12 relative z-10">
+
+        {/* заголовок */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
           <div className="relative">
-            <span className="absolute -top-8 right-0 text-[10rem] font-bold leading-none select-none pointer-events-none text-foreground/[0.04] lg:text-[14rem]">02</span>
             <div className="flex items-center gap-4 mb-6">
               <div className="w-0.5 h-8 bg-[var(--gold)] shrink-0" />
-              <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase">Избранные работы</p>
+              <p className="text-sm tracking-[0.3em] uppercase" style={{ color: "var(--gold)" }}>Избранные работы</p>
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight">Наша коллекция</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-white">Наша коллекция</h2>
           </div>
-          <a
-            href="#"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
-          >
+          <a href="#"
+            className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white transition-colors group">
             Смотреть всю коллекцию
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+        {/* сетка */}
+        <div className="grid md:grid-cols-2 gap-8 md:gap-10">
           {projects.map((project, index) => (
             <div key={project.id} ref={(el) => (imageRefs.current[index] = el)}>
-              <ProjectCard
-                project={project}
-                index={index}
-                revealed={revealedImages.has(project.id)}
-              />
+              <ProjectCard project={project} index={index} revealed={revealedImages.has(project.id)} />
             </div>
           ))}
         </div>
+
       </div>
     </section>
   )
