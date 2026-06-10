@@ -146,7 +146,7 @@ export function Hero() {
 
         <h1
           ref={titleRef}
-          className="hero-reveal hero-title hero-title-gold text-7xl text-balance text-center leading-[0.95] lg:text-[10rem]"
+          className="hero-reveal hero-title hero-title-gold text-7xl text-balance text-center leading-[1.05] lg:text-[10rem]"
           style={{ animationDelay: "0.3s" }}
         >
           Русский <span className="hero-title-accent">Стол</span>
