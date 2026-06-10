@@ -141,7 +141,7 @@ export function Hero() {
           className="hero-reveal text-sm md:text-base tracking-[0.3em] uppercase text-center text-white/90 max-w-xl"
           style={{ textShadow: "0 2px 12px rgba(0,0,0,0.85), 0 0 4px rgba(0,0,0,0.6)", animationDelay: "0.1s" }}
         >
-          {"Письменные и компьютерные столы с регулировкой высоты"}
+          {"Компьютерные и умные столы с регулировкой высоты"}
         </p>
 
         <h1
