@@ -2,6 +2,7 @@ import { Header } from "../components/Header"
 import { Hero } from "../components/Hero"
 import { Philosophy } from "../components/Philosophy"
 import { Projects } from "../components/Projects"
+import { Catalog } from "../components/Catalog"
 import { Expertise } from "../components/Expertise"
 import { FAQ } from "../components/FAQ"
 import { Constructor } from "../components/Constructor"
@@ -17,6 +18,8 @@ export default function Index() {
       <Philosophy />
       <div className="section-divider" />
       <Projects />
+      <div className="section-divider" />
+      <Catalog />
       <div className="section-divider" />
       <Expertise />
       <div className="section-divider" />
