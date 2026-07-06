@@ -166,6 +166,45 @@ body::after {
   font-weight: 700;
 }
 
+/* Плавно пульсирующие световые пятна */
+@keyframes glow-float {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(14px, -18px) scale(1.08);
+  }
+}
+.animate-glow-float {
+  animation: glow-float 9s ease-in-out infinite;
+}
+
+/* Парящие светлые частицы */
+@keyframes particle-float {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(-26px) scale(1.25);
+  }
+}
+.animate-particle-float {
+  animation: particle-float ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-glow-float,
+  .animate-particle-float {
+    animation: none;
+  }
+}
+
 /* Adding stroke drawing animation for expertise icons */
 @keyframes draw-stroke {
   from {

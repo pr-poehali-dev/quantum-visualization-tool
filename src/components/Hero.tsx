@@ -133,6 +133,57 @@ export function Hero() {
             background: "linear-gradient(160deg, rgba(25,15,6,0.32) 0%, rgba(30,18,8,0.18) 50%, rgba(20,12,5,0.28) 100%)",
           }}
         />
+        {/* мягкий тёплый свет сверху */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse 70% 55% at 50% 8%, rgba(255,246,224,0.28) 0%, transparent 60%)",
+          }}
+        />
+        {/* световое пятно слева */}
+        <div
+          className="absolute -top-24 -left-24 w-[520px] h-[520px] rounded-full pointer-events-none animate-glow-float"
+          style={{
+            background: "radial-gradient(circle, rgba(255,240,205,0.22) 0%, transparent 70%)",
+            filter: "blur(20px)",
+          }}
+        />
+        {/* световое пятно справа */}
+        <div
+          className="absolute bottom-0 -right-20 w-[440px] h-[440px] rounded-full pointer-events-none animate-glow-float"
+          style={{
+            background: "radial-gradient(circle, rgba(232,200,116,0.18) 0%, transparent 70%)",
+            filter: "blur(24px)",
+            animationDelay: "1.5s",
+          }}
+        />
+      </div>
+
+      {/* парящие светлые частицы */}
+      <div className="absolute inset-0 z-[5] pointer-events-none overflow-hidden">
+        {[
+          { left: "12%", top: "28%", size: 6, delay: "0s", dur: "7s" },
+          { left: "80%", top: "22%", size: 5, delay: "1.2s", dur: "8s" },
+          { left: "65%", top: "70%", size: 8, delay: "0.6s", dur: "9s" },
+          { left: "30%", top: "78%", size: 4, delay: "2s", dur: "6.5s" },
+          { left: "50%", top: "18%", size: 5, delay: "3s", dur: "8.5s" },
+          { left: "90%", top: "60%", size: 6, delay: "1.8s", dur: "7.5s" },
+        ].map((p, i) => (
+          <span
+            key={i}
+            className="absolute rounded-full animate-particle-float"
+            style={{
+              left: p.left,
+              top: p.top,
+              width: p.size,
+              height: p.size,
+              background: "radial-gradient(circle, rgba(255,248,230,0.9) 0%, rgba(255,240,205,0.3) 60%, transparent 100%)",
+              boxShadow: "0 0 8px rgba(255,244,214,0.6)",
+              animationDelay: p.delay,
+              animationDuration: p.dur,
+            }}
+          />
+        ))}
       </div>
 
       <div ref={contentRef} className="hidden" style={{ willChange: "transform" }} />
