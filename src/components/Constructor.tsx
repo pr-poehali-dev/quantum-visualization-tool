@@ -82,8 +82,10 @@ export function Constructor() {
     setContactOpen(true)
   }
 
-  const activeBtn = "border-[var(--gold)] bg-foreground text-background"
-  const inactiveBtn = "border-white/15 text-white/80 hover:border-white/40 bg-white/[0.04]"
+  const activeBtn =
+    "rounded-lg border-[var(--gold)] bg-foreground text-background -translate-y-0.5 shadow-[0_6px_18px_rgba(201,168,76,0.35),0_0_0_1px_var(--gold),inset_0_1px_1px_rgba(255,255,255,0.5)]"
+  const inactiveBtn =
+    "rounded-lg border-white/10 text-white/80 bg-white/[0.04] shadow-[inset_0_1px_1px_rgba(255,255,255,0.06),0_2px_6px_rgba(0,0,0,0.35)] hover:border-white/30 hover:-translate-y-0.5 hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_5px_14px_rgba(0,0,0,0.45)]"
 
   return (
     <section id="constructor" className="py-24 md:py-32 relative overflow-hidden"
