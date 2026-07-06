@@ -25,22 +25,35 @@ export function Header() {
 
   useEffect(() => {
     const ids = navItems.map((i) => i.href.replace("#", ""))
-    const sections = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null)
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
-        if (visible[0]) setActiveSection(visible[0].target.id)
-      },
-      { rootMargin: "-40% 0px -55% 0px", threshold: [0, 0.25, 0.5, 1] },
-    )
+    let ticking = false
+    const updateActive = () => {
+      ticking = false
+      const line = window.innerHeight * 0.3
+      let current = ids[0]
+      for (const id of ids) {
+        const el = document.getElementById(id)
+        if (!el) continue
+        const top = el.getBoundingClientRect().top
+        if (top <= line) current = id
+      }
+      setActiveSection((prev) => (prev === current ? prev : current))
+    }
 
-    sections.forEach((s) => observer.observe(s))
-    return () => observer.disconnect()
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true
+        window.requestAnimationFrame(updateActive)
+      }
+    }
+
+    updateActive()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onScroll)
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
+    }
   }, [])
 
   const closeMobileMenu = () => setMobileMenuOpen(false)
