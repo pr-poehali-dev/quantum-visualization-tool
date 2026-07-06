@@ -47,7 +47,7 @@ export function Header() {
               <li key={item.label}>
                 <a
                   href={item.href}
-                  className="px-4 py-2 rounded-full border border-white/15 text-white transition-all duration-300 hover:text-[#e8c87a] hover:border-[var(--gold)]/60 hover:bg-white/[0.04]"
+                  className="inline-block whitespace-nowrap px-4 py-2 rounded-md border border-white/15 text-white transition-all duration-300 hover:text-[#e8c87a] hover:border-[var(--gold)]/60 hover:bg-white/[0.04]"
                 >
                   {item.label}
                 </a>
