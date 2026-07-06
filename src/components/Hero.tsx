@@ -189,13 +189,6 @@ export function Hero() {
       <div ref={contentRef} className="hidden" style={{ willChange: "transform" }} />
 
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6 px-6">
-        <p
-          className="text-blur-behind text-blur-behind-strong hero-reveal text-sm md:text-base tracking-[0.3em] uppercase text-center text-white/90 max-w-xl"
-          style={{ textShadow: "0 2px 12px rgba(0,0,0,0.85), 0 0 4px rgba(0,0,0,0.6)", animationDelay: "0.1s" }}
-        >
-          {"Компьютерные и умные столы с регулировкой высоты"}
-        </p>
-
         <h1
           ref={titleRef}
           className="text-blur-behind hero-reveal hero-title hero-title-gold text-7xl text-balance text-center leading-[1.05] lg:text-[10rem]"
