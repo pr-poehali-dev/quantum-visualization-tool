@@ -199,14 +199,14 @@ export function Hero() {
       <div className="absolute inset-0 z-10 flex flex-col items-start justify-center gap-6 px-6 md:px-12 lg:pl-24">
         <h1
           ref={titleRef}
-          className="text-blur-behind hero-reveal hero-title hero-title-gold text-7xl text-balance text-left leading-[1.05] lg:text-[9rem]"
+          className="text-blur-behind hero-reveal hero-title hero-title-gold text-5xl sm:text-6xl md:text-7xl text-balance text-left leading-[1.05] lg:text-[9rem]"
           style={{ animationDelay: "0.3s" }}
         >
           Русский <span className="hero-title-accent">Стол</span>
         </h1>
 
         <p
-          className="text-blur-behind text-blur-behind-strong hero-reveal mt-24 text-base md:text-xl text-white text-left font-light max-w-md leading-relaxed"
+          className="text-blur-behind text-blur-behind-strong hero-reveal mt-8 md:mt-24 text-base md:text-xl text-white text-left font-light max-w-md leading-relaxed"
           style={{ textShadow: "0 2px 14px rgba(0,0,0,0.9), 0 0 6px rgba(0,0,0,0.7)", animationDelay: "0.5s" }}
         >
           Натуральная древесина + современные технологии — ваш идеальный стол
