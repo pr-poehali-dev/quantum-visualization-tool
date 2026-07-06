@@ -161,7 +161,7 @@ export function Hero() {
 
         <button
           onClick={() => setContactOpen(true)}
-          className="btn-glow hero-reveal mt-6 inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm tracking-widest uppercase font-medium transition-all duration-300"
+          className="btn-glow btn-glow-pulse hero-reveal mt-6 inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm tracking-widest uppercase font-medium transition-all duration-300"
           style={{ background: "#c9a84c", color: "#1a0f05", animationDelay: "0.7s" }}
         >
           Заказать стол
