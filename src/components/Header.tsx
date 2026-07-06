@@ -24,7 +24,7 @@ export function Header() {
   }, [])
 
   useEffect(() => {
-    const ids = navItems.map((i) => i.href.replace("#", ""))
+    const ids = ["hero", "about", "projects", "services", "constructor", "faq"]
 
     let ticking = false
     const updateActive = () => {
@@ -107,7 +107,10 @@ export function Header() {
             <li>
               <a
                 href="#constructor"
-                className="btn-glow px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                className={cn(
+                  "px-4 py-2 text-sm font-medium rounded-full transition-all duration-300",
+                  activeSection === "constructor" ? "" : "btn-glow",
+                )}
                 style={{ background: "var(--gold)", color: "#1a0f05" }}
               >
                 Конструктор
