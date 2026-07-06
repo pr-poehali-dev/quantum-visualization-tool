@@ -80,22 +80,29 @@ export function Expertise() {
                   itemRefs.current[index] = el
                 }}
                 data-index={index}
-                className={`relative pl-8 border-l border-border transition-all duration-700 ${
+                className={`group relative p-8 rounded-xl bg-card depth-card depth-hover depth-edge transition-all duration-700 ${
                   visibleItems.includes(index) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 }`}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
+                <span
+                  className="absolute top-6 right-7 text-5xl font-bold leading-none select-none pointer-events-none transition-opacity duration-500"
+                  style={{ color: "var(--gold)", opacity: 0.1 }}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
                 <div
-                  className={`transition-all duration-1000 ${
+                  className={`inline-flex items-center justify-center w-14 h-14 mb-5 rounded-lg transition-all duration-500 ${
                     visibleItems.includes(index) ? "animate-draw-stroke" : ""
                   }`}
                   style={{
+                    background: "hsl(25 18% 14%)",
                     transitionDelay: `${index * 150}ms`,
                   }}
                 >
-                  <Icon name={area.icon} size={40} className="mb-4 text-foreground" />
+                  <Icon name={area.icon} size={26} style={{ color: "var(--gold)" }} />
                 </div>
-                <h3 className="text-xl font-medium mb-4">{area.title}</h3>
+                <h3 className="text-xl font-medium mb-3">{area.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{area.description}</p>
               </div>
           ))}

@@ -55,29 +55,49 @@ export function FAQ() {
           </h2>
         </div>
 
-        <div>
+        <div className="max-w-4xl space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="border-b border-border">
+            <div
+              key={index}
+              className={`rounded-xl bg-card overflow-hidden transition-all duration-500 depth-card ${
+                openIndex === index ? "depth-open" : ""
+              }`}
+              style={
+                openIndex === index
+                  ? { boxShadow: "0 10px 40px rgba(30,18,6,0.14), 0 0 0 1px var(--gold)" }
+                  : undefined
+              }
+            >
               <button
                 onClick={() => toggleQuestion(index)}
-                className="w-full py-6 flex items-start justify-between gap-6 text-left group"
+                className="w-full px-7 py-6 flex items-start justify-between gap-6 text-left group"
               >
                 <span className="text-lg font-medium text-foreground transition-colors group-hover:text-foreground/70">
                   {faq.question}
                 </span>
-                <Plus
-                  className={`w-6 h-6 text-foreground flex-shrink-0 transition-transform duration-300 ${
-                    openIndex === index ? "rotate-45" : "rotate-0"
-                  }`}
-                  strokeWidth={1.5}
-                />
+                <span
+                  className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300"
+                  style={
+                    openIndex === index
+                      ? { background: "var(--gold)" }
+                      : { background: "hsl(25 18% 14% / 0.06)" }
+                  }
+                >
+                  <Plus
+                    className={`w-5 h-5 transition-transform duration-300 ${
+                      openIndex === index ? "rotate-45" : "rotate-0"
+                    }`}
+                    style={{ color: openIndex === index ? "#1a0f05" : "hsl(25 20% 10%)" }}
+                    strokeWidth={1.5}
+                  />
+                </span>
               </button>
               <div
                 className={`overflow-hidden transition-all duration-500 ease-in-out ${
                   openIndex === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
-                <p className="text-muted-foreground leading-relaxed pb-6 pr-12">{faq.answer}</p>
+                <p className="text-muted-foreground leading-relaxed px-7 pb-6 pr-12">{faq.answer}</p>
               </div>
             </div>
           ))}
