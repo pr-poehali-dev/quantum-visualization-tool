@@ -199,7 +199,7 @@ export function Hero() {
       <div className="absolute inset-0 z-10 flex flex-col items-start justify-center gap-6 px-6 md:px-12 lg:pl-24">
         <h1
           ref={titleRef}
-          className="text-blur-behind hero-reveal hero-title hero-title-gold text-5xl sm:text-6xl md:text-7xl text-balance text-left leading-[1.05] lg:text-[9rem]"
+          className="text-blur-behind hero-reveal hero-title hero-title-gold text-5xl sm:text-7xl md:text-8xl text-balance text-left leading-[1.05] lg:text-[9rem]"
           style={{ animationDelay: "0.3s" }}
         >
           Русский <span className="hero-title-accent">Стол</span>
