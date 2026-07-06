@@ -125,11 +125,12 @@ export function Hero() {
           src="https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/464dc653-0c06-4e01-88e4-d06c7a2ed719.jpg"
           alt="Рабочий кабинет со столом из массива дуба"
           className="w-full h-full object-cover object-center"
+          style={{ filter: "brightness(1.18) contrast(0.97)" }}
         />
         <div
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(160deg, rgba(25,15,6,0.55) 0%, rgba(30,18,8,0.35) 50%, rgba(20,12,5,0.45) 100%)",
+            background: "linear-gradient(160deg, rgba(25,15,6,0.32) 0%, rgba(30,18,8,0.18) 50%, rgba(20,12,5,0.28) 100%)",
           }}
         />
       </div>
