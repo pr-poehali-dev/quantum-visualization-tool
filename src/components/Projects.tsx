@@ -166,7 +166,7 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
             </button>
             <button
               onClick={() => setContactOpen(true)}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs tracking-widest uppercase font-medium transition-all duration-300 hover:opacity-90"
+              className="btn-glow flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs tracking-widest uppercase font-medium transition-all duration-300"
               style={{ background: "var(--gold)", color: "#1a0f05" }}>
               Заказать
             </button>

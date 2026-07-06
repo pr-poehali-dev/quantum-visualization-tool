@@ -56,7 +56,7 @@ export function Header() {
             <li>
               <a
                 href="#constructor"
-                className="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                className="btn-glow px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
                 style={{ background: "var(--gold)", color: "#1a0f05" }}
               >
                 Конструктор
@@ -121,7 +121,7 @@ export function Header() {
               <li>
                 <a
                   href="#constructor"
-                  className="inline-block px-6 py-2 text-2xl font-medium rounded-full transition-all duration-300"
+                  className="btn-glow inline-block px-6 py-2 text-2xl font-medium rounded-full transition-all duration-300"
                   style={{ background: "var(--gold)", color: "#1a0f05" }}
                   onClick={closeMobileMenu}
                 >

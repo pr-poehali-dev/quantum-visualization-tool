@@ -257,3 +257,44 @@ body::after {
     rgba(0, 0, 0, 0.35) 100%
   );
 }
+
+/* Кнопки со светящимся золотым контуром */
+.btn-glow {
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(201, 168, 76, 0.5),
+    0 0 12px rgba(201, 168, 76, 0.35),
+    0 4px 16px rgba(201, 168, 76, 0.2);
+  transition:
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-glow:hover {
+  box-shadow:
+    0 0 0 1px rgba(245, 223, 160, 0.9),
+    0 0 22px rgba(201, 168, 76, 0.6),
+    0 0 44px rgba(201, 168, 76, 0.35),
+    0 6px 22px rgba(201, 168, 76, 0.3);
+  transform: translateY(-2px);
+}
+.btn-glow:active {
+  transform: translateY(0);
+}
+
+/* Светящийся контур для вторичных кнопок */
+.btn-glow-outline {
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(201, 168, 76, 0.35),
+    0 0 10px rgba(201, 168, 76, 0.15);
+  transition:
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-glow-outline:hover {
+  box-shadow:
+    0 0 0 1px rgba(245, 223, 160, 0.7),
+    0 0 18px rgba(201, 168, 76, 0.4),
+    0 0 34px rgba(201, 168, 76, 0.22);
+  transform: translateY(-2px);
+}

@@ -26,14 +26,15 @@ export function CallToAction() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={() => setContactOpen(true)}
-                className="inline-flex items-center justify-center gap-3 bg-primary-foreground text-foreground px-8 py-4 rounded-full text-sm tracking-wide hover:bg-primary-foreground/90 transition-colors duration-300 group"
+                className="btn-glow inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-sm tracking-wide transition-all duration-300 group"
+                style={{ background: "var(--gold)", color: "#1a0f05" }}
               >
                 Обсудить заказ
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>
               <button
                 onClick={() => setContactOpen(true)}
-                className="inline-flex items-center justify-center gap-2 border border-primary-foreground/30 px-8 py-4 rounded-full text-sm tracking-wide hover:bg-primary-foreground/10 transition-colors duration-300"
+                className="btn-glow-outline inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm tracking-wide text-primary-foreground hover:bg-primary-foreground/10 transition-all duration-300"
               >
                 Написать нам
               </button>
