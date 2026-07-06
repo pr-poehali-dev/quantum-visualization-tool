@@ -32,7 +32,14 @@ export function Header() {
         )}
       >
         <nav className="container mx-auto px-6 flex items-center justify-between md:px-[24]">
-          <a href="/" className="group" onClick={scrollToTop}>
+          <a
+            href="/"
+            className={cn(
+              "group transition-all duration-500",
+              scrolled || mobileMenuOpen ? "-ml-3" : "ml-0",
+            )}
+            onClick={scrollToTop}
+          >
             <Logo size={64} />
           </a>
 
