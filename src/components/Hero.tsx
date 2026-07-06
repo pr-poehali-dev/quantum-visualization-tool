@@ -188,6 +188,17 @@ export function Hero() {
 
       <div ref={contentRef} className="hidden" style={{ willChange: "transform" }} />
 
+      {/* мягкое размытие фона за текстом для чёткости */}
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[8] pointer-events-none w-[85%] max-w-3xl h-[70%]"
+        style={{
+          backdropFilter: "blur(6px)",
+          WebkitBackdropFilter: "blur(6px)",
+          maskImage: "radial-gradient(ellipse 60% 55% at 50% 50%, black 35%, transparent 75%)",
+          WebkitMaskImage: "radial-gradient(ellipse 60% 55% at 50% 50%, black 35%, transparent 75%)",
+        }}
+      />
+
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6 px-6">
         <p
           className="hero-reveal text-sm md:text-base tracking-[0.3em] uppercase text-center text-white/90 max-w-xl"
