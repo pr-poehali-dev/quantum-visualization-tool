@@ -1,4 +1,5 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { X } from "lucide-react"
 
 const MAX_URL = "https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
@@ -11,6 +12,8 @@ interface ContactModalProps {
 }
 
 export function ContactModal({ open, onClose, message }: ContactModalProps) {
+  const [agreed, setAgreed] = useState(false)
+
   useEffect(() => {
     if (!open) return
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose() }
@@ -23,15 +26,21 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
     return () => { document.body.style.overflow = "" }
   }, [open])
 
+  useEffect(() => {
+    if (open) setAgreed(false)
+  }, [open])
+
   if (!open) return null
 
   const openMax = () => {
+    if (!agreed) return
     if (message) navigator.clipboard.writeText(message).catch(() => {})
     window.open(MAX_URL, "_blank", "noopener,noreferrer")
     onClose()
   }
 
   const openVk = () => {
+    if (!agreed) return
     if (message) navigator.clipboard.writeText(message).catch(() => {})
     window.open(VK_URL, "_blank", "noopener,noreferrer")
     onClose()
@@ -69,11 +78,34 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
           </div>
         )}
 
+        {/* согласие */}
+        <div className="px-4 pt-4">
+          <label className="flex items-start gap-3 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={agreed}
+              onChange={e => setAgreed(e.target.checked)}
+              className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--gold)] cursor-pointer"
+            />
+            <span className="text-white/50 text-xs leading-relaxed">
+              Я согласен на обработку персональных данных и принимаю{" "}
+              <Link
+                to="/privacy"
+                target="_blank"
+                className="text-white/80 underline hover:text-white transition-colors"
+              >
+                политику конфиденциальности
+              </Link>
+            </span>
+          </label>
+        </div>
+
         {/* кнопки */}
         <div className="p-4 space-y-2">
           <button
             onClick={openMax}
-            className="w-full flex items-center gap-4 px-5 py-4 border border-white/10 hover:border-white/25 bg-white/[0.03] hover:bg-white/[0.07] transition-all duration-200 group text-left"
+            disabled={!agreed}
+            className="w-full flex items-center gap-4 px-5 py-4 border border-white/10 hover:border-white/25 bg-white/[0.03] hover:bg-white/[0.07] transition-all duration-200 group text-left disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-white/10 disabled:hover:bg-white/[0.03]"
           >
             <span className="text-2xl">💬</span>
             <span className="flex flex-col">
@@ -85,7 +117,8 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
 
           <button
             onClick={openVk}
-            className="w-full flex items-center gap-4 px-5 py-4 border border-white/10 hover:border-white/25 bg-white/[0.03] hover:bg-white/[0.07] transition-all duration-200 group text-left"
+            disabled={!agreed}
+            className="w-full flex items-center gap-4 px-5 py-4 border border-white/10 hover:border-white/25 bg-white/[0.03] hover:bg-white/[0.07] transition-all duration-200 group text-left disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-white/10 disabled:hover:bg-white/[0.03]"
           >
             <span className="text-2xl">🔵</span>
             <span className="flex flex-col">
