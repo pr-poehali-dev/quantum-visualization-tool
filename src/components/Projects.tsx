@@ -93,8 +93,10 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
         {String(index + 1).padStart(2, "0")}
       </span>
 
+      {/* карточка со скруглением и тенью */}
+      <div className="relative z-10 depth-card-dark depth-hover depth-edge rounded-xl overflow-hidden">
       {/* фото */}
-      <div className="relative overflow-hidden aspect-[4/3] mb-0 z-10 border border-white/10">
+      <div className="relative overflow-hidden aspect-[4/3] mb-0 z-10 border-b border-white/10">
         <img
           src={project.images[photoIndex]}
           alt={`${project.title} — фото ${photoIndex + 1}`}
@@ -141,7 +143,7 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
       </div>
 
       {/* инфо-блок */}
-      <div className="relative z-10 p-5 border border-t-0 border-white/10 bg-white/[0.04]">
+      <div className="relative z-10 p-5 bg-white/[0.04]">
         {/* золотая черта слева */}
         <div className="absolute left-0 top-0 bottom-0 w-0.5 transition-all duration-300"
           style={{ background: hovered ? "var(--gold)" : "transparent" }} />
@@ -170,6 +172,7 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
             </button>
           </div>
         </div>
+      </div>
       </div>
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} message={orderMessage} />
     </article>

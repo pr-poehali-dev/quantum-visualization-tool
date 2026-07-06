@@ -183,3 +183,77 @@ body::after {
   stroke-dashoffset: 1000;
   animation: draw-stroke 1.5s ease-out forwards;
 }
+
+/* ── Глубина и объём ─────────────────────────────── */
+
+/* Мягкая многослойная тень для карточек на светлом фоне */
+.depth-card {
+  box-shadow:
+    0 1px 2px rgba(30, 18, 6, 0.06),
+    0 8px 24px rgba(30, 18, 6, 0.1),
+    0 18px 48px rgba(30, 18, 6, 0.08);
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Объёмная тень на тёмном фоне + золотое свечение при наведении */
+.depth-card-dark {
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    0 12px 32px rgba(0, 0, 0, 0.45),
+    0 24px 64px rgba(0, 0, 0, 0.35);
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Подъём карточки при наведении */
+.depth-hover:hover {
+  transform: translateY(-8px);
+}
+
+.depth-card-dark.depth-hover:hover {
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    0 20px 48px rgba(0, 0, 0, 0.5),
+    0 36px 90px rgba(0, 0, 0, 0.4),
+    0 0 60px rgba(201, 168, 76, 0.18);
+}
+
+.depth-card.depth-hover:hover {
+  box-shadow:
+    0 4px 10px rgba(30, 18, 6, 0.1),
+    0 18px 44px rgba(30, 18, 6, 0.16),
+    0 34px 80px rgba(30, 18, 6, 0.12);
+}
+
+/* Верхняя световая грань — эффект подсветки края */
+.depth-edge {
+  position: relative;
+}
+.depth-edge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Виньетка секции для ощущения объёма пространства */
+.section-vignette {
+  position: relative;
+}
+.section-vignette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 55%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
+}

@@ -248,7 +248,7 @@ export function Constructor() {
             <div className="md:sticky md:top-8 space-y-2">
 
               {/* цена */}
-              <div className="p-6 border border-white/15" style={{ background: "hsl(25 18% 11%)" }}>
+              <div className="p-6 border border-white/15 rounded-xl depth-card-dark depth-edge" style={{ background: "hsl(25 18% 11%)" }}>
                 <p className="text-[10px] tracking-[0.3em] uppercase text-white/35 mb-5">Стоимость</p>
                 <div className="space-y-2 text-sm mb-5">
                   <div className="flex justify-between text-white/45">
