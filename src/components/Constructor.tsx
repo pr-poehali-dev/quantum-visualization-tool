@@ -93,11 +93,34 @@ export function Constructor() {
 
       {/* декоративный свет */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
-        <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-[0.05]"
+        <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-[0.07] animate-glow-float"
           style={{ background: "radial-gradient(circle, var(--gold) 0%, transparent 70%)" }} />
-        <div className="absolute -bottom-16 -left-24 w-[340px] h-[340px] rounded-full opacity-[0.03]"
-          style={{ background: "radial-gradient(circle, var(--gold) 0%, transparent 70%)" }} />
+        <div className="absolute -bottom-16 -left-24 w-[340px] h-[340px] rounded-full opacity-[0.05] animate-glow-float"
+          style={{ background: "radial-gradient(circle, rgba(255,240,205,0.9) 0%, transparent 70%)", animationDelay: "1.5s" }} />
         <span className="absolute -bottom-4 right-0 text-[16rem] font-bold leading-none text-white/[0.015] hidden lg:block">04</span>
+
+        {/* парящие светлые частицы */}
+        {[
+          { left: "8%", top: "20%", size: 5, delay: "0s", dur: "8s" },
+          { left: "88%", top: "35%", size: 6, delay: "1.4s", dur: "9s" },
+          { left: "70%", top: "80%", size: 4, delay: "0.8s", dur: "7s" },
+          { left: "20%", top: "70%", size: 6, delay: "2.2s", dur: "8.5s" },
+        ].map((p, i) => (
+          <span
+            key={i}
+            className="absolute rounded-full animate-particle-float"
+            style={{
+              left: p.left,
+              top: p.top,
+              width: p.size,
+              height: p.size,
+              background: "radial-gradient(circle, rgba(255,248,230,0.9) 0%, rgba(232,200,116,0.3) 60%, transparent 100%)",
+              boxShadow: "0 0 8px rgba(255,244,214,0.5)",
+              animationDelay: p.delay,
+              animationDuration: p.dur,
+            }}
+          />
+        ))}
       </div>
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
