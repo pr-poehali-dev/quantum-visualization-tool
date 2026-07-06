@@ -212,6 +212,33 @@ export function Projects() {
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] opacity-[0.03]"
           style={{ background: "radial-gradient(circle, var(--gold) 0%, transparent 70%)" }} />
         <span className="absolute -bottom-4 left-0 text-[16rem] font-bold leading-none text-white/[0.015] hidden lg:block">02</span>
+
+        {/* парящие светлые частицы */}
+        {[
+          { left: "10%", top: "18%", size: 5, delay: "0s", dur: "7.5s" },
+          { left: "85%", top: "24%", size: 6, delay: "1.3s", dur: "8.4s" },
+          { left: "60%", top: "72%", size: 4, delay: "0.7s", dur: "6.8s" },
+          { left: "25%", top: "80%", size: 6, delay: "2.1s", dur: "9s" },
+          { left: "48%", top: "14%", size: 5, delay: "3s", dur: "8.1s" },
+          { left: "92%", top: "62%", size: 4, delay: "1.7s", dur: "7.2s" },
+          { left: "16%", top: "50%", size: 6, delay: "0.5s", dur: "8.8s" },
+          { left: "70%", top: "40%", size: 3, delay: "2.6s", dur: "6.4s" },
+        ].map((p, i) => (
+          <span
+            key={i}
+            className="absolute rounded-full animate-particle-float"
+            style={{
+              left: p.left,
+              top: p.top,
+              width: p.size,
+              height: p.size,
+              background: "radial-gradient(circle, rgba(255,248,230,0.9) 0%, rgba(232,200,116,0.3) 60%, transparent 100%)",
+              boxShadow: "0 0 8px rgba(255,244,214,0.5)",
+              animationDelay: p.delay,
+              animationDuration: p.dur,
+            }}
+          />
+        ))}
       </div>
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
