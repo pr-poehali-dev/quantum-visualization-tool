@@ -95,7 +95,7 @@ export function Constructor() {
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
         <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-[0.07] animate-glow-float"
           style={{ background: "radial-gradient(circle, var(--gold) 0%, transparent 70%)" }} />
-        <div className="absolute -bottom-16 -left-24 w-[340px] h-[340px] rounded-full opacity-[0.05] animate-glow-float"
+        <div className="absolute -bottom-16 -left-24 w-[200px] h-[200px] rounded-full opacity-[0.05] animate-glow-float"
           style={{ background: "radial-gradient(circle, rgba(255,240,205,0.9) 0%, transparent 70%)", animationDelay: "1.5s" }} />
         <span className="absolute -bottom-4 right-0 text-[16rem] font-bold leading-none text-white/[0.015] hidden lg:block">04</span>
 
