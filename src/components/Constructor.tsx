@@ -131,9 +131,33 @@ export function Constructor() {
                     </span>
                   </div>
                   <div className="relative h-3">
-                    <div className="absolute inset-0 rounded-full" style={{ background: "hsl(25 18% 18%)" }} />
-                    <div className="absolute inset-y-0 left-0 rounded-full transition-all duration-150"
-                      style={{ width: `${((length - 100) / 80) * 100}%`, background: "var(--gold)" }} />
+                    <div
+                      className="absolute inset-0 rounded-full"
+                      style={{
+                        background: "hsl(25 18% 12%)",
+                        boxShadow:
+                          "inset 0 2px 5px rgba(0,0,0,0.65), inset 0 -1px 1px rgba(255,255,255,0.04)",
+                      }}
+                    />
+                    <div
+                      className="absolute inset-y-0 left-0 rounded-full transition-all duration-150"
+                      style={{
+                        width: `${((length - 100) / 80) * 100}%`,
+                        background: "linear-gradient(180deg, #e8c874 0%, var(--gold) 55%, #a8842f 100%)",
+                        boxShadow:
+                          "inset 0 1px 1px rgba(255,255,255,0.45), 0 0 10px rgba(201,168,76,0.4)",
+                      }}
+                    />
+                    <div
+                      className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-5 h-5 rounded-full transition-all duration-150 pointer-events-none"
+                      style={{
+                        left: `${((length - 100) / 80) * 100}%`,
+                        background: "radial-gradient(circle at 35% 30%, #fff7e0 0%, #e8c874 40%, var(--gold) 70%, #9a7828 100%)",
+                        boxShadow:
+                          "0 2px 6px rgba(0,0,0,0.55), 0 0 8px rgba(201,168,76,0.5), inset 0 1px 1px rgba(255,255,255,0.6)",
+                        border: "1px solid rgba(0,0,0,0.25)",
+                      }}
+                    />
                     <input
                       type="range" min={100} max={180} step={10}
                       value={length}
@@ -155,9 +179,33 @@ export function Constructor() {
                     </span>
                   </div>
                   <div className="relative h-3">
-                    <div className="absolute inset-0 rounded-full" style={{ background: "hsl(25 18% 18%)" }} />
-                    <div className="absolute inset-y-0 left-0 rounded-full transition-all duration-150"
-                      style={{ width: `${((width - 60) / 20) * 100}%`, background: "var(--gold)" }} />
+                    <div
+                      className="absolute inset-0 rounded-full"
+                      style={{
+                        background: "hsl(25 18% 12%)",
+                        boxShadow:
+                          "inset 0 2px 5px rgba(0,0,0,0.65), inset 0 -1px 1px rgba(255,255,255,0.04)",
+                      }}
+                    />
+                    <div
+                      className="absolute inset-y-0 left-0 rounded-full transition-all duration-150"
+                      style={{
+                        width: `${((width - 60) / 20) * 100}%`,
+                        background: "linear-gradient(180deg, #e8c874 0%, var(--gold) 55%, #a8842f 100%)",
+                        boxShadow:
+                          "inset 0 1px 1px rgba(255,255,255,0.45), 0 0 10px rgba(201,168,76,0.4)",
+                      }}
+                    />
+                    <div
+                      className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-5 h-5 rounded-full transition-all duration-150 pointer-events-none"
+                      style={{
+                        left: `${((width - 60) / 20) * 100}%`,
+                        background: "radial-gradient(circle at 35% 30%, #fff7e0 0%, #e8c874 40%, var(--gold) 70%, #9a7828 100%)",
+                        boxShadow:
+                          "0 2px 6px rgba(0,0,0,0.55), 0 0 8px rgba(201,168,76,0.5), inset 0 1px 1px rgba(255,255,255,0.6)",
+                        border: "1px solid rgba(0,0,0,0.25)",
+                      }}
+                    />
                     <input
                       type="range" min={60} max={80} step={10}
                       value={width}
