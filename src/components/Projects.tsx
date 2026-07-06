@@ -223,6 +223,16 @@ export function Projects() {
           { left: "92%", top: "62%", size: 4, delay: "1.7s", dur: "7.2s" },
           { left: "16%", top: "50%", size: 6, delay: "0.5s", dur: "8.8s" },
           { left: "70%", top: "40%", size: 3, delay: "2.6s", dur: "6.4s" },
+          { left: "5%", top: "35%", size: 4, delay: "1.1s", dur: "7.9s" },
+          { left: "38%", top: "60%", size: 5, delay: "2.4s", dur: "8.6s" },
+          { left: "55%", top: "30%", size: 6, delay: "0.3s", dur: "9.2s" },
+          { left: "78%", top: "82%", size: 4, delay: "1.9s", dur: "7.1s" },
+          { left: "30%", top: "26%", size: 5, delay: "3.2s", dur: "8.3s" },
+          { left: "95%", top: "44%", size: 3, delay: "0.9s", dur: "6.6s" },
+          { left: "20%", top: "68%", size: 6, delay: "2.8s", dur: "9.4s" },
+          { left: "66%", top: "56%", size: 4, delay: "1.5s", dur: "7.7s" },
+          { left: "44%", top: "88%", size: 5, delay: "0.6s", dur: "8.9s" },
+          { left: "88%", top: "12%", size: 4, delay: "2.2s", dur: "7.4s" },
         ].map((p, i) => (
           <span
             key={i}
