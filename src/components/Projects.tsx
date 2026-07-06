@@ -124,11 +124,11 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
 
         {/* стрелки */}
         <button onClick={prev}
-          className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center bg-black/50 hover:bg-black/80 text-white transition-all duration-200 rounded-full opacity-0 group-hover:opacity-100">
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center bg-black/50 hover:bg-black/80 text-white transition-all duration-200 rounded-full opacity-100 md:opacity-0 md:group-hover:opacity-100">
           <ChevronLeft className="w-4 h-4" />
         </button>
         <button onClick={next}
-          className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center bg-black/50 hover:bg-black/80 text-white transition-all duration-200 rounded-full opacity-0 group-hover:opacity-100">
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center bg-black/50 hover:bg-black/80 text-white transition-all duration-200 rounded-full opacity-100 md:opacity-0 md:group-hover:opacity-100">
           <ChevronRight className="w-4 h-4" />
         </button>
 

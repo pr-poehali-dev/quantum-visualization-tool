@@ -53,7 +53,7 @@ export function Philosophy() {
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Left column - Title and image */}
           <div className="lg:sticky lg:top-32 lg:self-start relative">
-            <span className="absolute -top-8 right-0 text-[10rem] font-bold leading-none select-none pointer-events-none text-foreground/[0.04] lg:text-[14rem]">01</span>
+            <span className="absolute -top-8 right-0 text-[6rem] sm:text-[10rem] font-bold leading-none select-none pointer-events-none text-foreground/[0.04] lg:text-[14rem]">01</span>
             <div className="flex items-center gap-4 mb-6">
               <div className="w-0.5 h-8 bg-[var(--gold)] shrink-0" />
               <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase">Наша философия</p>

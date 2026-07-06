@@ -57,7 +57,7 @@ export function Expertise() {
     <section id="services" ref={sectionRef} className="py-32 md:py-29">
       <div className="container mx-auto px-6 md:px-12">
         <div className="max-w-3xl mb-20 relative">
-          <span className="absolute -top-8 right-0 text-[10rem] font-bold leading-none select-none pointer-events-none text-foreground/[0.04] lg:text-[14rem]">03</span>
+          <span className="absolute -top-8 right-0 text-[6rem] sm:text-[10rem] font-bold leading-none select-none pointer-events-none text-foreground/[0.04] lg:text-[14rem]">03</span>
           <div className="flex items-center gap-4 mb-6">
             <div className="w-0.5 h-8 bg-[var(--gold)] shrink-0" />
             <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase">Как мы делаем</p>
