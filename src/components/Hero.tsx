@@ -168,6 +168,14 @@ export function Hero() {
           { left: "30%", top: "78%", size: 4, delay: "2s", dur: "6.5s" },
           { left: "50%", top: "18%", size: 5, delay: "3s", dur: "8.5s" },
           { left: "90%", top: "60%", size: 6, delay: "1.8s", dur: "7.5s" },
+          { left: "18%", top: "52%", size: 5, delay: "0.4s", dur: "7.8s" },
+          { left: "42%", top: "42%", size: 3, delay: "2.6s", dur: "6.2s" },
+          { left: "58%", top: "30%", size: 7, delay: "1.6s", dur: "9.4s" },
+          { left: "72%", top: "48%", size: 4, delay: "3.4s", dur: "8.2s" },
+          { left: "8%", top: "68%", size: 6, delay: "1.1s", dur: "7.3s" },
+          { left: "95%", top: "35%", size: 4, delay: "2.9s", dur: "8.7s" },
+          { left: "36%", top: "12%", size: 5, delay: "0.9s", dur: "6.8s" },
+          { left: "84%", top: "82%", size: 6, delay: "2.3s", dur: "9.1s" },
         ].map((p, i) => (
           <span
             key={i}
