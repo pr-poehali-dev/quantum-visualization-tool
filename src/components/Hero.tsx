@@ -205,7 +205,7 @@ export function Hero() {
         </h1>
 
         <p
-          className="text-blur-behind text-blur-behind-strong hero-reveal text-base md:text-xl text-white text-center font-light max-w-lg leading-relaxed"
+          className="text-blur-behind text-blur-behind-strong hero-reveal mt-8 text-base md:text-xl text-white text-center font-light max-w-lg leading-relaxed"
           style={{ textShadow: "0 2px 14px rgba(0,0,0,0.9), 0 0 6px rgba(0,0,0,0.7)", animationDelay: "0.5s" }}
         >
           Натуральная древесина + современные технологии — ваш идеальный стол
