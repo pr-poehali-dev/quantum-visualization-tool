@@ -36,7 +36,7 @@ export function Header() {
             <Logo size={64} />
           </a>
 
-          <ul className="hidden md:flex items-center gap-10 text-sm tracking-wide">
+          <ul className="hidden md:flex items-center gap-3 text-sm tracking-wide">
             {[
               { label: "Главная", href: "#hero" },
               { label: "О нас", href: "#about" },
@@ -47,7 +47,7 @@ export function Header() {
               <li key={item.label}>
                 <a
                   href={item.href}
-                  className="hover:text-[#e8c87a] transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-[#e8c87a] after:transition-all after:duration-300 text-white"
+                  className="px-4 py-2 rounded-full border border-white/15 text-white transition-all duration-300 hover:text-[#e8c87a] hover:border-[var(--gold)]/60 hover:bg-white/[0.04]"
                 >
                   {item.label}
                 </a>
