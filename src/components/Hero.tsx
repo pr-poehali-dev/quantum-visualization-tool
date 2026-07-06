@@ -190,7 +190,7 @@ export function Hero() {
 
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6 px-6">
         <p
-          className="text-blur-behind hero-reveal text-sm md:text-base tracking-[0.3em] uppercase text-center text-white/90 max-w-xl"
+          className="text-blur-behind text-blur-behind-strong hero-reveal text-sm md:text-base tracking-[0.3em] uppercase text-center text-white/90 max-w-xl"
           style={{ textShadow: "0 2px 12px rgba(0,0,0,0.85), 0 0 4px rgba(0,0,0,0.6)", animationDelay: "0.1s" }}
         >
           {"Компьютерные и умные столы с регулировкой высоты"}
@@ -205,7 +205,7 @@ export function Hero() {
         </h1>
 
         <p
-          className="text-blur-behind hero-reveal text-base md:text-xl text-white text-center font-light max-w-lg leading-relaxed"
+          className="text-blur-behind text-blur-behind-strong hero-reveal text-base md:text-xl text-white text-center font-light max-w-lg leading-relaxed"
           style={{ textShadow: "0 2px 14px rgba(0,0,0,0.9), 0 0 6px rgba(0,0,0,0.7)", animationDelay: "0.5s" }}
         >
           Натуральная древесина + современные технологии — ваш идеальный стол

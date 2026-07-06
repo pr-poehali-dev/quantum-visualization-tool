@@ -190,6 +190,10 @@ body::after {
   );
   pointer-events: none;
 }
+.text-blur-behind-strong::before {
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
 
 /* Плавно пульсирующие световые пятна */
 @keyframes glow-float {
