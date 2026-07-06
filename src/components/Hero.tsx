@@ -188,20 +188,9 @@ export function Hero() {
 
       <div ref={contentRef} className="hidden" style={{ willChange: "transform" }} />
 
-      {/* мягкое размытие фона за текстом для чёткости */}
-      <div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[8] pointer-events-none w-[85%] max-w-3xl h-[70%]"
-        style={{
-          backdropFilter: "blur(6px)",
-          WebkitBackdropFilter: "blur(6px)",
-          maskImage: "radial-gradient(ellipse 60% 55% at 50% 50%, black 35%, transparent 75%)",
-          WebkitMaskImage: "radial-gradient(ellipse 60% 55% at 50% 50%, black 35%, transparent 75%)",
-        }}
-      />
-
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6 px-6">
         <p
-          className="hero-reveal text-sm md:text-base tracking-[0.3em] uppercase text-center text-white/90 max-w-xl"
+          className="text-blur-behind hero-reveal text-sm md:text-base tracking-[0.3em] uppercase text-center text-white/90 max-w-xl"
           style={{ textShadow: "0 2px 12px rgba(0,0,0,0.85), 0 0 4px rgba(0,0,0,0.6)", animationDelay: "0.1s" }}
         >
           {"Компьютерные и умные столы с регулировкой высоты"}
@@ -209,14 +198,14 @@ export function Hero() {
 
         <h1
           ref={titleRef}
-          className="hero-reveal hero-title hero-title-gold text-7xl text-balance text-center leading-[1.05] lg:text-[10rem]"
+          className="text-blur-behind hero-reveal hero-title hero-title-gold text-7xl text-balance text-center leading-[1.05] lg:text-[10rem]"
           style={{ animationDelay: "0.3s" }}
         >
           Русский <span className="hero-title-accent">Стол</span>
         </h1>
 
         <p
-          className="hero-reveal text-base md:text-xl text-white text-center font-light max-w-lg leading-relaxed"
+          className="text-blur-behind hero-reveal text-base md:text-xl text-white text-center font-light max-w-lg leading-relaxed"
           style={{ textShadow: "0 2px 14px rgba(0,0,0,0.9), 0 0 6px rgba(0,0,0,0.7)", animationDelay: "0.5s" }}
         >
           Натуральная древесина + современные технологии — ваш идеальный стол

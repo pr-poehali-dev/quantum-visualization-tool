@@ -166,6 +166,31 @@ body::after {
   font-weight: 700;
 }
 
+/* Лёгкое размытие фона строго за текстом */
+.text-blur-behind {
+  position: relative;
+  isolation: isolate;
+}
+.text-blur-behind::before {
+  content: "";
+  position: absolute;
+  inset: -0.15em -0.5em;
+  z-index: -1;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  -webkit-mask-image: radial-gradient(
+    ellipse 100% 90% at 50% 50%,
+    black 45%,
+    transparent 80%
+  );
+  mask-image: radial-gradient(
+    ellipse 100% 90% at 50% 50%,
+    black 45%,
+    transparent 80%
+  );
+  pointer-events: none;
+}
+
 /* Плавно пульсирующие световые пятна */
 @keyframes glow-float {
   0%,
