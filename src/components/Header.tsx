@@ -3,15 +3,44 @@ import { cn } from "../lib/utils"
 import { Logo } from "./Logo"
 import { ContactModal } from "./ContactModal"
 
+const navItems = [
+  { label: "Главная", href: "#hero" },
+  { label: "О нас", href: "#about" },
+  { label: "Работы", href: "#projects" },
+  { label: "Процесс", href: "#services" },
+  { label: "FAQ", href: "#faq" },
+]
+
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState("hero")
 
   useEffect(() => {
     const handleScroll = () => { setScrolled(window.scrollY > 50) }
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const ids = navItems.map((i) => i.href.replace("#", ""))
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null)
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+        if (visible[0]) setActiveSection(visible[0].target.id)
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: [0, 0.25, 0.5, 1] },
+    )
+
+    sections.forEach((s) => observer.observe(s))
+    return () => observer.disconnect()
   }, [])
 
   const closeMobileMenu = () => setMobileMenuOpen(false)
@@ -44,22 +73,24 @@ export function Header() {
           </a>
 
           <ul className="hidden md:flex items-center gap-3 text-sm tracking-wide">
-            {[
-              { label: "Главная", href: "#hero" },
-              { label: "О нас", href: "#about" },
-              { label: "Работы", href: "#projects" },
-              { label: "Процесс", href: "#services" },
-              { label: "FAQ", href: "#faq" },
-            ].map((item) => (
-              <li key={item.label}>
-                <a
-                  href={item.href}
-                  className="inline-block whitespace-nowrap px-4 py-2 rounded-md border border-white/15 text-white transition-all duration-300 hover:text-[#e8c87a] hover:border-[var(--gold)]/60 hover:bg-white/[0.04]"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
+            {navItems.map((item) => {
+              const isActive = activeSection === item.href.replace("#", "")
+              return (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    className={cn(
+                      "inline-block whitespace-nowrap px-4 py-2 rounded-md border transition-all duration-300",
+                      isActive
+                        ? "border-[var(--gold)] bg-[var(--gold)]/15 text-[#e8c87a] shadow-[0_0_14px_rgba(201,168,76,0.35)]"
+                        : "border-white/15 text-white hover:text-[#e8c87a] hover:border-[var(--gold)]/60 hover:bg-white/[0.04]",
+                    )}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              )
+            })}
             <li>
               <a
                 href="#constructor"
