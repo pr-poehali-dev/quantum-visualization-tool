@@ -199,14 +199,13 @@ body::after {
   -webkit-backdrop-filter: blur(6px);
 }
 
-/* На мобильных backdrop-filter размывает сам текст (баг iOS/Android) —
-   отключаем размытие и оставляем мягкую тёмную подложку для читаемости */
+/* На мобильных backdrop-filter размывает сам текст и создаёт грязное тёмное
+   пятно (баг iOS/Android) — полностью убираем подложку, читаемость
+   обеспечивается тенью самого текста */
 @media (max-width: 767px) {
   .text-blur-behind::before,
   .text-blur-behind-strong::before {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background: rgba(20, 12, 5, 0.28);
+    display: none;
   }
 }
 
