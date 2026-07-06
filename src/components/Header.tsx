@@ -27,7 +27,7 @@ export function Header() {
         className={cn(
           "fixed z-50 transition-all duration-500 my-0 py-0 rounded-none",
           scrolled || mobileMenuOpen
-            ? "bg-primary backdrop-blur-md py-4 top-4 left-4 right-4 rounded-2xl border border-[var(--gold)]/30 shadow-[0_8px_32px_rgba(0,0,0,0.35),0_0_0_1px_rgba(201,168,76,0.15)]"
+            ? "bg-primary backdrop-blur-md py-4 top-4 left-4 right-4 rounded-2xl border-2 border-[var(--gold)]/40 shadow-[0_8px_32px_rgba(0,0,0,0.35),0_0_0_6px_rgba(201,168,76,0.12),0_0_28px_rgba(201,168,76,0.35)]"
             : "bg-transparent py-4 top-0 left-0 right-0 border border-transparent",
         )}
       >
