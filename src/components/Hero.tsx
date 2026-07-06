@@ -159,13 +159,15 @@ export function Hero() {
           Натуральная древесина + современные технологии — ваш идеальный стол
         </p>
 
-        <button
-          onClick={() => setContactOpen(true)}
-          className="btn-glow btn-glow-pulse hero-reveal mt-6 inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm tracking-widest uppercase font-medium transition-all duration-300"
-          style={{ background: "#c9a84c", color: "#1a0f05", animationDelay: "0.7s" }}
-        >
-          Заказать стол
-        </button>
+        <div className="hero-reveal mt-6" style={{ animationDelay: "0.7s" }}>
+          <button
+            onClick={() => setContactOpen(true)}
+            className="btn-glow btn-glow-pulse inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm tracking-widest uppercase font-medium transition-all duration-300"
+            style={{ background: "#c9a84c", color: "#1a0f05" }}
+          >
+            Заказать стол
+          </button>
+        </div>
       </div>
 
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
