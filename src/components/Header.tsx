@@ -2,6 +2,7 @@ import { useState, useEffect, MouseEvent } from "react"
 import { cn } from "../lib/utils"
 import { Logo } from "./Logo"
 import { ContactModal } from "./ContactModal"
+import Icon from "./ui/icon"
 
 const navItems = [
   { label: "Главная", href: "#hero" },
@@ -128,24 +129,65 @@ export function Header() {
             Связаться
           </button>
 
-          <button
-            className="md:hidden z-50 transition-colors duration-300 text-white p-1.5 -mr-1.5"
-            aria-label={mobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            ) : (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <line x1="4" y1="8" x2="20" y2="8" />
-                <line x1="4" y1="16" x2="20" y2="16" />
-              </svg>
+          <div className="md:hidden flex items-center gap-1.5">
+            {!mobileMenuOpen && (
+              <>
+                <a
+                  href="#constructor"
+                  aria-label="Конструктор"
+                  className="inline-flex items-center justify-center w-9 h-9 rounded-full transition-all duration-300"
+                  style={{ background: "var(--gold)", color: "#1a0f05" }}
+                >
+                  <Icon name="Hammer" size={16} />
+                </a>
+                <button
+                  onClick={() => setContactOpen(true)}
+                  aria-label="Связаться"
+                  className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/10 text-white border border-white/20 transition-all duration-300"
+                >
+                  <Icon name="MessageCircle" size={16} />
+                </button>
+              </>
             )}
-          </button>
+
+            <button
+              className="z-50 transition-colors duration-300 text-white p-1.5"
+              aria-label={mobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              ) : (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <line x1="4" y1="8" x2="20" y2="8" />
+                  <line x1="4" y1="16" x2="20" y2="16" />
+                </svg>
+              )}
+            </button>
+          </div>
         </nav>
+
+        {!mobileMenuOpen && (
+          <div className="md:hidden flex items-center justify-center gap-1.5 pt-2.5">
+            {navItems.map((item) => {
+              const isActive = activeSection === item.href.replace("#", "")
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  aria-label={item.label}
+                  className={cn(
+                    "h-1.5 rounded-full transition-all duration-300",
+                    isActive ? "w-5 bg-[var(--gold)]" : "w-1.5 bg-white/25",
+                  )}
+                />
+              )
+            })}
+          </div>
+        )}
 
         <div
           className={cn(
