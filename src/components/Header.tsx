@@ -171,21 +171,26 @@ export function Header() {
         </nav>
 
         {!mobileMenuOpen && (
-          <div className="md:hidden flex items-center justify-center gap-1.5 pt-2.5">
-            {navItems.map((item) => {
-              const isActive = activeSection === item.href.replace("#", "")
-              return (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  aria-label={item.label}
-                  className={cn(
-                    "h-1.5 rounded-full transition-all duration-300",
-                    isActive ? "w-5 bg-[var(--gold)]" : "w-1.5 bg-white/25",
-                  )}
-                />
-              )
-            })}
+          <div className="md:hidden container mx-auto px-4 pt-2.5">
+            <div className="grid grid-cols-2 gap-1.5">
+              {navItems.map((item) => {
+                const isActive = activeSection === item.href.replace("#", "")
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className={cn(
+                      "text-xs text-center py-1.5 px-2 rounded-md border transition-all duration-300",
+                      isActive
+                        ? "border-[var(--gold)] bg-[var(--gold)]/15 text-[#e8c87a]"
+                        : "border-white/15 text-white/80",
+                    )}
+                  >
+                    {item.label}
+                  </a>
+                )
+              })}
+            </div>
           </div>
         )}
 
