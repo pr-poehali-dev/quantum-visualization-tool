@@ -70,13 +70,18 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-border flex flex-col md:flex-row md:items-center justify-between gap-4 text-sm text-muted-foreground">
-          <p>© 2026 Русский Стол. Все права защищены.</p>
-          <div className="flex gap-6">
-            <Link to="/privacy" className="hover:text-foreground transition-colors">
-              Политика конфиденциальности
-            </Link>
+        <div className="pt-8 border-t border-border flex flex-col gap-4 text-sm text-muted-foreground">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <p>© 2026 Русский Стол. Все права защищены.</p>
+            <div className="flex gap-6">
+              <Link to="/privacy" className="hover:text-foreground transition-colors">
+                Политика конфиденциальности
+              </Link>
+            </div>
           </div>
+          <p className="text-xs text-muted-foreground/70">
+            ИП Городничев Иван Андреевич · ИНН 781904681926 · ОГРНИП 326784700242304
+          </p>
         </div>
       </div>
     </footer>
