@@ -89,7 +89,7 @@ export function Constructor() {
 
   return (
     <section id="constructor" className="py-24 md:py-32 relative overflow-hidden"
-      style={{ background: "linear-gradient(160deg, hsl(25 20% 8%) 0%, hsl(25 20% 8%) 55%, var(--navy) 130%)" }}>
+      style={{ background: "linear-gradient(160deg, hsl(25 20% 8%) 0%, hsl(25 20% 8%) 30%, var(--navy) 100%)" }}>
 
       {/* декоративный свет */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">

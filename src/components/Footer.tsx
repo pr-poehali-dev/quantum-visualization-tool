@@ -7,7 +7,11 @@ export function Footer() {
   const [contactOpen, setContactOpen] = useState(false)
   return (
     <>
-    <footer className="py-16 md:py-24 border-t border-border">
+    <footer className="py-16 md:py-24 border-t border-border relative overflow-hidden">
+      <div
+        className="absolute top-0 left-0 right-0 h-1"
+        style={{ background: "linear-gradient(90deg, transparent, var(--navy) 20%, var(--navy) 80%, transparent)" }}
+      />
       <div className="container mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-4 gap-12 mb-16">
           {/* Brand */}

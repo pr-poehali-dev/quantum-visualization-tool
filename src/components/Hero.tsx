@@ -157,6 +157,14 @@ export function Hero() {
             animationDelay: "1.5s",
           }}
         />
+        {/* тёмно-синий акцент снизу */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-1/2 pointer-events-none"
+          style={{
+            background: "linear-gradient(0deg, var(--navy) 0%, transparent 100%)",
+            opacity: 0.35,
+          }}
+        />
       </div>
 
       {/* парящие светлые частицы */}
