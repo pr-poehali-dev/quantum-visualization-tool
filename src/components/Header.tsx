@@ -69,9 +69,12 @@ export function Header() {
       <header
         className={cn(
           "fixed z-50 transition-all duration-500 my-0 py-0 rounded-none",
+          scrolled && !mobileMenuOpen && "py-1.5",
+          (scrolled || mobileMenuOpen) && "md:py-4",
           scrolled || mobileMenuOpen
-            ? "backdrop-blur-md py-2.5 md:py-4 top-2 md:top-4 left-2 md:left-4 right-2 md:right-4 rounded-xl md:rounded-2xl border-2 border-[var(--gold)]/40 shadow-[0_8px_32px_rgba(0,0,0,0.35),0_0_0_6px_rgba(201,168,76,0.12),0_0_28px_rgba(201,168,76,0.35)]"
+            ? "backdrop-blur-md top-2 md:top-4 left-2 md:left-4 right-2 md:right-4 rounded-xl md:rounded-2xl border-2 border-[var(--gold)]/40 shadow-[0_8px_32px_rgba(0,0,0,0.35),0_0_0_6px_rgba(201,168,76,0.12),0_0_28px_rgba(201,168,76,0.35)]"
             : "bg-transparent py-3 md:py-4 top-0 left-0 right-0 border border-transparent",
+          scrolled && mobileMenuOpen && "py-2.5",
         )}
         style={scrolled || mobileMenuOpen ? { background: "linear-gradient(120deg, hsl(25 18% 14%) 0%, var(--navy) 145%)" } : undefined}
       >
@@ -79,7 +82,8 @@ export function Header() {
           <a
             href="/"
             className={cn(
-              "group transition-all duration-500 scale-75 md:scale-100 origin-left",
+              "group transition-all duration-500 origin-left",
+              scrolled && !mobileMenuOpen ? "scale-[0.55] md:scale-100" : "scale-75 md:scale-100",
               scrolled || mobileMenuOpen ? "-ml-3" : "ml-0",
             )}
             onClick={scrollToTop}
@@ -136,17 +140,23 @@ export function Header() {
                 <a
                   href="#constructor"
                   aria-label="Конструктор"
-                  className="inline-flex items-center justify-center w-9 h-9 rounded-full transition-all duration-300"
+                  className={cn(
+                    "inline-flex items-center justify-center rounded-full transition-all duration-300",
+                    scrolled ? "w-7 h-7" : "w-9 h-9",
+                  )}
                   style={{ background: "var(--gold)", color: "#1a0f05" }}
                 >
-                  <Icon name="Hammer" size={16} />
+                  <Icon name="Hammer" size={scrolled ? 13 : 16} />
                 </a>
                 <button
                   onClick={() => setContactOpen(true)}
                   aria-label="Связаться"
-                  className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/10 text-white border border-white/20 transition-all duration-300"
+                  className={cn(
+                    "inline-flex items-center justify-center rounded-full bg-white/10 text-white border border-white/20 transition-all duration-300",
+                    scrolled ? "w-7 h-7" : "w-9 h-9",
+                  )}
                 >
-                  <Icon name="MessageCircle" size={16} />
+                  <Icon name="MessageCircle" size={scrolled ? 13 : 16} />
                 </button>
               </>
             )}
@@ -172,7 +182,7 @@ export function Header() {
         </nav>
 
         {!mobileMenuOpen && (
-          <div className="md:hidden container mx-auto px-4 pt-2.5">
+          <div className={cn("md:hidden container mx-auto px-4", scrolled ? "pt-1.5" : "pt-2.5")}>
             <div className="grid grid-cols-2 gap-1.5">
               {navItems.map((item) => {
                 const isActive = activeSection === item.href.replace("#", "")
@@ -181,7 +191,8 @@ export function Header() {
                     key={item.label}
                     href={item.href}
                     className={cn(
-                      "text-xs text-center py-1.5 px-2 rounded-md border transition-all duration-300",
+                      "text-center rounded-md border transition-all duration-300",
+                      scrolled ? "text-[10px] py-1 px-1.5" : "text-xs py-1.5 px-2",
                       isActive
                         ? "border-[var(--gold)] bg-[var(--gold)]/15 text-[#e8c87a]"
                         : "border-white/15 text-white/80",
