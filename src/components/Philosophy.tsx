@@ -55,7 +55,7 @@ export function Philosophy() {
           <div className="lg:sticky lg:top-32 lg:self-start relative">
             <span className="absolute -top-8 right-0 text-[6rem] sm:text-[10rem] font-bold leading-none select-none pointer-events-none text-foreground/[0.04] lg:text-[14rem]">01</span>
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-0.5 h-8 bg-[var(--gold)] shrink-0" />
+              <div className="w-0.5 h-8 shrink-0" style={{ background: "linear-gradient(180deg, var(--gold) 0%, var(--navy) 100%)" }} />
               <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase">Наша философия</p>
             </div>
             <h2 className="text-6xl md:text-6xl font-medium leading-[1.15] tracking-tight mb-6 text-balance lg:text-8xl">
@@ -92,7 +92,7 @@ export function Philosophy() {
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="flex gap-6">
-                  <span className="text-muted-foreground/50 text-sm font-medium">0{index + 1}</span>
+                  <span className="text-sm font-semibold" style={{ color: "var(--navy-light)" }}>0{index + 1}</span>
                   <div>
                     <h3 className="text-xl font-medium mb-3">{item.title}</h3>
                     <p className="text-muted-foreground leading-relaxed">{item.description}</p>

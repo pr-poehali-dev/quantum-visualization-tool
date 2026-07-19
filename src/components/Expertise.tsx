@@ -59,7 +59,7 @@ export function Expertise() {
         <div className="max-w-3xl mb-20 relative">
           <span className="absolute -top-8 right-0 text-[6rem] sm:text-[10rem] font-bold leading-none select-none pointer-events-none text-foreground/[0.04] lg:text-[14rem]">03</span>
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-0.5 h-8 bg-[var(--gold)] shrink-0" />
+            <div className="w-0.5 h-8 shrink-0" style={{ background: "linear-gradient(180deg, var(--gold) 0%, var(--navy) 100%)" }} />
             <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase">Как мы делаем</p>
           </div>
           <h2 className="text-6xl font-medium leading-[1.15] tracking-tight mb-6 text-balance lg:text-8xl">
@@ -96,7 +96,7 @@ export function Expertise() {
                     visibleItems.includes(index) ? "animate-draw-stroke" : ""
                   }`}
                   style={{
-                    background: "hsl(25 18% 14%)",
+                    background: "linear-gradient(135deg, hsl(25 18% 14%) 0%, var(--navy) 100%)",
                     transitionDelay: `${index * 150}ms`,
                   }}
                 >

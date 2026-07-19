@@ -47,7 +47,7 @@ export function FAQ() {
         <div className="max-w-3xl mb-16 relative">
           <span className="absolute -top-8 right-0 text-[10rem] font-bold leading-none select-none pointer-events-none text-foreground/[0.04] lg:text-[14rem]">05</span>
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-0.5 h-8 bg-[var(--gold)] shrink-0" />
+            <div className="w-0.5 h-8 shrink-0" style={{ background: "linear-gradient(180deg, var(--gold) 0%, var(--navy) 100%)" }} />
             <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase">Вопросы</p>
           </div>
           <h2 className="text-6xl font-medium leading-[1.15] tracking-tight mb-6 text-balance lg:text-7xl">
@@ -80,14 +80,14 @@ export function FAQ() {
                   style={
                     openIndex === index
                       ? { background: "var(--gold)" }
-                      : { background: "hsl(25 18% 14% / 0.06)" }
+                      : { background: "rgba(22, 35, 61, 0.08)" }
                   }
                 >
                   <Plus
                     className={`w-5 h-5 transition-transform duration-300 ${
                       openIndex === index ? "rotate-45" : "rotate-0"
                     }`}
-                    style={{ color: openIndex === index ? "#1a0f05" : "hsl(25 20% 10%)" }}
+                    style={{ color: openIndex === index ? "#1a0f05" : "var(--navy)" }}
                     strokeWidth={1.5}
                   />
                 </span>
