@@ -23,8 +23,9 @@ const projects = [
     year: "2024",
     price: "45 000 ₽",
     images: [
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/5d4e2b26-1005-4dc7-a4d8-16c730a4845b.png",
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/72a2286c-6002-42b2-a777-0a8f7e7e27ac.png",
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/90f30814-8c34-440f-8ad3-360f8d0726d8.jpg",
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/f469547b-58cb-4be5-ad85-44d0f6950640.jpg",
+      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/47f36ab5-22f1-4ca2-8723-51d85d1bf1ed.jpg",
     ],
   },
   {
