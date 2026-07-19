@@ -57,7 +57,7 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
       {/* modal */}
       <div
         className="relative w-full sm:max-w-sm mx-4 mb-0 sm:mb-auto border border-white/10"
-        style={{ background: "hsl(25 20% 10%)" }}
+        style={{ background: "linear-gradient(155deg, hsl(25 20% 10%) 0%, var(--navy) 160%)" }}
         onClick={e => e.stopPropagation()}
       >
         {/* шапка */}

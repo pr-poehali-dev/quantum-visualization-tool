@@ -8,7 +8,11 @@ export function CallToAction() {
 
   return (
     <>
-      <section id="contact" className="py-32 md:py-29 bg-foreground text-primary-foreground">
+      <section
+        id="contact"
+        className="py-32 md:py-29 text-primary-foreground"
+        style={{ background: "linear-gradient(135deg, hsl(25 20% 10%) 0%, var(--navy) 100%)" }}
+      >
         <div className="container mx-auto px-6 md:px-12">
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-primary-foreground/60 text-sm tracking-[0.3em] uppercase mb-8">Заказать стол</p>

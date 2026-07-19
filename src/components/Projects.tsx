@@ -203,7 +203,7 @@ export function Projects() {
 
   return (
     <section id="projects" className="py-32 relative overflow-hidden"
-      style={{ background: "hsl(25 20% 8%)" }}>
+      style={{ background: "linear-gradient(200deg, hsl(25 20% 8%) 0%, hsl(25 20% 8%) 60%, var(--navy) 140%)" }}>
 
       {/* декоративный свет */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
