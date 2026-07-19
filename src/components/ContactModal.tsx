@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { X } from "lucide-react"
-import telegramIcon from "@/assets/telegram-icon.webp"
+import { SiTelegram, SiVk, SiMax } from "react-icons/si"
 
 const MAX_URL = "https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
 const VK_URL = "https://vk.ru/club239485505"
@@ -116,7 +116,9 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
             disabled={!agreed}
             className="w-full flex items-center gap-4 px-5 py-4 border border-white/10 hover:border-white/25 bg-white/[0.03] hover:bg-white/[0.07] transition-all duration-200 group text-left disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-white/10 disabled:hover:bg-white/[0.03]"
           >
-            <span className="text-2xl">💬</span>
+            <span className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style={{ background: "#FFFFFF" }}>
+              <SiMax size={20} color="#171717" />
+            </span>
             <span className="flex flex-col">
               <span className="text-white font-medium text-sm">MAX</span>
               <span className="text-white/35 text-xs">Мессенджер от VK</span>
@@ -129,7 +131,9 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
             disabled={!agreed}
             className="w-full flex items-center gap-4 px-5 py-4 border border-white/10 hover:border-white/25 bg-white/[0.03] hover:bg-white/[0.07] transition-all duration-200 group text-left disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-white/10 disabled:hover:bg-white/[0.03]"
           >
-            <span className="text-2xl">🔵</span>
+            <span className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style={{ background: "#0077FF" }}>
+              <SiVk size={18} color="#fff" />
+            </span>
             <span className="flex flex-col">
               <span className="text-white font-medium text-sm">ВКонтакте</span>
               <span className="text-white/35 text-xs">Группа в ВК</span>
@@ -142,7 +146,9 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
             disabled={!agreed}
             className="w-full flex items-center gap-4 px-5 py-4 border border-white/10 hover:border-white/25 bg-white/[0.03] hover:bg-white/[0.07] transition-all duration-200 group text-left disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-white/10 disabled:hover:bg-white/[0.03]"
           >
-            <img src={telegramIcon} alt="Telegram" className="w-6 h-6 object-contain rounded-md" />
+            <span className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style={{ background: "#26A5E4" }}>
+              <SiTelegram size={18} color="#fff" />
+            </span>
             <span className="flex flex-col">
               <span className="text-white font-medium text-sm">Telegram</span>
               <span className="text-white/35 text-xs">+7 995 623-61-31</span>
