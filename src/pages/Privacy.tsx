@@ -122,10 +122,10 @@ export default function Privacy() {
               По всем вопросам, связанным с обработкой персональных данных, вы можете
               связаться с нами по адресу:{" "}
               <a
-                href="mailto:g_t_2009@mail.ru"
+                href="mailto:russian_table@mail.ru"
                 className="text-foreground underline hover:opacity-70 transition-opacity"
               >
-                g_t_2009@mail.ru
+                russian_table@mail.ru
               </a>
               .
             </p>

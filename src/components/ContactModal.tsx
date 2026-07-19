@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { X } from "lucide-react"
-import { SiTelegram, SiVk, SiMax } from "react-icons/si"
+import { X, Phone } from "lucide-react"
+import { SiTelegram, SiVk } from "react-icons/si"
 
 const MAX_URL = "https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
 const VK_URL = "https://vk.ru/club239485505"
-const TELEGRAM_URL = "https://t.me/+79956236131"
+const PHONE_NUMBER = "+79956236131"
+const TELEGRAM_URL = `https://t.me/${PHONE_NUMBER}`
+const PHONE_DISPLAY = "+7 995 623-61-31"
 
 interface ContactModalProps {
   open: boolean
@@ -52,6 +54,12 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
     if (!agreed) return
     if (message) navigator.clipboard.writeText(message).catch(() => {})
     window.open(TELEGRAM_URL, "_blank", "noopener,noreferrer")
+    onClose()
+  }
+
+  const openPhone = () => {
+    if (!agreed) return
+    window.location.href = `tel:${PHONE_NUMBER}`
     onClose()
   }
 
@@ -116,8 +124,11 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
             disabled={!agreed}
             className="w-full flex items-center gap-4 px-5 py-4 border border-white/10 hover:border-white/25 bg-white/[0.03] hover:bg-white/[0.07] transition-all duration-200 group text-left disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-white/10 disabled:hover:bg-white/[0.03]"
           >
-            <span className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style={{ background: "#FFFFFF" }}>
-              <SiMax size={20} color="#171717" />
+            <span
+              className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0 text-white font-bold text-[13px] tracking-tight"
+              style={{ background: "linear-gradient(135deg, #7C5CFC 0%, #4B7BFF 100%)" }}
+            >
+              MAX
             </span>
             <span className="flex flex-col">
               <span className="text-white font-medium text-sm">MAX</span>
@@ -151,7 +162,25 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
             </span>
             <span className="flex flex-col">
               <span className="text-white font-medium text-sm">Telegram</span>
-              <span className="text-white/35 text-xs">+7 995 623-61-31</span>
+              <span className="text-white/35 text-xs">{PHONE_DISPLAY}</span>
+            </span>
+            <span className="ml-auto text-white/20 group-hover:text-white/50 transition-colors text-lg">→</span>
+          </button>
+
+          <button
+            onClick={openPhone}
+            disabled={!agreed}
+            className="w-full flex items-center gap-4 px-5 py-4 border border-white/10 hover:border-white/25 bg-white/[0.03] hover:bg-white/[0.07] transition-all duration-200 group text-left disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-white/10 disabled:hover:bg-white/[0.03]"
+          >
+            <span
+              className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0"
+              style={{ background: "var(--gold)" }}
+            >
+              <Phone size={16} color="#1a0f05" />
+            </span>
+            <span className="flex flex-col">
+              <span className="text-white font-medium text-sm">Позвонить</span>
+              <span className="text-white/35 text-xs">{PHONE_DISPLAY}</span>
             </span>
             <span className="ml-auto text-white/20 group-hover:text-white/50 transition-colors text-lg">→</span>
           </button>
