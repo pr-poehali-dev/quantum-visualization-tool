@@ -120,24 +120,15 @@ export function Header() {
             </li>
           </ul>
 
-          <div className="hidden md:flex items-center gap-2">
-            <a
-              href="mailto:russian_table@mail.ru"
-              aria-label="Написать на почту"
-              className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-white hover:bg-white/10 transition-all duration-300"
-            >
-              <Icon name="Mail" size={18} />
-            </a>
-            <button
-              onClick={() => setContactOpen(true)}
-              className={cn(
-                "inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full transition-all duration-300",
-                "bg-white text-foreground border border-foreground/20 hover:bg-foreground hover:text-white",
-              )}
-            >
-              Связаться
-            </button>
-          </div>
+          <button
+            onClick={() => setContactOpen(true)}
+            className={cn(
+              "hidden md:inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full transition-all duration-300",
+              "bg-white text-foreground border border-foreground/20 hover:bg-foreground hover:text-white",
+            )}
+          >
+            Связаться
+          </button>
 
           <div className="md:hidden flex items-center gap-1.5">
             {!mobileMenuOpen && (
@@ -149,13 +140,6 @@ export function Header() {
                   style={{ background: "var(--gold)", color: "#1a0f05" }}
                 >
                   <Icon name="Hammer" size={16} />
-                </a>
-                <a
-                  href="mailto:russian_table@mail.ru"
-                  aria-label="Написать на почту"
-                  className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/10 text-white border border-white/20 transition-all duration-300"
-                >
-                  <Icon name="Mail" size={16} />
                 </a>
                 <button
                   onClick={() => setContactOpen(true)}

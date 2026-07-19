@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { X, Phone } from "lucide-react"
+import { X, Phone, Mail } from "lucide-react"
 import { SiTelegram, SiVk } from "react-icons/si"
 
 const MAX_URL = "https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
@@ -8,6 +8,7 @@ const VK_URL = "https://vk.ru/club239485505"
 const PHONE_NUMBER = "+79956236131"
 const TELEGRAM_URL = `https://t.me/${PHONE_NUMBER}`
 const PHONE_DISPLAY = "+7 995 623-61-31"
+const EMAIL = "russian_table@mail.ru"
 
 interface ContactModalProps {
   open: boolean
@@ -60,6 +61,12 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
   const openPhone = () => {
     if (!agreed) return
     window.location.href = `tel:${PHONE_NUMBER}`
+    onClose()
+  }
+
+  const openEmail = () => {
+    if (!agreed) return
+    window.location.href = `mailto:${EMAIL}`
     onClose()
   }
 
@@ -181,6 +188,24 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
             <span className="flex flex-col">
               <span className="text-white font-medium text-sm">Позвонить</span>
               <span className="text-white/35 text-xs">{PHONE_DISPLAY}</span>
+            </span>
+            <span className="ml-auto text-white/20 group-hover:text-white/50 transition-colors text-lg">→</span>
+          </button>
+
+          <button
+            onClick={openEmail}
+            disabled={!agreed}
+            className="w-full flex items-center gap-4 px-5 py-4 border border-white/10 hover:border-white/25 bg-white/[0.03] hover:bg-white/[0.07] transition-all duration-200 group text-left disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-white/10 disabled:hover:bg-white/[0.03]"
+          >
+            <span
+              className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0 border border-white/20"
+              style={{ background: "rgba(255,255,255,0.05)" }}
+            >
+              <Mail size={16} color="#fff" />
+            </span>
+            <span className="flex flex-col">
+              <span className="text-white font-medium text-sm">Написать на почту</span>
+              <span className="text-white/35 text-xs">{EMAIL}</span>
             </span>
             <span className="ml-auto text-white/20 group-hover:text-white/50 transition-colors text-lg">→</span>
           </button>
