@@ -48,8 +48,12 @@ export function Philosophy() {
   }, [])
 
   return (
-    <section id="about" className="py-32 md:py-29">
-      <div className="container mx-auto px-6 md:px-12">
+    <section id="about" className="py-32 md:py-29 relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-[0.05]">
+        <div className="absolute top-[10%] -left-10 w-[140%] h-10 -rotate-6" style={{ background: "linear-gradient(90deg, transparent, var(--navy) 30%, var(--navy) 70%, transparent)" }} />
+        <div className="absolute bottom-[15%] -left-10 w-[140%] h-6 rotate-3" style={{ background: "linear-gradient(90deg, transparent, var(--navy) 30%, var(--navy) 70%, transparent)" }} />
+      </div>
+      <div className="container mx-auto px-6 md:px-12 relative">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Left column - Title and image */}
           <div className="lg:sticky lg:top-32 lg:self-start relative">
