@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { ArrowDown } from "lucide-react"
 import { ContactModal } from "./ContactModal"
+import heroImage from "@/assets/hero-desk.jpg"
 
 export function Hero() {
   const contentRef = useRef<HTMLDivElement>(null)
@@ -122,7 +123,7 @@ export function Hero() {
     <section id="hero" ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img
-          src="https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/7287aa45-f569-47ac-8061-8e87c79957de.jpg"
+          src={heroImage}
           alt="Рабочий кабинет со столом из массива дуба"
           className="w-full h-full object-cover object-center"
           style={{ filter: "brightness(1.18) contrast(0.97)" }}
