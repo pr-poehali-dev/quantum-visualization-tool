@@ -55,10 +55,9 @@ export function Expertise() {
 
   return (
     <section id="services" ref={sectionRef} className="py-32 md:py-29 relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-[0.1]">
-        <div className="absolute top-[8%] -left-10 w-[140%] h-16 rotate-3" style={{ background: "linear-gradient(90deg, transparent, var(--navy) 25%, var(--navy) 75%, transparent)" }} />
-        <div className="absolute bottom-[12%] -left-10 w-[140%] h-10 -rotate-6" style={{ background: "linear-gradient(90deg, transparent, var(--navy) 25%, var(--navy) 75%, transparent)" }} />
-        <div className="absolute top-1/2 -left-10 w-[140%] h-4 rotate-2" style={{ background: "linear-gradient(90deg, transparent, var(--navy) 25%, var(--navy) 75%, transparent)" }} />
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+        <div className="absolute top-0 -right-1/4 w-[70%] h-[60%] rounded-full opacity-[0.12]" style={{ background: "radial-gradient(ellipse, var(--navy) 0%, transparent 70%)", filter: "blur(60px)" }} />
+        <div className="absolute bottom-[5%] -left-1/4 w-[60%] h-[50%] rounded-full opacity-[0.1]" style={{ background: "radial-gradient(ellipse, var(--navy) 0%, transparent 70%)", filter: "blur(60px)" }} />
       </div>
       <div className="container mx-auto px-6 md:px-12 relative">
         <div className="max-w-3xl mb-20 relative">

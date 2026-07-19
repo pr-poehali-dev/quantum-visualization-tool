@@ -43,10 +43,9 @@ export function FAQ() {
 
   return (
     <section id="faq" className="py-20 md:py-29 relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-[0.1]">
-        <div className="absolute top-[6%] -left-10 w-[140%] h-16 -rotate-3" style={{ background: "linear-gradient(90deg, transparent, var(--navy) 25%, var(--navy) 75%, transparent)" }} />
-        <div className="absolute bottom-[10%] -left-10 w-[140%] h-10 rotate-6" style={{ background: "linear-gradient(90deg, transparent, var(--navy) 25%, var(--navy) 75%, transparent)" }} />
-        <div className="absolute top-1/2 -left-10 w-[140%] h-4 -rotate-2" style={{ background: "linear-gradient(90deg, transparent, var(--navy) 25%, var(--navy) 75%, transparent)" }} />
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+        <div className="absolute top-[5%] -left-1/4 w-[65%] h-[55%] rounded-full opacity-[0.12]" style={{ background: "radial-gradient(ellipse, var(--navy) 0%, transparent 70%)", filter: "blur(60px)" }} />
+        <div className="absolute bottom-0 -right-1/4 w-[55%] h-[45%] rounded-full opacity-[0.1]" style={{ background: "radial-gradient(ellipse, var(--navy) 0%, transparent 70%)", filter: "blur(60px)" }} />
       </div>
       <div className="container mx-auto px-6 md:px-12 relative">
         <div className="max-w-3xl mb-16 relative">
