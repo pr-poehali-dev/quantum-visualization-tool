@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { X } from "lucide-react"
+import telegramIcon from "@/assets/telegram-icon.webp"
 
 const MAX_URL = "https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
 const VK_URL = "https://vk.ru/club239485505"
+const TELEGRAM_URL = "https://t.me/+79956236131"
 
 interface ContactModalProps {
   open: boolean
@@ -43,6 +45,13 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
     if (!agreed) return
     if (message) navigator.clipboard.writeText(message).catch(() => {})
     window.open(VK_URL, "_blank", "noopener,noreferrer")
+    onClose()
+  }
+
+  const openTelegram = () => {
+    if (!agreed) return
+    if (message) navigator.clipboard.writeText(message).catch(() => {})
+    window.open(TELEGRAM_URL, "_blank", "noopener,noreferrer")
     onClose()
   }
 
@@ -124,6 +133,19 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
             <span className="flex flex-col">
               <span className="text-white font-medium text-sm">ВКонтакте</span>
               <span className="text-white/35 text-xs">Группа в ВК</span>
+            </span>
+            <span className="ml-auto text-white/20 group-hover:text-white/50 transition-colors text-lg">→</span>
+          </button>
+
+          <button
+            onClick={openTelegram}
+            disabled={!agreed}
+            className="w-full flex items-center gap-4 px-5 py-4 border border-white/10 hover:border-white/25 bg-white/[0.03] hover:bg-white/[0.07] transition-all duration-200 group text-left disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-white/10 disabled:hover:bg-white/[0.03]"
+          >
+            <img src={telegramIcon} alt="Telegram" className="w-6 h-6 object-contain rounded-md" />
+            <span className="flex flex-col">
+              <span className="text-white font-medium text-sm">Telegram</span>
+              <span className="text-white/35 text-xs">+7 995 623-61-31</span>
             </span>
             <span className="ml-auto text-white/20 group-hover:text-white/50 transition-colors text-lg">→</span>
           </button>
