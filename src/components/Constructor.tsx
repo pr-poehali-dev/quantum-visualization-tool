@@ -1,156 +1,8 @@
 import { useState } from "react"
-import { ArrowRight, Check, Copy } from "lucide-react"
-import Icon from "@/components/ui/icon"
 import { ContactModal } from "./ContactModal"
-
-const BASE_PRICE = 10000
-const LENGTH_BASE = 100
-const WIDTH_BASE = 60
-const PRICE_PER_10CM = 2000
-
-const coatings = [
-  { id: "oil-natural", label: "Масло натуральное", color: "#d9ad5f", price: 0 },
-  { id: "lacquer", label: "Лак матовый", color: "#e6c58e", price: 0 },
-  { id: "oil-dark", label: "Морилка орех/лак", color: "#7a4a29", price: 2000 },
-  { id: "mordant", label: "Морилка венге/лак", color: "#3a2416", price: 2000 },
-]
-
-const legs = [
-  { id: "metal-black", label: "Металл чёрный", icon: "Square", price: 10000, color: "#1c1c1e", adjustable: false },
-  { id: "metal-white", label: "Металл белый", icon: "Square", price: 10000, color: "#e6e6e6", adjustable: false },
-  { id: "height-adj-white", label: "Регулировка высоты белый", icon: "ArrowUpDown", price: 25000, color: "#e6e6e6", adjustable: true },
-  { id: "height-adj-black", label: "Регулировка высоты чёрный", icon: "ArrowUpDown", price: 25000, color: "#1c1c1e", adjustable: true },
-]
-
-const extras = [
-  { id: "pc-hang", label: "Подвес для ПК", icon: "Monitor", price: 5000 },
-  { id: "cable-tray", label: "Лоток для проводов", icon: "Cable", price: 5000 },
-]
-
-function calcSizePrice(length: number, width: number) {
-  const lengthSteps = Math.round((length - LENGTH_BASE) / 10)
-  const widthSteps = Math.round((width - WIDTH_BASE) / 10)
-  return (lengthSteps + widthSteps) * PRICE_PER_10CM
-}
-
-function shade(hex: string, percent: number) {
-  const n = parseInt(hex.replace("#", ""), 16)
-  const clamp = (v: number) => Math.max(0, Math.min(255, v))
-  const r = clamp(((n >> 16) & 255) + Math.round(255 * percent))
-  const g = clamp(((n >> 8) & 255) + Math.round(255 * percent))
-  const b = clamp((n & 255) + Math.round(255 * percent))
-  return `rgb(${r}, ${g}, ${b})`
-}
-
-function TablePreview({
-  coatingColor,
-  coatingLabel,
-  legColor,
-  adjustable,
-  length,
-  width,
-}: {
-  coatingColor: string
-  coatingLabel: string
-  legColor: string
-  adjustable: boolean
-  length: number
-  width: number
-}) {
-  // изометрический вид с угла
-  const halfW = 45 + ((length - 100) / 80) * 55   // половина длины по оси X
-  const depth = 22 + ((width - 60) / 20) * 16      // глубина по оси проекции
-  const cx = 120
-  const topY = 58                                   // вершина ближнего угла столешницы
-  const th = 9                                       // толщина торца столешницы
-  const dx = depth * 0.9
-  const dy = depth * 0.5
-
-  // 4 угла верхней грани столешницы (ромб)
-  const front = { x: cx, y: topY + dy }             // ближний нижний угол
-  const right = { x: cx + halfW, y: topY + dy - dy } // правый
-  const back = { x: cx, y: topY - dy }              // дальний верхний
-  const left = { x: cx - halfW, y: topY + dy - dy }  // левый
-
-  const topPath = `M${front.x},${front.y} L${right.x},${right.y} L${back.x},${back.y} L${left.x},${left.y} Z`
-  const frontFace = `M${left.x},${left.y} L${front.x},${front.y} L${front.x},${front.y + th} L${left.x},${left.y + th} Z`
-  const rightFace = `M${front.x},${front.y} L${right.x},${right.y} L${right.x},${right.y + th} L${front.x},${front.y + th} Z`
-
-  const legLen = 66
-  const legY = topY + dy + th
-  const legPositions = [
-    { x: left.x + 8, y: left.y + th - 2 },
-    { x: front.x, y: front.y + th - 2 },
-    { x: right.x - 8, y: right.y + th - 2 },
-  ]
-
-  return (
-    <div
-      className="relative overflow-hidden rounded-lg border border-white/10 mb-2"
-      style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(25 18% 15%) 0%, hsl(25 20% 8%) 100%)" }}
-    >
-      <p className="absolute top-3 left-4 text-[10px] tracking-[0.3em] uppercase text-white/30 z-10">Предпросмотр</p>
-      <svg viewBox="0 0 240 190" className="w-full h-auto block">
-        {/* тень на полу */}
-        <ellipse cx={cx} cy={legY + legLen + 4} rx={halfW * 0.9} ry="9" fill="rgba(0,0,0,0.45)" />
-
-        {/* ножки */}
-        {legPositions.map((p, i) => (
-          <g key={i} style={{ transition: "all 0.4s ease" }}>
-            <rect x={p.x - 3} y={p.y} width="6" height={legLen} rx="1.5" fill={legColor} />
-            <rect x={p.x - 3} y={p.y} width="2.2" height={legLen} rx="1" fill={shade(legColor, 0.15)} opacity="0.8" />
-            {adjustable && (
-              <rect x={p.x - 4.5} y={p.y + legLen * 0.38} width="9" height="11" rx="1.5"
-                fill={shade(legColor, legColor === "#e6e6e6" ? -0.14 : 0.22)} />
-            )}
-            <rect x={p.x - 6} y={p.y + legLen} width="12" height="3.5" rx="1.5" fill={shade(legColor, -0.12)} />
-          </g>
-        ))}
-
-        {/* торцы столешницы (толщина) */}
-        <g style={{ transition: "all 0.4s ease" }}>
-          <path d={frontFace} fill={shade(coatingColor, -0.16)} />
-          <path d={rightFace} fill={shade(coatingColor, -0.28)} />
-        </g>
-
-        {/* верхняя грань */}
-        <g style={{ transition: "all 0.4s ease" }}>
-          <path d={topPath} fill={coatingColor} />
-          <path d={topPath} fill="url(#woodGrainIso)" opacity="0.4" />
-          <path d={topPath} fill="none" stroke={shade(coatingColor, 0.18)} strokeWidth="0.8" opacity="0.6" />
-        </g>
-
-        <defs>
-          <linearGradient id="woodGrainIso" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="rgba(255,255,255,0.16)" />
-            <stop offset="40%" stopColor="rgba(0,0,0,0.18)" />
-            <stop offset="70%" stopColor="rgba(255,255,255,0.08)" />
-            <stop offset="100%" stopColor="rgba(0,0,0,0.22)" />
-          </linearGradient>
-        </defs>
-      </svg>
-
-      {/* подпись */}
-      <div className="flex items-center justify-between px-4 pb-3 pt-1 gap-2">
-        <span className="inline-flex items-center gap-1.5 text-[11px] text-white/55 truncate">
-          <span className="w-3 h-3 rounded-full border border-white/40 shrink-0" style={{ background: coatingColor }} />
-          <span className="truncate">{coatingLabel}</span>
-        </span>
-        <span className="text-[11px] font-medium tabular-nums shrink-0" style={{ color: "var(--gold)" }}>
-          {length} × {width} см
-        </span>
-      </div>
-    </div>
-  )
-}
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="text-[10px] tracking-[0.3em] uppercase font-semibold mb-4" style={{ color: "var(--gold)" }}>
-      {children}
-    </p>
-  )
-}
+import { BASE_PRICE, coatings, legs, extras, calcSizePrice } from "./constructor/constructorData"
+import { OptionsPanel } from "./constructor/OptionsPanel"
+import { SummaryPanel } from "./constructor/SummaryPanel"
 
 export function Constructor() {
   const [length, setLength] = useState(140)
@@ -194,11 +46,6 @@ export function Constructor() {
   const handleOrder = () => {
     setContactOpen(true)
   }
-
-  const activeBtn =
-    "rounded-lg border-[var(--gold)] bg-foreground text-background -translate-y-0.5 shadow-[0_6px_18px_rgba(201,168,76,0.35),0_0_0_1px_var(--gold),inset_0_1px_1px_rgba(255,255,255,0.5)]"
-  const inactiveBtn =
-    "rounded-lg border-white/10 text-white/80 bg-white/[0.04] shadow-[inset_0_1px_1px_rgba(255,255,255,0.06),0_2px_6px_rgba(0,0,0,0.35)] hover:border-white/30 hover:-translate-y-0.5 hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_5px_14px_rgba(0,0,0,0.45)]"
 
   return (
     <section id="constructor" className="py-24 md:py-32 relative overflow-hidden"
@@ -254,282 +101,43 @@ export function Constructor() {
           <div className="grid md:grid-cols-[1fr_300px] gap-5 items-start">
 
             {/* ЛЕВАЯ ПАНЕЛЬ — параметры */}
-            <div className="space-y-2">
-
-              {/* Размер */}
-              <div className="p-6 border border-white/10 bg-white/[0.04]">
-                <SectionLabel>1 · Размер столешницы</SectionLabel>
-
-                {/* Длина */}
-                <div className="mb-7">
-                  <div className="flex justify-between items-baseline mb-3">
-                    <span className="text-sm text-white/60">Длина</span>
-                    <span className="text-2xl font-bold text-white tabular-nums">
-                      {length} <span className="text-sm font-normal text-white/40">см</span>
-                    </span>
-                  </div>
-                  <div className="relative h-3">
-                    <div
-                      className="absolute inset-0 rounded-full"
-                      style={{
-                        background: "hsl(25 18% 12%)",
-                        boxShadow:
-                          "inset 0 2px 5px rgba(0,0,0,0.65), inset 0 -1px 1px rgba(255,255,255,0.04)",
-                      }}
-                    />
-                    <div
-                      className="absolute inset-y-0 left-0 rounded-full transition-all duration-150"
-                      style={{
-                        width: `${((length - 100) / 80) * 100}%`,
-                        background: "linear-gradient(180deg, #e8c874 0%, var(--gold) 55%, #a8842f 100%)",
-                        boxShadow:
-                          "inset 0 1px 1px rgba(255,255,255,0.45), 0 0 10px rgba(201,168,76,0.4)",
-                      }}
-                    />
-                    <div
-                      className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-5 h-5 rounded-full transition-all duration-150 pointer-events-none"
-                      style={{
-                        left: `${((length - 100) / 80) * 100}%`,
-                        background: "radial-gradient(circle at 35% 30%, #fff7e0 0%, #e8c874 40%, var(--gold) 70%, #9a7828 100%)",
-                        boxShadow:
-                          "0 2px 6px rgba(0,0,0,0.55), 0 0 8px rgba(201,168,76,0.5), inset 0 1px 1px rgba(255,255,255,0.6)",
-                        border: "1px solid rgba(0,0,0,0.25)",
-                      }}
-                    />
-                    <input
-                      type="range" min={100} max={180} step={10}
-                      value={length}
-                      onChange={e => setLength(Number(e.target.value))}
-                      className="absolute inset-0 w-full opacity-0 cursor-pointer z-10 h-full"
-                    />
-                  </div>
-                  <div className="flex justify-between text-[11px] text-white/25 mt-2">
-                    <span>100 см</span><span>180 см</span>
-                  </div>
-                </div>
-
-                {/* Ширина */}
-                <div>
-                  <div className="flex justify-between items-baseline mb-3">
-                    <span className="text-sm text-white/60">Ширина</span>
-                    <span className="text-2xl font-bold text-white tabular-nums">
-                      {width} <span className="text-sm font-normal text-white/40">см</span>
-                    </span>
-                  </div>
-                  <div className="relative h-3">
-                    <div
-                      className="absolute inset-0 rounded-full"
-                      style={{
-                        background: "hsl(25 18% 12%)",
-                        boxShadow:
-                          "inset 0 2px 5px rgba(0,0,0,0.65), inset 0 -1px 1px rgba(255,255,255,0.04)",
-                      }}
-                    />
-                    <div
-                      className="absolute inset-y-0 left-0 rounded-full transition-all duration-150"
-                      style={{
-                        width: `${((width - 60) / 20) * 100}%`,
-                        background: "linear-gradient(180deg, #e8c874 0%, var(--gold) 55%, #a8842f 100%)",
-                        boxShadow:
-                          "inset 0 1px 1px rgba(255,255,255,0.45), 0 0 10px rgba(201,168,76,0.4)",
-                      }}
-                    />
-                    <div
-                      className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-5 h-5 rounded-full transition-all duration-150 pointer-events-none"
-                      style={{
-                        left: `${((width - 60) / 20) * 100}%`,
-                        background: "radial-gradient(circle at 35% 30%, #fff7e0 0%, #e8c874 40%, var(--gold) 70%, #9a7828 100%)",
-                        boxShadow:
-                          "0 2px 6px rgba(0,0,0,0.55), 0 0 8px rgba(201,168,76,0.5), inset 0 1px 1px rgba(255,255,255,0.6)",
-                        border: "1px solid rgba(0,0,0,0.25)",
-                      }}
-                    />
-                    <input
-                      type="range" min={60} max={80} step={10}
-                      value={width}
-                      onChange={e => setWidth(Number(e.target.value))}
-                      className="absolute inset-0 w-full opacity-0 cursor-pointer z-10 h-full"
-                    />
-                  </div>
-                  <div className="flex justify-between text-[11px] text-white/25 mt-2">
-                    <span>60 см</span><span>80 см</span>
-                  </div>
-                </div>
-
-                {sizePrice > 0 && (
-                  <div className="mt-4 flex items-center gap-2">
-                    <span className="text-xs font-semibold" style={{ color: "var(--gold)" }}>
-                      +{sizePrice.toLocaleString("ru-RU")} ₽
-                    </span>
-                    <span className="text-[10px] text-white/25">+2 000 ₽ за каждые 10 см</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Покрытие */}
-              <div className="p-6 border border-white/10 bg-white/[0.04]">
-                <SectionLabel>2 · Цвет / покрытие</SectionLabel>
-                <div className="grid grid-cols-2 gap-2">
-                  {coatings.map(c => (
-                    <button key={c.id} onClick={() => setCoating(c.id)}
-                      className={`flex items-center gap-2.5 px-3 py-2.5 border text-xs text-left transition-all duration-200 ${coating === c.id ? activeBtn : inactiveBtn}`}>
-                      <span
-                        className="w-6 h-6 rounded-full shrink-0 border-2 border-white/70 shadow-[0_0_0_1px_rgba(0,0,0,0.4),0_2px_6px_rgba(0,0,0,0.5)]"
-                        style={{ background: c.color }}
-                      />
-                      <span className="flex flex-col items-start min-w-0">
-                        <span className="leading-tight">{c.label}</span>
-                        {c.price > 0 && (
-                          <span className={`text-[10px] font-medium ${coating === c.id ? "opacity-70" : ""}`}
-                            style={coating !== c.id ? { color: "var(--gold)" } : {}}>
-                            +{c.price.toLocaleString("ru-RU")} ₽
-                          </span>
-                        )}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Ножки */}
-              <div className="p-6 border border-white/10 bg-white/[0.04]">
-                <SectionLabel>3 · Тип ножек</SectionLabel>
-                <div className="grid grid-cols-2 gap-2">
-                  {legs.map(l => (
-                    <button key={l.id} onClick={() => setLegsType(l.id)}
-                      className={`flex items-center gap-2.5 px-3 py-2.5 border text-xs text-left transition-all duration-200 ${legsType === l.id ? activeBtn : inactiveBtn}`}>
-                      <Icon name={l.icon} size={15} className="shrink-0" />
-                      <span className="flex flex-col items-start min-w-0">
-                        <span className="leading-tight">{l.label}</span>
-                        <span className={`text-[10px] font-medium ${legsType === l.id ? "opacity-70" : ""}`}
-                          style={legsType !== l.id ? { color: "var(--gold)" } : {}}>
-                          +{l.price.toLocaleString("ru-RU")} ₽
-                        </span>
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Допы */}
-              <div className="p-6 border border-white/10 bg-white/[0.04]">
-                <SectionLabel>4 · Дополнения</SectionLabel>
-                <div className="grid grid-cols-2 gap-2">
-                  {extras.map(e => (
-                    <button key={e.id} onClick={() => toggleExtra(e.id)}
-                      className={`flex items-center gap-2.5 px-3 py-2.5 border text-xs text-left transition-all duration-200 ${selectedExtras.includes(e.id) ? activeBtn : inactiveBtn}`}>
-                      <Icon name={e.icon} size={15} className="shrink-0" />
-                      <span className="flex flex-col items-start min-w-0">
-                        <span className="leading-tight">{e.label}</span>
-                        <span className={`text-[10px] font-medium ${selectedExtras.includes(e.id) ? "opacity-70" : ""}`}
-                          style={!selectedExtras.includes(e.id) ? { color: "var(--gold)" } : {}}>
-                          +{e.price.toLocaleString("ru-RU")} ₽
-                        </span>
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-            </div>
+            <OptionsPanel
+              length={length}
+              setLength={setLength}
+              width={width}
+              setWidth={setWidth}
+              coating={coating}
+              setCoating={setCoating}
+              legsType={legsType}
+              setLegsType={setLegsType}
+              selectedExtras={selectedExtras}
+              toggleExtra={toggleExtra}
+              sizePrice={sizePrice}
+            />
 
             {/* ПРАВАЯ ПАНЕЛЬ — итог, sticky */}
-            <div className="md:sticky md:top-8 space-y-2">
-
-              {/* предпросмотр стола */}
-              <TablePreview
-                coatingColor={selectedCoating.color}
-                coatingLabel={selectedCoating.label}
-                legColor={selectedLegs.color}
-                adjustable={selectedLegs.adjustable}
-                length={length}
-                width={width}
-              />
-
-              {/* цена */}
-              <div className="p-6 border border-white/15 rounded-xl depth-card-dark depth-edge" style={{ background: "hsl(25 18% 11%)" }}>
-                <p className="text-[10px] tracking-[0.3em] uppercase text-white/35 mb-5">Стоимость</p>
-                <div className="space-y-2 text-sm mb-5">
-                  <div className="flex justify-between text-white/45">
-                    <span>База</span>
-                    <span>{BASE_PRICE.toLocaleString("ru-RU")} ₽</span>
-                  </div>
-                  {sizePrice > 0 && (
-                    <div className="flex justify-between text-white/45">
-                      <span>{sizeLabel}</span>
-                      <span>+{sizePrice.toLocaleString("ru-RU")} ₽</span>
-                    </div>
-                  )}
-                  {coatingPrice > 0 && (
-                    <div className="flex justify-between text-white/45">
-                      <span>{coatingLabel}</span>
-                      <span>+{coatingPrice.toLocaleString("ru-RU")} ₽</span>
-                    </div>
-                  )}
-                  {legsPrice > 0 && (
-                    <div className="flex justify-between text-white/45">
-                      <span>Ножки</span>
-                      <span>+{legsPrice.toLocaleString("ru-RU")} ₽</span>
-                    </div>
-                  )}
-                  {extrasPrice > 0 && (
-                    <div className="flex justify-between text-white/45">
-                      <span>Допы</span>
-                      <span>+{extrasPrice.toLocaleString("ru-RU")} ₽</span>
-                    </div>
-                  )}
-                </div>
-                <div className="border-t border-white/10 pt-4 flex justify-between items-end">
-                  <span className="text-white/50 text-xs tracking-wider uppercase">Итого</span>
-                  <span className="text-3xl font-bold text-white tabular-nums">
-                    {totalPrice.toLocaleString("ru-RU")} <span className="text-lg font-medium text-white/60">₽</span>
-                  </span>
-                </div>
-              </div>
-
-              {/* конфигурация */}
-              <div className="p-5 border border-white/10 bg-white/[0.03]">
-                <p className="text-[10px] tracking-[0.2em] uppercase text-white/30 mb-2">Конфигурация</p>
-                <p className="text-white/55 text-xs leading-relaxed">{summary}</p>
-                <button
-                  onClick={() => {
-                    navigator.clipboard.writeText(orderMessage).then(() => {
-                      setCopied(true)
-                      setTimeout(() => setCopied(false), 3000)
-                    })
-                  }}
-                  className="mt-3 inline-flex items-center gap-1.5 text-xs text-white/30 hover:text-white/60 transition-colors duration-200"
-                >
-                  {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                  {copied ? "Скопировано" : "Скопировать заказ"}
-                </button>
-              </div>
-
-              {/* контакты */}
-              <div className="p-5 border border-white/10 bg-white/[0.03]">
-                <p className="text-[10px] tracking-[0.3em] uppercase text-white/30 mb-3">Контакты</p>
-                <div className="space-y-2">
-                  <input type="text" placeholder="Имя"
-                    value={name} onChange={e => setName(e.target.value)}
-                    className="w-full border border-white/10 bg-white/5 px-3 py-2.5 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-white/35 transition-colors duration-200"
-                  />
-                  <input type="tel" placeholder="Номер телефона"
-                    value={phone} onChange={e => setPhone(e.target.value)}
-                    className="w-full border border-white/10 bg-white/5 px-3 py-2.5 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-white/35 transition-colors duration-200"
-                  />
-                </div>
-              </div>
-
-              <button
-                onClick={handleOrder}
-                className="btn-glow w-full inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg text-sm tracking-widest uppercase font-medium transition-all duration-300 group"
-                style={{ background: "var(--gold, #c9a84c)", color: "#1a0f05" }}
-              >
-                Заказать стол
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </button>
-
-            </div>
+            <SummaryPanel
+              selectedCoating={selectedCoating}
+              selectedLegs={selectedLegs}
+              length={length}
+              width={width}
+              sizePrice={sizePrice}
+              coatingPrice={coatingPrice}
+              legsPrice={legsPrice}
+              extrasPrice={extrasPrice}
+              totalPrice={totalPrice}
+              sizeLabel={sizeLabel}
+              coatingLabel={coatingLabel}
+              summary={summary}
+              orderMessage={orderMessage}
+              copied={copied}
+              setCopied={setCopied}
+              name={name}
+              setName={setName}
+              phone={phone}
+              setPhone={setPhone}
+              handleOrder={handleOrder}
+            />
           </div>
 
         </div>
