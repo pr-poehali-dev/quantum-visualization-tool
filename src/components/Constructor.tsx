@@ -16,10 +16,10 @@ const coatings = [
 ]
 
 const legs = [
-  { id: "metal-black", label: "Металл чёрный", icon: "Square", price: 10000 },
-  { id: "metal-white", label: "Металл белый", icon: "Square", price: 10000 },
-  { id: "height-adj-white", label: "Регулировка высоты белый", icon: "ArrowUpDown", price: 25000 },
-  { id: "height-adj-black", label: "Регулировка высоты чёрный", icon: "ArrowUpDown", price: 25000 },
+  { id: "metal-black", label: "Металл чёрный", icon: "Square", price: 10000, color: "#1c1c1e", adjustable: false },
+  { id: "metal-white", label: "Металл белый", icon: "Square", price: 10000, color: "#e6e6e6", adjustable: false },
+  { id: "height-adj-white", label: "Регулировка высоты белый", icon: "ArrowUpDown", price: 25000, color: "#e6e6e6", adjustable: true },
+  { id: "height-adj-black", label: "Регулировка высоты чёрный", icon: "ArrowUpDown", price: 25000, color: "#1c1c1e", adjustable: true },
 ]
 
 const extras = [
@@ -31,6 +31,92 @@ function calcSizePrice(length: number, width: number) {
   const lengthSteps = Math.round((length - LENGTH_BASE) / 10)
   const widthSteps = Math.round((width - WIDTH_BASE) / 10)
   return (lengthSteps + widthSteps) * PRICE_PER_10CM
+}
+
+function shade(hex: string, percent: number) {
+  const n = parseInt(hex.replace("#", ""), 16)
+  const clamp = (v: number) => Math.max(0, Math.min(255, v))
+  const r = clamp(((n >> 16) & 255) + Math.round(255 * percent))
+  const g = clamp(((n >> 8) & 255) + Math.round(255 * percent))
+  const b = clamp((n & 255) + Math.round(255 * percent))
+  return `rgb(${r}, ${g}, ${b})`
+}
+
+function TablePreview({
+  coatingColor,
+  legColor,
+  adjustable,
+  length,
+  width,
+}: {
+  coatingColor: string
+  legColor: string
+  adjustable: boolean
+  length: number
+  width: number
+}) {
+  const topW = 60 + ((length - 100) / 80) * 130
+  const topH = 16 + ((width - 60) / 20) * 12
+  const x = (240 - topW) / 2
+  const legTop = 40 + topH
+  const legBottom = 150
+
+  return (
+    <div
+      className="relative overflow-hidden rounded-lg border border-white/10 mb-2"
+      style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(25 18% 14%) 0%, hsl(25 20% 8%) 100%)" }}
+    >
+      <p className="absolute top-3 left-4 text-[10px] tracking-[0.3em] uppercase text-white/30 z-10">Предпросмотр</p>
+      <svg viewBox="0 0 240 170" className="w-full h-auto block">
+        <ellipse cx="120" cy="158" rx={topW / 2} ry="7" fill="rgba(0,0,0,0.4)" />
+
+        {/* ножки */}
+        {[x + topW * 0.12, x + topW * 0.88].map((lx, i) => (
+          <g key={i}>
+            <rect
+              x={lx - 4} y={legTop} width="8" height={legBottom - legTop} rx="2"
+              fill={legColor}
+              style={{ transition: "all 0.4s ease" }}
+            />
+            {adjustable && (
+              <rect
+                x={lx - 6} y={legTop + (legBottom - legTop) * 0.4} width="12" height="10" rx="2"
+                fill={shade(legColor, legColor === "#e6e6e6" ? -0.12 : 0.18)}
+              />
+            )}
+            <rect x={lx - 9} y={legBottom} width="18" height="4" rx="2" fill={shade(legColor, -0.1)} />
+          </g>
+        ))}
+
+        {/* столешница */}
+        <g style={{ transition: "all 0.4s ease" }}>
+          <rect
+            x={x} y="40" width={topW} height={topH} rx="4"
+            fill={coatingColor}
+            style={{ transition: "all 0.5s ease" }}
+          />
+          <rect
+            x={x} y="40" width={topW} height={topH} rx="4"
+            fill="url(#woodGrain)" opacity="0.35"
+          />
+          <rect
+            x={x} y="40" width={topW} height="3" rx="2"
+            fill={shade(coatingColor, 0.14)} opacity="0.7"
+          />
+        </g>
+
+        <defs>
+          <linearGradient id="woodGrain" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="rgba(0,0,0,0.25)" />
+            <stop offset="25%" stopColor="rgba(255,255,255,0.12)" />
+            <stop offset="50%" stopColor="rgba(0,0,0,0.2)" />
+            <stop offset="75%" stopColor="rgba(255,255,255,0.1)" />
+            <stop offset="100%" stopColor="rgba(0,0,0,0.25)" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  )
 }
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -64,8 +150,10 @@ export function Constructor() {
   const totalPrice = BASE_PRICE + sizePrice + coatingPrice + legsPrice + extrasPrice
 
   const sizeLabel = `${length} × ${width} см`
-  const coatingLabel = coatings.find(c => c.id === coating)?.label || ""
-  const legsLabel = legs.find(l => l.id === legsType)?.label || ""
+  const selectedCoating = coatings.find(c => c.id === coating) ?? coatings[0]
+  const selectedLegs = legs.find(l => l.id === legsType) ?? legs[0]
+  const coatingLabel = selectedCoating.label
+  const legsLabel = selectedLegs.label
   const extrasLabels = selectedExtras.map(e => extras.find(x => x.id === e)?.label).filter(Boolean).join(", ")
   const summary = [
     `Размер: ${sizeLabel}`,
@@ -322,6 +410,15 @@ export function Constructor() {
 
             {/* ПРАВАЯ ПАНЕЛЬ — итог, sticky */}
             <div className="md:sticky md:top-8 space-y-2">
+
+              {/* предпросмотр стола */}
+              <TablePreview
+                coatingColor={selectedCoating.color}
+                legColor={selectedLegs.color}
+                adjustable={selectedLegs.adjustable}
+                length={length}
+                width={width}
+              />
 
               {/* цена */}
               <div className="p-6 border border-white/15 rounded-xl depth-card-dark depth-edge" style={{ background: "hsl(25 18% 11%)" }}>
