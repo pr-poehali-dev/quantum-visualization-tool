@@ -54,7 +54,7 @@ const projects = [
   },
 ]
 
-const DUST_PARTICLES = Array.from({ length: 22 }, (_, i) => ({
+const makeDust = () => Array.from({ length: 22 }, (_, i) => ({
   left: 4 + Math.random() * 92,
   top: 10 + Math.random() * 80,
   size: 2 + Math.random() * 4,
@@ -70,10 +70,11 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
   const [copied, setCopied] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
   const [dustKey, setDustKey] = useState(0)
+  const [dust, setDust] = useState(makeDust)
 
   const orderMessage = `Привет! Хочу заказать стол.\nМодель: ${project.title}\n${project.category}\n${project.location}\nЦена: ${project.price}`
 
-  const triggerDust = () => setDustKey(k => k + 1)
+  const triggerDust = () => { setDust(makeDust()); setDustKey(k => k + 1) }
 
   const handleCopy = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -98,7 +99,7 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
   return (
     <article
       className="group relative cursor-pointer"
-      onMouseEnter={() => setHovered(true)}
+      onMouseEnter={() => { setHovered(true); triggerDust() }}
       onMouseLeave={() => setHovered(false)}
     >
       {/* номер карточки — декор */}
@@ -122,7 +123,7 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
         {/* золотистая пыль при смене слайда */}
         {dustKey > 0 && (
           <div key={dustKey} className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
-            {DUST_PARTICLES.map(p => (
+            {dust.map(p => (
               <span
                 key={p.key}
                 className="gold-dust-particle"
