@@ -326,6 +326,58 @@ body::after {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
+/* Золотистая рамка — строгость и глубина */
+.gold-frame {
+  position: relative;
+  border: 1px solid rgba(191, 157, 84, 0.35);
+  box-shadow:
+    inset 0 0 0 1px rgba(191, 157, 84, 0.08),
+    0 0 24px rgba(191, 157, 84, 0.06);
+  transition: border-color 0.5s ease, box-shadow 0.5s ease;
+}
+.gold-frame::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  pointer-events: none;
+  border-radius: inherit;
+  border: 1px solid rgba(191, 157, 84, 0.14);
+}
+.gold-frame:hover {
+  border-color: rgba(191, 157, 84, 0.6);
+  box-shadow:
+    inset 0 0 0 1px rgba(191, 157, 84, 0.14),
+    0 0 40px rgba(191, 157, 84, 0.16);
+}
+
+/* Золотистая пыль при смене слайдов */
+@keyframes gold-dust {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.4);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dust-x, 0), var(--dust-y, -30px)) scale(1);
+  }
+}
+.gold-dust-particle {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 236, 179, 0.95) 0%,
+    rgba(201, 168, 76, 0.5) 55%,
+    transparent 100%
+  );
+  box-shadow: 0 0 6px rgba(232, 200, 116, 0.7);
+  pointer-events: none;
+  animation: gold-dust 0.9s ease-out forwards;
+}
+
 /* Виньетка секции для ощущения объёма пространства */
 .section-vignette {
   position: relative;

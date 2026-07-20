@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { ArrowDown } from "lucide-react"
 import { ContactModal } from "./ContactModal"
-import heroImage from "@/assets/hero-desk.jpg"
+
+const heroImage = "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/e59d876e-c8a5-4456-a126-eb66ccdad048.jpg"
 
 export function Hero() {
   const contentRef = useRef<HTMLDivElement>(null)
@@ -126,12 +127,12 @@ export function Hero() {
           src={heroImage}
           alt="Рабочий кабинет со столом из массива дуба"
           className="w-full h-full object-cover object-center"
-          style={{ filter: "brightness(1.18) contrast(0.97)" }}
+          style={{ filter: "brightness(0.92) contrast(1.05)" }}
         />
         <div
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(160deg, rgba(25,15,6,0.32) 0%, rgba(30,18,8,0.18) 50%, rgba(20,12,5,0.28) 100%)",
+            background: "linear-gradient(160deg, rgba(12,8,4,0.62) 0%, rgba(16,10,5,0.45) 50%, rgba(8,5,2,0.68) 100%)",
           }}
         />
         {/* мягкий тёплый свет сверху */}

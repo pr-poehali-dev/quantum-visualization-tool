@@ -84,7 +84,7 @@ export function Expertise() {
                   itemRefs.current[index] = el
                 }}
                 data-index={index}
-                className={`group relative p-8 rounded-xl bg-card border border-white/5 depth-card-dark depth-hover depth-edge transition-all duration-700 ${
+                className={`group relative p-8 rounded-xl bg-card gold-frame depth-card-dark depth-hover depth-edge transition-all duration-700 ${
                   visibleItems.includes(index) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 }`}
                 style={{ transitionDelay: `${index * 150}ms` }}

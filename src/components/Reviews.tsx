@@ -66,7 +66,7 @@ export function Reviews() {
               key={review.name}
               ref={(el) => { refs.current[index] = el }}
               data-index={index}
-              className={`relative p-8 rounded-xl bg-white/[0.04] border border-white/10 depth-card-dark depth-edge transition-all duration-700 flex flex-col ${
+              className={`relative p-8 rounded-xl bg-white/[0.04] gold-frame depth-card-dark depth-edge transition-all duration-700 flex flex-col ${
                 visible.includes(index) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
               style={{ transitionDelay: `${index * 140}ms` }}

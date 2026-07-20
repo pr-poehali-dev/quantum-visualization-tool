@@ -54,13 +54,26 @@ const projects = [
   },
 ]
 
+const DUST_PARTICLES = Array.from({ length: 22 }, (_, i) => ({
+  left: 4 + Math.random() * 92,
+  top: 10 + Math.random() * 80,
+  size: 2 + Math.random() * 4,
+  dx: (Math.random() - 0.5) * 60,
+  dy: -20 - Math.random() * 50,
+  delay: Math.random() * 0.15,
+  key: i,
+}))
+
 function ProjectCard({ project, index, revealed }: { project: typeof projects[0]; index: number; revealed: boolean }) {
   const [photoIndex, setPhotoIndex] = useState(0)
   const [hovered, setHovered] = useState(false)
   const [copied, setCopied] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
+  const [dustKey, setDustKey] = useState(0)
 
   const orderMessage = `Привет! Хочу заказать стол.\nМодель: ${project.title}\n${project.category}\n${project.location}\nЦена: ${project.price}`
+
+  const triggerDust = () => setDustKey(k => k + 1)
 
   const handleCopy = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -72,11 +85,13 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
 
   const prev = (e: React.MouseEvent) => {
     e.stopPropagation()
+    triggerDust()
     setPhotoIndex(i => (i === 0 ? project.images.length - 1 : i - 1))
   }
 
   const next = (e: React.MouseEvent) => {
     e.stopPropagation()
+    triggerDust()
     setPhotoIndex(i => (i === project.images.length - 1 ? 0 : i + 1))
   }
 
@@ -95,7 +110,7 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
       </span>
 
       {/* карточка со скруглением и тенью */}
-      <div className="relative z-10 depth-card-dark depth-hover depth-edge rounded-xl overflow-hidden">
+      <div className="relative z-10 gold-frame depth-card-dark depth-hover depth-edge rounded-xl overflow-hidden">
       {/* фото */}
       <div className="relative overflow-hidden aspect-[4/3] mb-0 z-10 border-b border-white/10">
         <img
@@ -103,6 +118,27 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
           alt={`${project.title} — фото ${photoIndex + 1}`}
           className={`w-full h-full object-cover transition-all duration-700 ${hovered ? "scale-105" : "scale-100"}`}
         />
+
+        {/* золотистая пыль при смене слайда */}
+        {dustKey > 0 && (
+          <div key={dustKey} className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
+            {DUST_PARTICLES.map(p => (
+              <span
+                key={p.key}
+                className="gold-dust-particle"
+                style={{
+                  left: `${p.left}%`,
+                  top: `${p.top}%`,
+                  width: p.size,
+                  height: p.size,
+                  animationDelay: `${p.delay}s`,
+                  ["--dust-x" as string]: `${p.dx}px`,
+                  ["--dust-y" as string]: `${p.dy}px`,
+                }}
+              />
+            ))}
+          </div>
+        )}
 
         {/* reveal overlay */}
         <div
@@ -136,7 +172,7 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
         {/* точки */}
         <div className="absolute top-3 right-3 flex gap-1.5 z-10">
           {project.images.map((_, i) => (
-            <button key={i} onClick={e => { e.stopPropagation(); setPhotoIndex(i) }}
+            <button key={i} onClick={e => { e.stopPropagation(); if (i !== photoIndex) triggerDust(); setPhotoIndex(i) }}
               className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${i === photoIndex ? "bg-white scale-125" : "bg-white/40"}`}
             />
           ))}
