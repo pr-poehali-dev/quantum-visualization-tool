@@ -9,10 +9,10 @@ const WIDTH_BASE = 60
 const PRICE_PER_10CM = 2000
 
 const coatings = [
-  { id: "oil-natural", label: "Масло натуральное", color: "#c9a060", price: 0 },
-  { id: "lacquer", label: "Лак матовый", color: "#d4b483", price: 0 },
-  { id: "oil-dark", label: "Морилка орех/лак", color: "#6b4226", price: 2000 },
-  { id: "mordant", label: "Морилка венге/лак", color: "#2c1a0e", price: 2000 },
+  { id: "oil-natural", label: "Масло натуральное", color: "#d9ad5f", price: 0 },
+  { id: "lacquer", label: "Лак матовый", color: "#e6c58e", price: 0 },
+  { id: "oil-dark", label: "Морилка орех/лак", color: "#7a4a29", price: 2000 },
+  { id: "mordant", label: "Морилка венге/лак", color: "#3a2416", price: 2000 },
 ]
 
 const legs = [
@@ -256,13 +256,16 @@ export function Constructor() {
               {/* Покрытие */}
               <div className="p-6 border border-white/10 bg-white/[0.04]">
                 <SectionLabel>2 · Цвет / покрытие</SectionLabel>
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-2 gap-2">
                   {coatings.map(c => (
                     <button key={c.id} onClick={() => setCoating(c.id)}
-                      className={`flex items-center gap-3 px-4 py-2.5 border text-sm transition-all duration-200 ${coating === c.id ? activeBtn : inactiveBtn}`}>
-                      <span className="w-4 h-4 rounded-full border border-black/20 shrink-0" style={{ background: c.color }} />
-                      <span className="flex flex-col items-start">
-                        <span>{c.label}</span>
+                      className={`flex items-center gap-3 px-4 py-3 border text-sm text-left transition-all duration-200 ${coating === c.id ? activeBtn : inactiveBtn}`}>
+                      <span
+                        className="w-7 h-7 rounded-full shrink-0 border-2 border-white/70 shadow-[0_0_0_1px_rgba(0,0,0,0.4),0_2px_6px_rgba(0,0,0,0.5)]"
+                        style={{ background: c.color }}
+                      />
+                      <span className="flex flex-col items-start min-w-0">
+                        <span className="truncate w-full">{c.label}</span>
                         {c.price > 0 && (
                           <span className={`text-[10px] font-medium ${coating === c.id ? "opacity-70" : ""}`}
                             style={coating !== c.id ? { color: "var(--gold)" } : {}}>
@@ -278,13 +281,13 @@ export function Constructor() {
               {/* Ножки */}
               <div className="p-6 border border-white/10 bg-white/[0.04]">
                 <SectionLabel>3 · Тип ножек</SectionLabel>
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-2 gap-2">
                   {legs.map(l => (
                     <button key={l.id} onClick={() => setLegsType(l.id)}
-                      className={`flex items-center gap-3 px-4 py-2.5 border text-sm transition-all duration-200 ${legsType === l.id ? activeBtn : inactiveBtn}`}>
-                      <Icon name={l.icon} size={14} />
-                      <span className="flex flex-col items-start">
-                        <span>{l.label}</span>
+                      className={`flex items-center gap-3 px-4 py-3 border text-sm text-left transition-all duration-200 ${legsType === l.id ? activeBtn : inactiveBtn}`}>
+                      <Icon name={l.icon} size={16} className="shrink-0" />
+                      <span className="flex flex-col items-start min-w-0">
+                        <span className="truncate w-full">{l.label}</span>
                         <span className={`text-[10px] font-medium ${legsType === l.id ? "opacity-70" : ""}`}
                           style={legsType !== l.id ? { color: "var(--gold)" } : {}}>
                           +{l.price.toLocaleString("ru-RU")} ₽
@@ -298,13 +301,13 @@ export function Constructor() {
               {/* Допы */}
               <div className="p-6 border border-white/10 bg-white/[0.04]">
                 <SectionLabel>4 · Дополнения</SectionLabel>
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-2 gap-2">
                   {extras.map(e => (
                     <button key={e.id} onClick={() => toggleExtra(e.id)}
-                      className={`flex items-center gap-3 px-4 py-2.5 border text-sm transition-all duration-200 ${selectedExtras.includes(e.id) ? activeBtn : inactiveBtn}`}>
-                      <Icon name={e.icon} size={14} />
-                      <span className="flex flex-col items-start">
-                        <span>{e.label}</span>
+                      className={`flex items-center gap-3 px-4 py-3 border text-sm text-left transition-all duration-200 ${selectedExtras.includes(e.id) ? activeBtn : inactiveBtn}`}>
+                      <Icon name={e.icon} size={16} className="shrink-0" />
+                      <span className="flex flex-col items-start min-w-0">
+                        <span className="truncate w-full">{e.label}</span>
                         <span className={`text-[10px] font-medium ${selectedExtras.includes(e.id) ? "opacity-70" : ""}`}
                           style={!selectedExtras.includes(e.id) ? { color: "var(--gold)" } : {}}>
                           +{e.price.toLocaleString("ru-RU")} ₽

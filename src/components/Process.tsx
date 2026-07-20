@@ -7,13 +7,14 @@ const steps = [
     title: "Заявка и обсуждение",
     description:
       "Вы оставляете заявку — мы уточняем размеры, форму, покрытие и особенности вашего пространства.",
-    image: "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/58e199a4-55a1-4d3b-96a0-d3470bc4ac55.jpg",
+    image: "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/a865b678-be0e-4adf-b9bf-69a84f1bf077.jpg",
   },
   {
     icon: "PenTool",
     title: "Эскиз и смета",
     description:
       "Готовим индивидуальный проект стола и фиксируем итоговую стоимость. Никаких скрытых доплат.",
+    image: "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/1f214763-aba9-4ad6-8f5b-e947d10207cf.jpg",
   },
   {
     icon: "Hammer",

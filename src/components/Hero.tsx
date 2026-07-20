@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react"
-import { ArrowDown } from "lucide-react"
+import { ArrowDown, Heart } from "lucide-react"
 import { ContactModal } from "./ContactModal"
 
-const heroImage = "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/e59d876e-c8a5-4456-a126-eb66ccdad048.jpg"
+const heroImage = "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/5152c97a-f0c8-4578-a1bf-31ed3f08c6f5.jpg"
 
 export function Hero() {
   const contentRef = useRef<HTMLDivElement>(null)
@@ -256,6 +256,20 @@ export function Hero() {
               </span>
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className="hero-reveal absolute bottom-8 right-6 md:bottom-12 md:right-12 z-20 max-w-[240px]" style={{ animationDelay: "1.1s" }}>
+        <div
+          className="gold-frame rounded-lg px-5 py-4 backdrop-blur-sm"
+          style={{ background: "rgba(12,8,4,0.55)" }}
+        >
+          <div className="flex items-start gap-3">
+            <Heart className="w-5 h-5 shrink-0 mt-0.5" style={{ color: "#e8c87a", fill: "#e8c87a" }} />
+            <p className="text-white/85 text-xs leading-relaxed">
+              <span className="font-semibold" style={{ color: "#e8c87a" }}>10%</span> дохода компании мы направляем на благотворительность
+            </p>
+          </div>
         </div>
       </div>
 
