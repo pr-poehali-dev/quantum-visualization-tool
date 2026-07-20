@@ -7,6 +7,7 @@ const steps = [
     title: "Заявка и обсуждение",
     description:
       "Вы оставляете заявку — мы уточняем размеры, форму, покрытие и особенности вашего пространства.",
+    image: "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/58e199a4-55a1-4d3b-96a0-d3470bc4ac55.jpg",
   },
   {
     icon: "PenTool",
@@ -19,12 +20,14 @@ const steps = [
     title: "Ручное производство",
     description:
       "Мастер отбирает массив дуба и вручную создаёт ваш стол — от распила до финишного покрытия маслом.",
+    image: "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/f9ba0a7a-67ac-445e-9df6-38bca8f1797f.jpg",
   },
   {
     icon: "Truck",
     title: "Доставка и сборка",
     description:
       "Бережно упаковываем, доставляем по всей России и при необходимости собираем стол у вас дома.",
+    image: "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/b49e92bf-0805-4a78-b1b7-2ea00d321f5d.jpg",
   },
 ]
 
@@ -65,31 +68,44 @@ export function Process() {
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
           {steps.map((step, index) => (
             <div
               key={step.title}
               ref={(el) => { refs.current[index] = el }}
               data-index={index}
-              className={`group relative p-8 rounded-xl bg-card border border-white/5 depth-card-dark depth-hover depth-edge transition-all duration-700 ${
+              className={`group relative rounded-xl bg-card border border-white/5 depth-card-dark depth-hover depth-edge overflow-hidden transition-all duration-700 ${
                 visible.includes(index) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
               style={{ transitionDelay: `${index * 120}ms` }}
             >
-              <span
-                className="absolute top-6 right-7 text-5xl font-bold leading-none select-none pointer-events-none"
-                style={{ color: "var(--gold)", opacity: 0.12 }}
-              >
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <div
-                className="inline-flex items-center justify-center w-14 h-14 mb-5 rounded-lg"
-                style={{ background: "linear-gradient(135deg, hsl(30 20% 18%) 0%, hsl(34 24% 10%) 100%)" }}
-              >
-                <Icon name={step.icon} size={26} style={{ color: "var(--gold)" }} />
+              {step.image && (
+                <div className="relative aspect-[4/3] overflow-hidden border-b border-white/5">
+                  <img
+                    src={step.image}
+                    alt={step.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+                </div>
+              )}
+              <div className="relative p-8">
+                <span
+                  className="absolute top-6 right-7 text-5xl font-bold leading-none select-none pointer-events-none"
+                  style={{ color: "var(--gold)", opacity: 0.12 }}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div
+                  className="inline-flex items-center justify-center w-14 h-14 mb-5 rounded-lg"
+                  style={{ background: "linear-gradient(135deg, hsl(30 20% 18%) 0%, hsl(34 24% 10%) 100%)" }}
+                >
+                  <Icon name={step.icon} size={26} style={{ color: "var(--gold)" }} />
+                </div>
+                <h3 className="text-xl font-medium mb-3">{step.title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">{step.description}</p>
               </div>
-              <h3 className="text-xl font-medium mb-3">{step.title}</h3>
-              <p className="text-muted-foreground leading-relaxed text-sm">{step.description}</p>
             </div>
           ))}
         </div>
