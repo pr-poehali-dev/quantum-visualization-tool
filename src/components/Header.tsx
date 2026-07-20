@@ -8,7 +8,8 @@ const navItems = [
   { label: "Главная", href: "#hero" },
   { label: "О нас", href: "#about" },
   { label: "Работы", href: "#projects" },
-  { label: "Процесс", href: "#services" },
+  { label: "Отзывы", href: "#reviews" },
+  { label: "Процесс", href: "#process" },
   { label: "FAQ", href: "#faq" },
 ]
 
@@ -25,7 +26,7 @@ export function Header() {
   }, [])
 
   useEffect(() => {
-    const ids = ["hero", "about", "projects", "services", "constructor", "faq"]
+    const ids = ["hero", "about", "projects", "reviews", "services", "process", "constructor", "faq"]
 
     let ticking = false
     const updateActive = () => {

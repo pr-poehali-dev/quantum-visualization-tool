@@ -230,6 +230,32 @@ export function Hero() {
             Заказать стол
           </button>
         </div>
+
+        <div
+          className="hero-reveal mt-10 flex flex-wrap gap-x-10 gap-y-5"
+          style={{ animationDelay: "0.9s" }}
+        >
+          {[
+            { value: "12", label: "лет опыта" },
+            { value: "500+", label: "столов создано" },
+            { value: "100%", label: "массив дуба" },
+          ].map((s) => (
+            <div key={s.label} className="flex flex-col">
+              <span
+                className="text-3xl md:text-4xl font-semibold tabular-nums"
+                style={{ color: "#e8c87a", textShadow: "0 2px 12px rgba(0,0,0,0.8)" }}
+              >
+                {s.value}
+              </span>
+              <span
+                className="text-[11px] md:text-xs tracking-[0.15em] uppercase text-white/70 mt-1"
+                style={{ textShadow: "0 1px 8px rgba(0,0,0,0.9)" }}
+              >
+                {s.label}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
