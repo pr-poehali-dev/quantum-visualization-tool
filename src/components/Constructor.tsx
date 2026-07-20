@@ -44,77 +44,102 @@ function shade(hex: string, percent: number) {
 
 function TablePreview({
   coatingColor,
+  coatingLabel,
   legColor,
   adjustable,
   length,
   width,
 }: {
   coatingColor: string
+  coatingLabel: string
   legColor: string
   adjustable: boolean
   length: number
   width: number
 }) {
-  const topW = 60 + ((length - 100) / 80) * 130
-  const topH = 16 + ((width - 60) / 20) * 12
-  const x = (240 - topW) / 2
-  const legTop = 40 + topH
-  const legBottom = 150
+  // изометрический вид с угла
+  const halfW = 45 + ((length - 100) / 80) * 55   // половина длины по оси X
+  const depth = 22 + ((width - 60) / 20) * 16      // глубина по оси проекции
+  const cx = 120
+  const topY = 58                                   // вершина ближнего угла столешницы
+  const th = 9                                       // толщина торца столешницы
+  const dx = depth * 0.9
+  const dy = depth * 0.5
+
+  // 4 угла верхней грани столешницы (ромб)
+  const front = { x: cx, y: topY + dy }             // ближний нижний угол
+  const right = { x: cx + halfW, y: topY + dy - dy } // правый
+  const back = { x: cx, y: topY - dy }              // дальний верхний
+  const left = { x: cx - halfW, y: topY + dy - dy }  // левый
+
+  const topPath = `M${front.x},${front.y} L${right.x},${right.y} L${back.x},${back.y} L${left.x},${left.y} Z`
+  const frontFace = `M${left.x},${left.y} L${front.x},${front.y} L${front.x},${front.y + th} L${left.x},${left.y + th} Z`
+  const rightFace = `M${front.x},${front.y} L${right.x},${right.y} L${right.x},${right.y + th} L${front.x},${front.y + th} Z`
+
+  const legLen = 66
+  const legY = topY + dy + th
+  const legPositions = [
+    { x: left.x + 8, y: left.y + th - 2 },
+    { x: front.x, y: front.y + th - 2 },
+    { x: right.x - 8, y: right.y + th - 2 },
+  ]
 
   return (
     <div
       className="relative overflow-hidden rounded-lg border border-white/10 mb-2"
-      style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(25 18% 14%) 0%, hsl(25 20% 8%) 100%)" }}
+      style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(25 18% 15%) 0%, hsl(25 20% 8%) 100%)" }}
     >
       <p className="absolute top-3 left-4 text-[10px] tracking-[0.3em] uppercase text-white/30 z-10">Предпросмотр</p>
-      <svg viewBox="0 0 240 170" className="w-full h-auto block">
-        <ellipse cx="120" cy="158" rx={topW / 2} ry="7" fill="rgba(0,0,0,0.4)" />
+      <svg viewBox="0 0 240 190" className="w-full h-auto block">
+        {/* тень на полу */}
+        <ellipse cx={cx} cy={legY + legLen + 4} rx={halfW * 0.9} ry="9" fill="rgba(0,0,0,0.45)" />
 
         {/* ножки */}
-        {[x + topW * 0.12, x + topW * 0.88].map((lx, i) => (
-          <g key={i}>
-            <rect
-              x={lx - 4} y={legTop} width="8" height={legBottom - legTop} rx="2"
-              fill={legColor}
-              style={{ transition: "all 0.4s ease" }}
-            />
+        {legPositions.map((p, i) => (
+          <g key={i} style={{ transition: "all 0.4s ease" }}>
+            <rect x={p.x - 3} y={p.y} width="6" height={legLen} rx="1.5" fill={legColor} />
+            <rect x={p.x - 3} y={p.y} width="2.2" height={legLen} rx="1" fill={shade(legColor, 0.15)} opacity="0.8" />
             {adjustable && (
-              <rect
-                x={lx - 6} y={legTop + (legBottom - legTop) * 0.4} width="12" height="10" rx="2"
-                fill={shade(legColor, legColor === "#e6e6e6" ? -0.12 : 0.18)}
-              />
+              <rect x={p.x - 4.5} y={p.y + legLen * 0.38} width="9" height="11" rx="1.5"
+                fill={shade(legColor, legColor === "#e6e6e6" ? -0.14 : 0.22)} />
             )}
-            <rect x={lx - 9} y={legBottom} width="18" height="4" rx="2" fill={shade(legColor, -0.1)} />
+            <rect x={p.x - 6} y={p.y + legLen} width="12" height="3.5" rx="1.5" fill={shade(legColor, -0.12)} />
           </g>
         ))}
 
-        {/* столешница */}
+        {/* торцы столешницы (толщина) */}
         <g style={{ transition: "all 0.4s ease" }}>
-          <rect
-            x={x} y="40" width={topW} height={topH} rx="4"
-            fill={coatingColor}
-            style={{ transition: "all 0.5s ease" }}
-          />
-          <rect
-            x={x} y="40" width={topW} height={topH} rx="4"
-            fill="url(#woodGrain)" opacity="0.35"
-          />
-          <rect
-            x={x} y="40" width={topW} height="3" rx="2"
-            fill={shade(coatingColor, 0.14)} opacity="0.7"
-          />
+          <path d={frontFace} fill={shade(coatingColor, -0.16)} />
+          <path d={rightFace} fill={shade(coatingColor, -0.28)} />
+        </g>
+
+        {/* верхняя грань */}
+        <g style={{ transition: "all 0.4s ease" }}>
+          <path d={topPath} fill={coatingColor} />
+          <path d={topPath} fill="url(#woodGrainIso)" opacity="0.4" />
+          <path d={topPath} fill="none" stroke={shade(coatingColor, 0.18)} strokeWidth="0.8" opacity="0.6" />
         </g>
 
         <defs>
-          <linearGradient id="woodGrain" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="rgba(0,0,0,0.25)" />
-            <stop offset="25%" stopColor="rgba(255,255,255,0.12)" />
-            <stop offset="50%" stopColor="rgba(0,0,0,0.2)" />
-            <stop offset="75%" stopColor="rgba(255,255,255,0.1)" />
-            <stop offset="100%" stopColor="rgba(0,0,0,0.25)" />
+          <linearGradient id="woodGrainIso" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="rgba(255,255,255,0.16)" />
+            <stop offset="40%" stopColor="rgba(0,0,0,0.18)" />
+            <stop offset="70%" stopColor="rgba(255,255,255,0.08)" />
+            <stop offset="100%" stopColor="rgba(0,0,0,0.22)" />
           </linearGradient>
         </defs>
       </svg>
+
+      {/* подпись */}
+      <div className="flex items-center justify-between px-4 pb-3 pt-1 gap-2">
+        <span className="inline-flex items-center gap-1.5 text-[11px] text-white/55 truncate">
+          <span className="w-3 h-3 rounded-full border border-white/40 shrink-0" style={{ background: coatingColor }} />
+          <span className="truncate">{coatingLabel}</span>
+        </span>
+        <span className="text-[11px] font-medium tabular-nums shrink-0" style={{ color: "var(--gold)" }}>
+          {length} × {width} см
+        </span>
+      </div>
     </div>
   )
 }
@@ -347,13 +372,13 @@ export function Constructor() {
                 <div className="grid grid-cols-2 gap-2">
                   {coatings.map(c => (
                     <button key={c.id} onClick={() => setCoating(c.id)}
-                      className={`flex items-center gap-3 px-4 py-3 border text-sm text-left transition-all duration-200 ${coating === c.id ? activeBtn : inactiveBtn}`}>
+                      className={`flex items-center gap-2.5 px-3 py-2.5 border text-xs text-left transition-all duration-200 ${coating === c.id ? activeBtn : inactiveBtn}`}>
                       <span
-                        className="w-7 h-7 rounded-full shrink-0 border-2 border-white/70 shadow-[0_0_0_1px_rgba(0,0,0,0.4),0_2px_6px_rgba(0,0,0,0.5)]"
+                        className="w-6 h-6 rounded-full shrink-0 border-2 border-white/70 shadow-[0_0_0_1px_rgba(0,0,0,0.4),0_2px_6px_rgba(0,0,0,0.5)]"
                         style={{ background: c.color }}
                       />
                       <span className="flex flex-col items-start min-w-0">
-                        <span className="truncate w-full">{c.label}</span>
+                        <span className="leading-tight">{c.label}</span>
                         {c.price > 0 && (
                           <span className={`text-[10px] font-medium ${coating === c.id ? "opacity-70" : ""}`}
                             style={coating !== c.id ? { color: "var(--gold)" } : {}}>
@@ -372,10 +397,10 @@ export function Constructor() {
                 <div className="grid grid-cols-2 gap-2">
                   {legs.map(l => (
                     <button key={l.id} onClick={() => setLegsType(l.id)}
-                      className={`flex items-center gap-3 px-4 py-3 border text-sm text-left transition-all duration-200 ${legsType === l.id ? activeBtn : inactiveBtn}`}>
-                      <Icon name={l.icon} size={16} className="shrink-0" />
+                      className={`flex items-center gap-2.5 px-3 py-2.5 border text-xs text-left transition-all duration-200 ${legsType === l.id ? activeBtn : inactiveBtn}`}>
+                      <Icon name={l.icon} size={15} className="shrink-0" />
                       <span className="flex flex-col items-start min-w-0">
-                        <span className="truncate w-full">{l.label}</span>
+                        <span className="leading-tight">{l.label}</span>
                         <span className={`text-[10px] font-medium ${legsType === l.id ? "opacity-70" : ""}`}
                           style={legsType !== l.id ? { color: "var(--gold)" } : {}}>
                           +{l.price.toLocaleString("ru-RU")} ₽
@@ -392,10 +417,10 @@ export function Constructor() {
                 <div className="grid grid-cols-2 gap-2">
                   {extras.map(e => (
                     <button key={e.id} onClick={() => toggleExtra(e.id)}
-                      className={`flex items-center gap-3 px-4 py-3 border text-sm text-left transition-all duration-200 ${selectedExtras.includes(e.id) ? activeBtn : inactiveBtn}`}>
-                      <Icon name={e.icon} size={16} className="shrink-0" />
+                      className={`flex items-center gap-2.5 px-3 py-2.5 border text-xs text-left transition-all duration-200 ${selectedExtras.includes(e.id) ? activeBtn : inactiveBtn}`}>
+                      <Icon name={e.icon} size={15} className="shrink-0" />
                       <span className="flex flex-col items-start min-w-0">
-                        <span className="truncate w-full">{e.label}</span>
+                        <span className="leading-tight">{e.label}</span>
                         <span className={`text-[10px] font-medium ${selectedExtras.includes(e.id) ? "opacity-70" : ""}`}
                           style={!selectedExtras.includes(e.id) ? { color: "var(--gold)" } : {}}>
                           +{e.price.toLocaleString("ru-RU")} ₽
@@ -414,6 +439,7 @@ export function Constructor() {
               {/* предпросмотр стола */}
               <TablePreview
                 coatingColor={selectedCoating.color}
+                coatingLabel={selectedCoating.label}
                 legColor={selectedLegs.color}
                 adjustable={selectedLegs.adjustable}
                 length={length}

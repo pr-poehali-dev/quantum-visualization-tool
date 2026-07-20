@@ -261,7 +261,7 @@ export function Hero() {
 
       <div className="hero-reveal absolute bottom-8 right-6 md:bottom-12 md:right-12 z-20 max-w-[240px]" style={{ animationDelay: "1.1s" }}>
         <div
-          className="gold-frame rounded-lg px-5 py-4 backdrop-blur-sm"
+          className="gold-frame px-5 py-4 backdrop-blur-sm"
           style={{ background: "rgba(12,8,4,0.55)" }}
         >
           <div className="flex items-start gap-3">

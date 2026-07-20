@@ -75,7 +75,7 @@ export function Process() {
               key={step.title}
               ref={(el) => { refs.current[index] = el }}
               data-index={index}
-              className={`group relative rounded-xl bg-card gold-frame depth-card-dark depth-hover depth-edge overflow-hidden transition-all duration-700 ${
+              className={`group relative bg-card gold-frame depth-card-dark depth-hover depth-edge overflow-hidden transition-all duration-700 ${
                 visible.includes(index) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
               style={{ transitionDelay: `${index * 120}ms` }}

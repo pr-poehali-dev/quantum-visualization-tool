@@ -111,7 +111,7 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
       </span>
 
       {/* карточка со скруглением и тенью */}
-      <div className="relative z-10 gold-frame depth-card-dark depth-hover depth-edge rounded-xl overflow-hidden">
+      <div className="relative z-10 gold-frame depth-card-dark depth-hover depth-edge overflow-hidden">
       {/* фото */}
       <div className="relative overflow-hidden aspect-[4/3] mb-0 z-10 border-b border-white/10">
         <img
@@ -177,6 +177,24 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
               className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${i === photoIndex ? "bg-white scale-125" : "bg-white/40"}`}
             />
           ))}
+        </div>
+
+        {/* иконка — плавно поднимается при наведении */}
+        <div
+          className="absolute left-3 top-3 z-10 w-10 h-10 flex items-center justify-center rounded-full backdrop-blur-sm transition-all duration-500 ease-out"
+          style={{
+            background: "rgba(12,8,4,0.6)",
+            border: "1px solid rgba(201,168,76,0.5)",
+            transform: hovered ? "translateY(-6px)" : "translateY(0)",
+            boxShadow: hovered
+              ? "0 12px 22px rgba(0,0,0,0.5), 0 0 18px rgba(201,168,76,0.35)"
+              : "0 4px 10px rgba(0,0,0,0.4)",
+          }}
+        >
+          <ArrowUpRight
+            className="w-5 h-5 transition-transform duration-500 ease-out"
+            style={{ color: "var(--gold)", transform: hovered ? "translate(1px,-1px)" : "none" }}
+          />
         </div>
       </div>
 
