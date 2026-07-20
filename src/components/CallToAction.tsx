@@ -10,12 +10,12 @@ export function CallToAction() {
     <>
       <section
         id="contact"
-        className="py-32 md:py-29 text-primary-foreground"
-        style={{ background: "linear-gradient(135deg, hsl(25 20% 10%) 0%, var(--navy) 100%)" }}
+        className="py-32 md:py-29 text-white"
+        style={{ background: "linear-gradient(135deg, hsl(28 22% 7%) 0%, hsl(30 20% 11%) 100%)" }}
       >
         <div className="container mx-auto px-6 md:px-12">
           <div className="max-w-4xl mx-auto text-center">
-            <p className="text-primary-foreground/60 text-sm tracking-[0.3em] uppercase mb-8">Заказать стол</p>
+            <p className="text-sm tracking-[0.3em] uppercase mb-8" style={{ color: "var(--gold)" }}>Заказать стол</p>
 
             <h2 className="text-3xl md:text-4xl lg:text-6xl font-medium leading-[1.1] tracking-tight mb-8 text-balance">
               Ваш стол из дуба —
@@ -23,7 +23,7 @@ export function CallToAction() {
               на <HighlightedText>века</HighlightedText>
             </h2>
 
-            <p className="text-primary-foreground/70 text-lg md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto">
+            <p className="text-white/70 text-lg md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto">
               Расскажите нам о своём пространстве — мы подберём размер, форму и покрытие. Каждый стол делается под конкретный дом.
             </p>
 
@@ -38,7 +38,7 @@ export function CallToAction() {
               </button>
               <button
                 onClick={() => setContactOpen(true)}
-                className="btn-glow-outline inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm tracking-wide text-primary-foreground hover:bg-primary-foreground/10 transition-all duration-300"
+                className="btn-glow-outline inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm tracking-wide text-white hover:bg-white/10 transition-all duration-300"
               >
                 Написать нам
               </button>

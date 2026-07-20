@@ -84,7 +84,7 @@ export function Expertise() {
                   itemRefs.current[index] = el
                 }}
                 data-index={index}
-                className={`group relative p-8 rounded-xl bg-card depth-card depth-hover depth-edge transition-all duration-700 ${
+                className={`group relative p-8 rounded-xl bg-card border border-white/5 depth-card-dark depth-hover depth-edge transition-all duration-700 ${
                   visibleItems.includes(index) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 }`}
                 style={{ transitionDelay: `${index * 150}ms` }}
@@ -100,7 +100,7 @@ export function Expertise() {
                     visibleItems.includes(index) ? "animate-draw-stroke" : ""
                   }`}
                   style={{
-                    background: "linear-gradient(135deg, hsl(25 18% 14%) 0%, var(--navy) 100%)",
+                    background: "linear-gradient(135deg, hsl(30 20% 18%) 0%, hsl(34 24% 10%) 100%)",
                     transitionDelay: `${index * 150}ms`,
                   }}
                 >

@@ -128,7 +128,7 @@ export function Header() {
             onClick={() => setContactOpen(true)}
             className={cn(
               "hidden md:inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full transition-all duration-300",
-              "bg-white text-foreground border border-foreground/20 hover:bg-foreground hover:text-white",
+              "border border-[var(--gold)]/50 text-[#e8c87a] hover:bg-[var(--gold)] hover:text-[#1a0f05] hover:border-[var(--gold)]",
             )}
           >
             Связаться
@@ -250,7 +250,7 @@ export function Header() {
               </a>
               <button
                 onClick={() => { closeMobileMenu(); setContactOpen(true) }}
-                className="flex-1 inline-flex items-center justify-center gap-2 text-sm px-5 py-2.5 rounded-full bg-white text-foreground border border-foreground/20 hover:bg-foreground hover:text-white transition-all duration-300"
+                className="flex-1 inline-flex items-center justify-center gap-2 text-sm px-5 py-2.5 rounded-full border border-[var(--gold)]/50 text-[#e8c87a] hover:bg-[var(--gold)] hover:text-[#1a0f05] transition-all duration-300"
               >
                 Связаться
               </button>

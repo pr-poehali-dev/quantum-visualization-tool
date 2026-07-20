@@ -63,12 +63,12 @@ export function FAQ() {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className={`rounded-xl bg-card overflow-hidden transition-all duration-500 depth-card ${
+              className={`rounded-xl bg-card border border-white/5 overflow-hidden transition-all duration-500 depth-card-dark ${
                 openIndex === index ? "depth-open" : ""
               }`}
               style={
                 openIndex === index
-                  ? { boxShadow: "0 10px 40px rgba(30,18,6,0.14), 0 0 0 1px var(--gold)" }
+                  ? { boxShadow: "0 10px 40px rgba(0,0,0,0.45), 0 0 0 1px var(--gold)" }
                   : undefined
               }
             >
@@ -84,14 +84,14 @@ export function FAQ() {
                   style={
                     openIndex === index
                       ? { background: "var(--gold)" }
-                      : { background: "rgba(22, 35, 61, 0.08)" }
+                      : { background: "rgba(191, 157, 84, 0.14)" }
                   }
                 >
                   <Plus
                     className={`w-5 h-5 transition-transform duration-300 ${
                       openIndex === index ? "rotate-45" : "rotate-0"
                     }`}
-                    style={{ color: openIndex === index ? "#1a0f05" : "var(--navy)" }}
+                    style={{ color: openIndex === index ? "#1a0f05" : "var(--gold)" }}
                     strokeWidth={1.5}
                   />
                 </span>
