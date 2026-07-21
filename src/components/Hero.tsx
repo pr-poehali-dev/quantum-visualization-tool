@@ -122,7 +122,7 @@ export function Hero() {
   }, [animationComplete])
 
   return (
-    <section id="hero" ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" ref={heroRef} className="relative min-h-[100svh] md:min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img
           src={heroImage}
@@ -207,26 +207,26 @@ export function Hero() {
 
       <div ref={contentRef} className="hidden" style={{ willChange: "transform" }} />
 
-      <div className="absolute inset-0 z-10 flex flex-col items-start justify-center gap-6 px-6 md:px-12 lg:pl-24">
+      <div className="absolute inset-0 z-10 flex flex-col items-start justify-center gap-4 md:gap-6 px-6 md:px-12 lg:pl-24">
         <h1
           ref={titleRef}
           className="text-blur-behind hero-reveal hero-title hero-title-gold text-balance text-left leading-[1.05]"
-          style={{ animationDelay: "0.3s", fontSize: "clamp(3rem, 8vw, 7rem)" }}
+          style={{ animationDelay: "0.3s", fontSize: "clamp(2.5rem, 10vw, 7rem)" }}
         >
           Русский <span className="hero-title-accent">Стол</span>
         </h1>
 
         <p
-          className="text-blur-behind text-blur-behind-strong hero-reveal mt-24 text-base md:text-xl text-white text-left font-light max-w-md leading-relaxed"
+          className="text-blur-behind text-blur-behind-strong hero-reveal mt-4 md:mt-24 text-sm md:text-xl text-white text-left font-light max-w-md leading-relaxed"
           style={{ textShadow: "0 2px 14px rgba(0,0,0,0.9), 0 0 6px rgba(0,0,0,0.7)", animationDelay: "0.5s" }}
         >
           Натуральная древесина + современные технологии — ваш идеальный стол
         </p>
 
-        <div className="hero-reveal mt-6" style={{ animationDelay: "0.7s" }}>
+        <div className="hero-reveal mt-2 md:mt-6" style={{ animationDelay: "0.7s" }}>
           <button
             onClick={() => setContactOpen(true)}
-            className="btn-glow btn-glow-pulse inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm tracking-widest uppercase font-medium transition-all duration-300"
+            className="btn-glow btn-glow-pulse inline-flex items-center gap-3 px-7 md:px-10 py-3 md:py-4 rounded-full text-xs md:text-sm tracking-widest uppercase font-medium transition-all duration-300"
             style={{ background: "#c9a84c", color: "#1a0f05" }}
           >
             Заказать стол
@@ -234,7 +234,7 @@ export function Hero() {
         </div>
 
         <div
-          className="hero-reveal mt-10 flex flex-wrap gap-x-8 gap-y-4"
+          className="hero-reveal mt-4 md:mt-10 flex flex-wrap gap-x-5 md:gap-x-8 gap-y-3 md:gap-y-4"
           style={{ animationDelay: "0.9s" }}
         >
           {[
@@ -242,15 +242,15 @@ export function Hero() {
             { icon: "Factory", label: "Собственное производство" },
             { icon: "ShieldCheck", label: "Прочность и надёжность" },
           ].map((s) => (
-            <div key={s.label} className="flex items-center gap-2.5">
+            <div key={s.label} className="flex items-center gap-2 md:gap-2.5">
               <span
-                className="flex items-center justify-center w-9 h-9 rounded-full shrink-0"
+                className="flex items-center justify-center w-7 h-7 md:w-9 md:h-9 rounded-full shrink-0"
                 style={{ background: "rgba(232,200,122,0.15)", border: "1px solid rgba(232,200,122,0.4)" }}
               >
-                <Icon name={s.icon} size={16} style={{ color: "#e8c87a" }} />
+                <Icon name={s.icon} size={14} className="md:w-4 md:h-4" style={{ color: "#e8c87a" }} />
               </span>
               <span
-                className="text-xs md:text-sm text-white/85 max-w-[110px] leading-tight"
+                className="text-[11px] md:text-sm text-white/85 max-w-[100px] md:max-w-[110px] leading-tight"
                 style={{ textShadow: "0 1px 8px rgba(0,0,0,0.9)" }}
               >
                 {s.label}
@@ -260,7 +260,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="hero-reveal absolute bottom-8 right-6 md:bottom-12 md:right-12 z-20 max-w-[240px]" style={{ animationDelay: "1.1s" }}>
+      <div className="hero-reveal hidden md:block absolute bottom-8 right-6 md:bottom-12 md:right-12 z-20 max-w-[240px]" style={{ animationDelay: "1.1s" }}>
         <div
           className="gold-frame px-5 py-4 backdrop-blur-sm"
           style={{ background: "rgba(12,8,4,0.55)" }}

@@ -70,12 +70,12 @@ export function Header() {
       <header
         className={cn(
           "fixed z-50 transition-all duration-500 my-0 py-0 rounded-none",
-          scrolled && !mobileMenuOpen && "py-1.5",
+          scrolled && !mobileMenuOpen && "py-1",
           (scrolled || mobileMenuOpen) && "md:py-4",
           scrolled || mobileMenuOpen
             ? "backdrop-blur-md top-2 md:top-4 left-2 md:left-4 right-2 md:right-4 rounded-xl md:rounded-2xl border-2 border-[var(--gold)]/40 shadow-[0_8px_32px_rgba(0,0,0,0.35),0_0_0_6px_rgba(201,168,76,0.12),0_0_28px_rgba(201,168,76,0.35)]"
             : "bg-transparent py-3 md:py-4 top-0 left-0 right-0 border border-transparent",
-          scrolled && mobileMenuOpen && "py-2.5",
+          scrolled && mobileMenuOpen && "py-2",
         )}
         style={scrolled || mobileMenuOpen ? { background: "linear-gradient(120deg, hsl(25 18% 14%) 0%, var(--navy) 145%)" } : undefined}
       >
@@ -181,31 +181,6 @@ export function Header() {
             </button>
           </div>
         </nav>
-
-        {!mobileMenuOpen && (
-          <div className={cn("md:hidden container mx-auto px-4", scrolled ? "pt-1.5" : "pt-2.5")}>
-            <div className="grid grid-cols-2 gap-1.5">
-              {navItems.map((item) => {
-                const isActive = activeSection === item.href.replace("#", "")
-                return (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className={cn(
-                      "text-center rounded-md border transition-all duration-300",
-                      scrolled ? "text-[10px] py-1 px-1.5" : "text-xs py-1.5 px-2",
-                      isActive
-                        ? "border-[var(--gold)] bg-[var(--gold)]/15 text-[#e8c87a]"
-                        : "border-white/15 text-white/80",
-                    )}
-                  >
-                    {item.label}
-                  </a>
-                )
-              })}
-            </div>
-          </div>
-        )}
 
         <div
           className={cn(
