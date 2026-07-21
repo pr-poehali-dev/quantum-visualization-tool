@@ -1,6 +1,13 @@
 import Icon from "@/components/ui/icon"
-import { SectionLabel } from "./TablePreview"
 import { coatings, legs, extras, activeBtn, inactiveBtn } from "./constructorData"
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-[10px] tracking-[0.3em] uppercase font-semibold mb-4" style={{ color: "var(--gold)" }}>
+      {children}
+    </p>
+  )
+}
 
 export function OptionsPanel({
   length,

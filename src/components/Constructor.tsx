@@ -117,10 +117,6 @@ export function Constructor() {
 
             {/* ПРАВАЯ ПАНЕЛЬ — итог, sticky */}
             <SummaryPanel
-              selectedCoating={selectedCoating}
-              selectedLegs={selectedLegs}
-              length={length}
-              width={width}
               sizePrice={sizePrice}
               coatingPrice={coatingPrice}
               legsPrice={legsPrice}

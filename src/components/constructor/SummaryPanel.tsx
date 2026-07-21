@@ -1,12 +1,7 @@
 import { ArrowRight, Check, Copy } from "lucide-react"
-import { TablePreview } from "./TablePreview"
 import { BASE_PRICE } from "./constructorData"
 
 export function SummaryPanel({
-  selectedCoating,
-  selectedLegs,
-  length,
-  width,
   sizePrice,
   coatingPrice,
   legsPrice,
@@ -24,10 +19,6 @@ export function SummaryPanel({
   setPhone,
   handleOrder,
 }: {
-  selectedCoating: { color: string; label: string }
-  selectedLegs: { color: string; adjustable: boolean }
-  length: number
-  width: number
   sizePrice: number
   coatingPrice: number
   legsPrice: number
@@ -47,16 +38,6 @@ export function SummaryPanel({
 }) {
   return (
     <div className="md:sticky md:top-8 space-y-2">
-
-      {/* предпросмотр стола */}
-      <TablePreview
-        coatingColor={selectedCoating.color}
-        coatingLabel={selectedCoating.label}
-        legColor={selectedLegs.color}
-        adjustable={selectedLegs.adjustable}
-        length={length}
-        width={width}
-      />
 
       {/* цена */}
       <div className="p-6 border border-white/15 rounded-xl depth-card-dark depth-edge" style={{ background: "hsl(25 18% 11%)" }}>
