@@ -3,7 +3,8 @@ import { ArrowDown, Heart } from "lucide-react"
 import Icon from "@/components/ui/icon"
 import { ContactModal } from "./ContactModal"
 
-const heroImage = "/assets/hero-desk-sharp.jpg"
+const heroImageDesktop = "/assets/hero-desk-desktop.jpg"
+const heroImageMobile = "/assets/hero-desk-mobile.jpg"
 
 export function Hero() {
   const contentRef = useRef<HTMLDivElement>(null)
@@ -124,12 +125,16 @@ export function Hero() {
   return (
     <section id="hero" ref={heroRef} className="relative min-h-[100svh] md:min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <img
-          src={heroImage}
-          alt="Рабочий кабинет со столом из массива дуба"
-          className="w-full h-full object-cover object-center"
-          style={{ filter: "brightness(0.92) contrast(1.05)" }}
-        />
+        <picture className="absolute inset-0 block w-full h-full">
+          <source media="(max-width: 767px)" srcSet={heroImageMobile} />
+          <source media="(min-width: 768px)" srcSet={heroImageDesktop} />
+          <img
+            src={heroImageDesktop}
+            alt="Рабочий кабинет со столом из массива дуба"
+            className="w-full h-full object-cover object-center"
+            style={{ filter: "brightness(0.92) contrast(1.05)" }}
+          />
+        </picture>
         <div
           className="absolute inset-0"
           style={{
