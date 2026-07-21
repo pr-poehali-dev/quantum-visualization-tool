@@ -102,7 +102,7 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
   return (
     <article
       className="group relative cursor-pointer"
-      onMouseEnter={() => { setHovered(true); triggerDust() }}
+      onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {/* номер карточки — декор */}
