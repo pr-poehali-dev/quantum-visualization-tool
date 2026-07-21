@@ -17,11 +17,25 @@ const steps = [
     image: "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/1f214763-aba9-4ad6-8f5b-e947d10207cf.jpg",
   },
   {
-    icon: "Hammer",
-    title: "Ручное производство",
+    icon: "Ruler",
+    title: "Подбор древесины",
     description:
-      "Мастер отбирает массив дуба и вручную создаёт ваш стол — от распила до финишного покрытия маслом.",
-    image: "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/f9ba0a7a-67ac-445e-9df6-38bca8f1797f.jpg",
+      "Отбираем доски вручную — только плотный, хорошо высушенный дуб без трещин и пороков. Каждая доска проходит многомесячную выдержку на складе.",
+    image: "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/efd3cd68-604e-4681-b9ce-23545d34ac60.jpg",
+  },
+  {
+    icon: "Hammer",
+    title: "Столярная обработка",
+    description:
+      "Фугование, строгание, склейка щита — всё вручную. Шипы, пазы и соединения делаются с допуском до 0,1 мм, чтобы стол не «гулял» десятилетиями.",
+    image: "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/2a9c9b33-74f9-48af-ba97-fbfa42145b6e.jpg",
+  },
+  {
+    icon: "Droplets",
+    title: "Финишное покрытие",
+    description:
+      "Используем натуральные масла и воски датского и немецкого производства. Покрытие подчёркивает текстуру дуба и защищает от влаги и пятен.",
+    image: "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/e2d36633-6450-4b8f-9079-7a11c581894c.jpg",
   },
   {
     icon: "Truck",
@@ -65,11 +79,11 @@ export function Process() {
             <p className="text-sm tracking-[0.3em] uppercase" style={{ color: "var(--gold)" }}>Как мы работаем</p>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.1] tracking-tight text-balance">
-            Четыре шага до вашего стола
+            Шесть шагов до вашего стола
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
           {steps.map((step, index) => (
             <div
               key={step.title}

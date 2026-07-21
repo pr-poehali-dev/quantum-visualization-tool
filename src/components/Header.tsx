@@ -26,7 +26,7 @@ export function Header() {
   }, [])
 
   useEffect(() => {
-    const ids = ["hero", "about", "projects", "reviews", "services", "process", "constructor", "faq"]
+    const ids = ["hero", "about", "projects", "reviews", "process", "constructor", "faq"]
 
     let ticking = false
     const updateActive = () => {

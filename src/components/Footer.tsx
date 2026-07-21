@@ -39,8 +39,8 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#services" className="hover:text-foreground transition-colors">
-                  Как мы делаем
+                <a href="#process" className="hover:text-foreground transition-colors">
+                  Как мы работаем
                 </a>
               </li>
               <li>
