@@ -38,7 +38,7 @@ export function OptionsPanel({
     <div className="space-y-2">
 
       {/* Размер */}
-      <div className="p-6 border border-white/10 bg-white/[0.04]">
+      <div className="p-6 gold-frame bg-white/[0.04]">
         <SectionLabel>1 · Размер столешницы</SectionLabel>
 
         {/* Длина */}
@@ -148,7 +148,7 @@ export function OptionsPanel({
       </div>
 
       {/* Покрытие */}
-      <div className="p-6 border border-white/10 bg-white/[0.04]">
+      <div className="p-6 gold-frame bg-white/[0.04]">
         <SectionLabel>2 · Цвет / покрытие</SectionLabel>
         <div className="grid grid-cols-2 gap-2">
           {coatings.map(c => (
@@ -173,7 +173,7 @@ export function OptionsPanel({
       </div>
 
       {/* Ножки */}
-      <div className="p-6 border border-white/10 bg-white/[0.04]">
+      <div className="p-6 gold-frame bg-white/[0.04]">
         <SectionLabel>3 · Тип ножек</SectionLabel>
         <div className="grid grid-cols-2 gap-2">
           {legs.map(l => (
@@ -193,7 +193,7 @@ export function OptionsPanel({
       </div>
 
       {/* Допы */}
-      <div className="p-6 border border-white/10 bg-white/[0.04]">
+      <div className="p-6 gold-frame bg-white/[0.04]">
         <SectionLabel>4 · Дополнения</SectionLabel>
         <div className="grid grid-cols-2 gap-2">
           {extras.map(e => (

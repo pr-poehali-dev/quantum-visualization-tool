@@ -40,7 +40,7 @@ export function SummaryPanel({
     <div className="md:sticky md:top-8 space-y-2">
 
       {/* цена */}
-      <div className="p-6 border border-white/15 rounded-xl depth-card-dark depth-edge" style={{ background: "hsl(25 18% 11%)" }}>
+      <div className="p-6 gold-frame depth-card-dark depth-edge" style={{ background: "hsl(25 18% 11%)" }}>
         <p className="text-[10px] tracking-[0.3em] uppercase text-white/35 mb-5">Стоимость</p>
         <div className="space-y-2 text-sm mb-5">
           <div className="flex justify-between text-white/45">
@@ -81,7 +81,7 @@ export function SummaryPanel({
       </div>
 
       {/* конфигурация */}
-      <div className="p-5 border border-white/10 bg-white/[0.03]">
+      <div className="p-5 gold-frame bg-white/[0.03]">
         <p className="text-[10px] tracking-[0.2em] uppercase text-white/30 mb-2">Конфигурация</p>
         <p className="text-white/55 text-xs leading-relaxed">{summary}</p>
         <button
@@ -99,7 +99,7 @@ export function SummaryPanel({
       </div>
 
       {/* контакты */}
-      <div className="p-5 border border-white/10 bg-white/[0.03]">
+      <div className="p-5 gold-frame bg-white/[0.03]">
         <p className="text-[10px] tracking-[0.3em] uppercase text-white/30 mb-3">Контакты</p>
         <div className="space-y-2">
           <input type="text" placeholder="Имя"
