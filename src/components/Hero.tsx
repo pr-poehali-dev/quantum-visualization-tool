@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 import { ArrowDown, Heart } from "lucide-react"
+import Icon from "@/components/ui/icon"
 import { ContactModal } from "./ContactModal"
 
-const heroImage = "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/files/5152c97a-f0c8-4578-a1bf-31ed3f08c6f5.jpg"
+const heroImage = "/assets/hero-desk-sharp.jpg"
 
 export function Hero() {
   const contentRef = useRef<HTMLDivElement>(null)
@@ -233,23 +234,23 @@ export function Hero() {
         </div>
 
         <div
-          className="hero-reveal mt-10 flex flex-wrap gap-x-10 gap-y-5"
+          className="hero-reveal mt-10 flex flex-wrap gap-x-8 gap-y-4"
           style={{ animationDelay: "0.9s" }}
         >
           {[
-            { value: "12", label: "лет опыта" },
-            { value: "500+", label: "столов создано" },
-            { value: "100%", label: "массив дуба" },
+            { icon: "UserCheck", label: "Индивидуальный подход" },
+            { icon: "Factory", label: "Собственное производство" },
+            { icon: "ShieldCheck", label: "Прочность и надёжность" },
           ].map((s) => (
-            <div key={s.label} className="flex flex-col">
+            <div key={s.label} className="flex items-center gap-2.5">
               <span
-                className="text-3xl md:text-4xl font-semibold tabular-nums"
-                style={{ color: "#e8c87a", textShadow: "0 2px 12px rgba(0,0,0,0.8)" }}
+                className="flex items-center justify-center w-9 h-9 rounded-full shrink-0"
+                style={{ background: "rgba(232,200,122,0.15)", border: "1px solid rgba(232,200,122,0.4)" }}
               >
-                {s.value}
+                <Icon name={s.icon} size={16} style={{ color: "#e8c87a" }} />
               </span>
               <span
-                className="text-[11px] md:text-xs tracking-[0.15em] uppercase text-white/70 mt-1"
+                className="text-xs md:text-sm text-white/85 max-w-[110px] leading-tight"
                 style={{ textShadow: "0 1px 8px rgba(0,0,0,0.9)" }}
               >
                 {s.label}
