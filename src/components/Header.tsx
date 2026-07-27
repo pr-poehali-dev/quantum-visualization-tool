@@ -67,113 +67,108 @@ export function Header() {
 
   return (
     <>
-      <header
-        className={cn(
-          "fixed z-50 transition-all duration-500 my-0 py-0 rounded-none",
-          scrolled && !mobileMenuOpen && "py-1",
-          (scrolled || mobileMenuOpen) && "md:py-4",
-          scrolled || mobileMenuOpen
-            ? "backdrop-blur-md top-2 md:top-4 left-2 md:left-4 right-2 md:right-4 rounded-xl md:rounded-2xl border-2 border-[var(--gold)]/40 shadow-[0_8px_32px_rgba(0,0,0,0.35),0_0_0_6px_rgba(201,168,76,0.12),0_0_28px_rgba(201,168,76,0.35)]"
-            : "bg-transparent py-3 md:py-4 top-0 left-0 right-0 border border-transparent",
-          scrolled && mobileMenuOpen && "py-2",
-        )}
-        style={scrolled || mobileMenuOpen ? { background: "linear-gradient(120deg, hsl(25 18% 14%) 0%, var(--navy) 145%)" } : undefined}
-      >
-        <nav className="container mx-auto px-4 md:px-6 flex items-center justify-between md:px-[24]">
+      <header className="fixed z-50 top-3 left-3 right-3 md:top-4 md:left-4 md:right-4 transition-all duration-500">
+        <nav className="flex items-center justify-between gap-2">
+          {/* логотип — компактный жетон */}
           <a
             href="/"
-            className={cn(
-              "group transition-all duration-500 origin-left",
-              scrolled && !mobileMenuOpen ? "scale-[0.55] md:scale-100" : "scale-75 md:scale-100",
-              scrolled || mobileMenuOpen ? "-ml-3" : "ml-0",
-            )}
             onClick={scrollToTop}
+            className={cn(
+              "flex items-center justify-center shrink-0 rounded-full backdrop-blur-md border border-[var(--gold)]/40 transition-all duration-300",
+              "w-11 h-11 md:w-16 md:h-16",
+            )}
+            style={{ background: "rgba(12,8,4,0.6)" }}
           >
-            <Logo size={64} />
+            <Logo size={30} className="md:hidden" />
+            <Logo size={48} className="hidden md:block" />
           </a>
 
-          <ul className="hidden md:flex items-center gap-3 text-sm tracking-wide">
-            {navItems.map((item) => {
-              const isActive = activeSection === item.href.replace("#", "")
-              return (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    className={cn(
-                      "inline-block whitespace-nowrap px-4 py-2 rounded-md border transition-all duration-300",
-                      isActive
-                        ? "border-[var(--gold)] bg-[var(--gold)]/15 text-[#e8c87a] shadow-[0_0_14px_rgba(201,168,76,0.35)]"
-                        : "border-white/15 text-white hover:text-[#e8c87a] hover:border-[var(--gold)]/60 hover:bg-white/[0.04]",
-                    )}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              )
-            })}
-            <li>
-              <a
-                href="#constructor"
-                className={cn(
-                  "px-4 py-2 text-sm font-medium rounded-full transition-all duration-300",
-                  activeSection === "constructor" ? "" : "btn-glow",
-                )}
-                style={{ background: "var(--gold)", color: "#1a0f05" }}
-              >
-                Конструктор
-              </a>
-            </li>
-          </ul>
-
-          <button
-            onClick={() => setContactOpen(true)}
+          {/* десктопное меню */}
+          <div
             className={cn(
-              "hidden md:inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full transition-all duration-300",
-              "border border-[var(--gold)]/50 text-[#e8c87a] hover:bg-[var(--gold)] hover:text-[#1a0f05] hover:border-[var(--gold)]",
+              "hidden md:flex items-center gap-3 px-3 py-2 rounded-2xl backdrop-blur-md transition-all duration-500",
+              scrolled || mobileMenuOpen ? "border-2 border-[var(--gold)]/40 shadow-[0_8px_32px_rgba(0,0,0,0.35),0_0_0_6px_rgba(201,168,76,0.12),0_0_28px_rgba(201,168,76,0.35)]" : "border border-transparent",
             )}
+            style={scrolled || mobileMenuOpen ? { background: "linear-gradient(120deg, hsl(25 18% 14%) 0%, var(--navy) 145%)" } : undefined}
           >
-            Связаться
-          </button>
+            <ul className="flex items-center gap-3 text-sm tracking-wide">
+              {navItems.map((item) => {
+                const isActive = activeSection === item.href.replace("#", "")
+                return (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      className={cn(
+                        "inline-block whitespace-nowrap px-4 py-2 rounded-md border transition-all duration-300",
+                        isActive
+                          ? "border-[var(--gold)] bg-[var(--gold)]/15 text-[#e8c87a] shadow-[0_0_14px_rgba(201,168,76,0.35)]"
+                          : "border-white/15 text-white hover:text-[#e8c87a] hover:border-[var(--gold)]/60 hover:bg-white/[0.04]",
+                      )}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                )
+              })}
+              <li>
+                <a
+                  href="#constructor"
+                  className={cn(
+                    "px-4 py-2 text-sm font-medium rounded-full transition-all duration-300",
+                    activeSection === "constructor" ? "" : "btn-glow",
+                  )}
+                  style={{ background: "var(--gold)", color: "#1a0f05" }}
+                >
+                  Конструктор
+                </a>
+              </li>
+            </ul>
 
-          <div className="md:hidden flex items-center gap-1.5">
+            <button
+              onClick={() => setContactOpen(true)}
+              className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full transition-all duration-300 border border-[var(--gold)]/50 text-[#e8c87a] hover:bg-[var(--gold)] hover:text-[#1a0f05] hover:border-[var(--gold)]"
+            >
+              Связаться
+            </button>
+          </div>
+
+          {/* мобильный жетон — иконки + бургер */}
+          <div
+            className="md:hidden flex items-center gap-1 px-1.5 py-1.5 rounded-full backdrop-blur-md border border-[var(--gold)]/40"
+            style={{ background: "rgba(12,8,4,0.6)" }}
+          >
             {!mobileMenuOpen && (
               <>
                 <a
                   href="#constructor"
                   aria-label="Конструктор"
-                  className={cn(
-                    "inline-flex items-center justify-center rounded-full transition-all duration-300",
-                    scrolled ? "w-7 h-7" : "w-9 h-9",
-                  )}
+                  className="inline-flex items-center justify-center rounded-full w-8 h-8 transition-all duration-300"
                   style={{ background: "var(--gold)", color: "#1a0f05" }}
                 >
-                  <Icon name="Hammer" size={scrolled ? 13 : 16} />
+                  <Icon name="Hammer" size={14} />
                 </a>
                 <button
                   onClick={() => setContactOpen(true)}
                   aria-label="Связаться"
-                  className={cn(
-                    "inline-flex items-center justify-center rounded-full bg-white/10 text-white border border-white/20 transition-all duration-300",
-                    scrolled ? "w-7 h-7" : "w-9 h-9",
-                  )}
+                  className="inline-flex items-center justify-center rounded-full w-8 h-8 bg-white/10 text-white border border-white/20 transition-all duration-300"
                 >
-                  <Icon name="MessageCircle" size={scrolled ? 13 : 16} />
+                  <Icon name="MessageCircle" size={14} />
                 </button>
               </>
             )}
 
             <button
-              className="z-50 transition-colors duration-300 text-white p-1.5"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-full text-white transition-colors duration-300"
               aria-label={mobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <line x1="18" y1="6" x2="6" y2="18" />
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               ) : (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <line x1="4" y1="8" x2="20" y2="8" />
                   <line x1="4" y1="16" x2="20" y2="16" />
                 </svg>
@@ -182,14 +177,18 @@ export function Header() {
           </div>
         </nav>
 
+        {/* выпадающее мобильное меню */}
         <div
           className={cn(
-            "md:hidden overflow-hidden transition-all duration-300 ease-in-out",
-            mobileMenuOpen ? "max-h-[600px] opacity-100 mt-4" : "max-h-0 opacity-0",
+            "md:hidden overflow-hidden transition-all duration-300 ease-in-out rounded-2xl backdrop-blur-md border",
+            mobileMenuOpen
+              ? "max-h-[600px] opacity-100 mt-2 border-[var(--gold)]/40 shadow-[0_8px_32px_rgba(0,0,0,0.35)]"
+              : "max-h-0 opacity-0 border-transparent",
           )}
+          style={mobileMenuOpen ? { background: "linear-gradient(120deg, hsl(25 18% 14%) 0%, var(--navy) 145%)" } : undefined}
         >
-          <div className="container mx-auto px-4">
-            <ul className="flex flex-col gap-1 mb-4 border-t border-white/10 pt-3">
+          <div className="px-4 py-4">
+            <ul className="flex flex-col gap-1 mb-4">
               {[
                 { label: "Главная", href: "#hero" },
                 { label: "О нас", href: "#about" },
@@ -203,7 +202,7 @@ export function Header() {
                     <a
                       href={item.href}
                       className={cn(
-                        "transition-colors duration-300 text-lg font-light block py-2 px-2 rounded-lg",
+                        "transition-colors duration-300 text-base font-light block py-2 px-2 rounded-lg",
                         isActive ? "text-[#e8c87a] bg-[var(--gold)]/10" : "text-white hover:text-[#e8c87a]",
                       )}
                       onClick={closeMobileMenu}
@@ -215,7 +214,7 @@ export function Header() {
               })}
             </ul>
 
-            <div className="flex items-center gap-3 pb-4">
+            <div className="flex items-center gap-3">
               <a
                 href="#constructor"
                 className="btn-glow flex-1 text-center px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300"

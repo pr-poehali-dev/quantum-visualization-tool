@@ -239,7 +239,7 @@ export function Hero() {
         </div>
 
         <div
-          className="hero-reveal mt-4 md:mt-10 flex flex-wrap gap-x-5 md:gap-x-8 gap-y-3 md:gap-y-4"
+          className="hero-reveal mt-4 md:mt-10 grid grid-cols-2 gap-x-3 gap-y-2.5 md:flex md:flex-wrap md:gap-x-8 md:gap-y-4"
           style={{ animationDelay: "0.9s" }}
         >
           {[
@@ -249,17 +249,38 @@ export function Hero() {
           ].map((s) => (
             <div key={s.label} className="flex items-center gap-2 md:gap-2.5">
               <span
-                className="flex items-center justify-center w-7 h-7 md:w-9 md:h-9 rounded-full shrink-0"
+                className="flex items-center justify-center w-6 h-6 md:w-9 md:h-9 rounded-full shrink-0"
                 style={{ background: "rgba(232,200,122,0.15)", border: "1px solid rgba(232,200,122,0.4)" }}
               >
-                <Icon name={s.icon} size={14} className="md:w-4 md:h-4" style={{ color: "#e8c87a" }} />
+                <Icon name={s.icon} size={12} className="md:w-4 md:h-4" style={{ color: "#e8c87a" }} />
               </span>
               <span
-                className="text-[11px] md:text-sm text-white/85 max-w-[100px] md:max-w-[130px] leading-tight"
+                className="text-[10px] md:text-sm text-white/85 leading-tight"
                 style={{ textShadow: "0 1px 8px rgba(0,0,0,0.9)" }}
               >
                 {s.label}
               </span>
+            </div>
+          ))}
+        </div>
+
+        {/* преимущества — компактной строкой на мобильных, панелью справа снизу на десктопе */}
+        <div
+          className="hero-reveal grid grid-cols-3 gap-1.5 mt-3 w-full max-w-md md:hidden"
+          style={{ animationDelay: "1.1s" }}
+        >
+          {[
+            { icon: "Truck", label: "Доставка по РФ" },
+            { icon: "Leaf", label: "Массив дуба" },
+            { icon: "Clock", label: "От 14 дней" },
+          ].map((p) => (
+            <div
+              key={p.label}
+              className="flex flex-col items-center gap-1 text-center px-1.5 py-2 rounded-lg backdrop-blur-sm"
+              style={{ background: "rgba(12,8,4,0.5)", border: "1px solid rgba(232,200,122,0.3)" }}
+            >
+              <Icon name={p.icon} size={14} style={{ color: "#e8c87a" }} />
+              <p className="text-white/85 text-[9px] leading-tight">{p.label}</p>
             </div>
           ))}
         </div>
