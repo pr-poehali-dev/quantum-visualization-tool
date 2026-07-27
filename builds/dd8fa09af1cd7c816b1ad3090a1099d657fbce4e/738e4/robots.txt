@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://russiantable.ru/sitemap.xml
+Sitemap: https://russkiystol.poehali.dev/sitemap.xml
