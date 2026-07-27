@@ -244,7 +244,7 @@ export function Hero() {
         >
           {[
             { icon: "UserCheck", label: "Индивидуальный подход" },
-            { icon: "Factory", label: "Собственное производство" },
+            { icon: "Factory", label: "Собственное производство в Санкт-Петербурге" },
             { icon: "ShieldCheck", label: "Прочность и надёжность" },
           ].map((s) => (
             <div key={s.label} className="flex items-center gap-2 md:gap-2.5">
@@ -255,7 +255,7 @@ export function Hero() {
                 <Icon name={s.icon} size={14} className="md:w-4 md:h-4" style={{ color: "#e8c87a" }} />
               </span>
               <span
-                className="text-[11px] md:text-sm text-white/85 max-w-[100px] md:max-w-[110px] leading-tight"
+                className="text-[11px] md:text-sm text-white/85 max-w-[100px] md:max-w-[130px] leading-tight"
                 style={{ textShadow: "0 1px 8px rgba(0,0,0,0.9)" }}
               >
                 {s.label}
