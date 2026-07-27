@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { ArrowDown, Heart } from "lucide-react"
+import { ArrowDown } from "lucide-react"
 import Icon from "@/components/ui/icon"
 import { ContactModal } from "./ContactModal"
 
@@ -265,16 +265,22 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="hero-reveal hidden md:block absolute bottom-8 right-6 md:bottom-12 md:right-12 z-20 max-w-[240px]" style={{ animationDelay: "1.1s" }}>
+      <div className="hero-reveal hidden md:block absolute bottom-8 right-6 md:bottom-12 md:right-12 z-20 max-w-[260px]" style={{ animationDelay: "1.1s" }}>
         <div
           className="gold-frame px-5 py-4 backdrop-blur-sm"
           style={{ background: "rgba(12,8,4,0.55)" }}
         >
-          <div className="flex items-start gap-3">
-            <Heart className="w-5 h-5 shrink-0 mt-0.5" style={{ color: "#e8c87a", fill: "#e8c87a" }} />
-            <p className="text-white/85 text-xs leading-relaxed">
-              <span className="font-semibold" style={{ color: "#e8c87a" }}>5 лет</span> гарантии на каждый стол собственного производства
-            </p>
+          <div className="space-y-2.5">
+            {[
+              { icon: "Truck", label: "Доставка по всей России" },
+              { icon: "Leaf", label: "Экологичный массив дуба" },
+              { icon: "Clock", label: "Изготовление от 14 дней" },
+            ].map((p) => (
+              <div key={p.label} className="flex items-center gap-3">
+                <Icon name={p.icon} size={16} className="shrink-0" style={{ color: "#e8c87a" }} />
+                <p className="text-white/85 text-xs leading-relaxed">{p.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
