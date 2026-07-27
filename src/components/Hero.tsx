@@ -273,7 +273,7 @@ export function Hero() {
           <div className="flex items-start gap-3">
             <Heart className="w-5 h-5 shrink-0 mt-0.5" style={{ color: "#e8c87a", fill: "#e8c87a" }} />
             <p className="text-white/85 text-xs leading-relaxed">
-              <span className="font-semibold" style={{ color: "#e8c87a" }}>10%</span> дохода компании мы направляем на благотворительность
+              <span className="font-semibold" style={{ color: "#e8c87a" }}>5 лет</span> гарантии на каждый стол собственного производства
             </p>
           </div>
         </div>
