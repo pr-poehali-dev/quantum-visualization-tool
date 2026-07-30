@@ -1,8 +1,10 @@
 import { useState, useEffect, MouseEvent } from "react"
+import { Link } from "react-router-dom"
 import { cn } from "../lib/utils"
 import { Logo } from "./Logo"
 import { ContactModal } from "./ContactModal"
 import Icon from "./ui/icon"
+import { useShop } from "@/context/ShopContext"
 
 const navItems = [
   { label: "Главная", href: "#hero" },
@@ -18,6 +20,7 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
+  const { user, cartCount } = useShop()
 
   useEffect(() => {
     const handleScroll = () => { setScrolled(window.scrollY > 50) }
@@ -124,12 +127,23 @@ export function Header() {
               </li>
             </ul>
 
-            <button
-              onClick={() => setContactOpen(true)}
+            <Link
+              to="/cart"
+              aria-label="Корзина"
+              className="relative inline-flex items-center justify-center w-10 h-10 rounded-full border border-[var(--gold)]/50 text-[#e8c87a] hover:bg-[var(--gold)]/10 transition-all duration-300"
+            >
+              <Icon name="ShoppingCart" size={17} />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-[var(--gold)] text-[#1a0f05] text-[10px] font-bold flex items-center justify-center">{cartCount}</span>
+              )}
+            </Link>
+            <Link
+              to={user ? "/account" : "/auth"}
               className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full transition-all duration-300 border border-[var(--gold)]/50 text-[#e8c87a] hover:bg-[var(--gold)] hover:text-[#1a0f05] hover:border-[var(--gold)]"
             >
-              Связаться
-            </button>
+              <Icon name="User" size={16} />
+              {user ? (user.name || "Кабинет") : "Войти"}
+            </Link>
           </div>
 
           {/* мобильный жетон — иконки + бургер */}
@@ -147,13 +161,23 @@ export function Header() {
                 >
                   <Icon name="Hammer" size={14} />
                 </a>
-                <button
-                  onClick={() => setContactOpen(true)}
-                  aria-label="Связаться"
+                <Link
+                  to="/cart"
+                  aria-label="Корзина"
+                  className="relative inline-flex items-center justify-center rounded-full w-8 h-8 bg-white/10 text-white border border-white/20 transition-all duration-300"
+                >
+                  <Icon name="ShoppingCart" size={14} />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1 min-w-[15px] h-[15px] px-0.5 rounded-full bg-[var(--gold)] text-[#1a0f05] text-[9px] font-bold flex items-center justify-center">{cartCount}</span>
+                  )}
+                </Link>
+                <Link
+                  to={user ? "/account" : "/auth"}
+                  aria-label={user ? "Кабинет" : "Войти"}
                   className="inline-flex items-center justify-center rounded-full w-8 h-8 bg-white/10 text-white border border-white/20 transition-all duration-300"
                 >
-                  <Icon name="MessageCircle" size={14} />
-                </button>
+                  <Icon name="User" size={14} />
+                </Link>
               </>
             )}
 

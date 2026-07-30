@@ -1,0 +1,22 @@
+{
+  "tests": [
+    {
+      "name": "CORS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Stats requires admin",
+      "method": "GET",
+      "path": "/?action=stats",
+      "expectedStatus": 403
+    },
+    {
+      "name": "Orders requires admin",
+      "method": "GET",
+      "path": "/?action=orders",
+      "expectedStatus": 403
+    }
+  ]
+}

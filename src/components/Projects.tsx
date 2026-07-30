@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from "react"
-import { ArrowUpRight, ChevronLeft, ChevronRight, Copy, Check } from "lucide-react"
+import { ArrowUpRight, ChevronLeft, ChevronRight, Copy, Check, Heart, ShoppingCart } from "lucide-react"
 import { ContactModal } from "./ContactModal"
+import { useShop } from "@/context/ShopContext"
 
 const projects = [
   {
     id: 1,
+    productId: 1,
+    priceNum: 50000,
     title: "Стол «Боярин»",
     category: "Умный стол с подъёмным механизмом",
     location: "Дуб сращенный, цвет Тик, Лак, 140×80×3",
@@ -18,6 +21,8 @@ const projects = [
   },
   {
     id: 2,
+    productId: 2,
+    priceNum: 45000,
     title: "Стол «Купец»",
     category: "Умный стол с подъёмным механизмом",
     location: "Дуб сращенный, бесцветный, Лак, 130×70×3",
@@ -31,6 +36,8 @@ const projects = [
   },
   {
     id: 3,
+    productId: 3,
+    priceNum: 35000,
     title: "Стол «Воевода»",
     category: "Компьютерный стол на стационарном подстолье",
     location: "Дуб сращенный, бесцветный лак, 140×70×3",
@@ -44,6 +51,8 @@ const projects = [
   },
   {
     id: 4,
+    productId: 4,
+    priceNum: 45000,
     title: "Стол «Витязь»",
     category: "Умный стол с подъёмным механизмом",
     location: "Дуб сращенный, бесцветный лак, 150×60×3",
@@ -74,6 +83,24 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
   const [contactOpen, setContactOpen] = useState(false)
   const [dustKey, setDustKey] = useState(0)
   const [dust, setDust] = useState(makeDust)
+  const { addToCart, toggleFavorite, favoriteIds } = useShop()
+  const isFav = favoriteIds.includes(project.productId)
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    addToCart({
+      product_id: project.productId,
+      title: project.title,
+      price: project.priceNum,
+      image_url: project.images[0],
+      quantity: 1,
+    }).catch(() => {})
+  }
+
+  const handleFav = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    toggleFavorite(project.productId)
+  }
 
   const orderMessage = `Привет! Хочу заказать стол.\nМодель: ${project.title}\n${project.category}\n${project.location}\nЦена: ${project.price}`
 
@@ -218,15 +245,30 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
         {/* кнопки */}
         <div className="mt-4 space-y-2" onClick={e => e.stopPropagation()}>
           <div className="flex gap-2">
+            <button
+              onClick={handleAddToCart}
+              className="btn-glow flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs tracking-widest uppercase font-medium transition-all duration-300"
+              style={{ background: "var(--gold)", color: "#1a0f05" }}>
+              <ShoppingCart className="w-3.5 h-3.5" />
+              В корзину
+            </button>
+            <button
+              onClick={handleFav}
+              aria-label="В избранное"
+              className="inline-flex items-center justify-center w-11 shrink-0 border border-white/15 hover:border-[var(--gold)]/60 transition-all duration-200"
+              style={isFav ? { background: "rgba(201,168,76,0.15)", borderColor: "var(--gold)" } : undefined}>
+              <Heart className="w-4 h-4" style={{ color: isFav ? "var(--gold)" : "rgba(255,255,255,0.5)", fill: isFav ? "var(--gold)" : "transparent" }} />
+            </button>
+          </div>
+          <div className="flex gap-2">
             <button onClick={handleCopy}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-white/15 text-xs tracking-widest uppercase font-medium text-white/60 hover:border-white/40 hover:text-white transition-all duration-200">
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 border border-white/15 text-xs tracking-widest uppercase font-medium text-white/60 hover:border-white/40 hover:text-white transition-all duration-200">
               {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
               {copied ? "Скопировано" : "Скопировать"}
             </button>
             <button
               onClick={() => setContactOpen(true)}
-              className="btn-glow flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs tracking-widest uppercase font-medium transition-all duration-300"
-              style={{ background: "var(--gold)", color: "#1a0f05" }}>
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 border border-[var(--gold)]/40 text-[#e8c87a] text-xs tracking-widest uppercase font-medium transition-all duration-300 hover:bg-[var(--gold)]/10">
               Заказать
             </button>
           </div>

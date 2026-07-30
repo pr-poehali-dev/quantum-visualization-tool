@@ -3,6 +3,7 @@ import { ContactModal } from "./ContactModal"
 import { BASE_PRICE, coatings, legs, extras, calcSizePrice } from "./constructor/constructorData"
 import { OptionsPanel } from "./constructor/OptionsPanel"
 import { SummaryPanel } from "./constructor/SummaryPanel"
+import { useShop } from "@/context/ShopContext"
 
 export function Constructor() {
   const [length, setLength] = useState(140)
@@ -14,6 +15,7 @@ export function Constructor() {
   const [phone, setPhone] = useState("")
   const [copied, setCopied] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
+  const { addToCart } = useShop()
 
   const toggleExtra = (id: string) =>
     setSelectedExtras(prev =>
@@ -45,6 +47,20 @@ export function Constructor() {
 
   const handleOrder = () => {
     setContactOpen(true)
+  }
+
+  const handleAddToCart = () => {
+    addToCart({
+      title: `Стол на заказ (${sizeLabel})`,
+      price: totalPrice,
+      quantity: 1,
+      config: {
+        Размер: sizeLabel,
+        Покрытие: coatingLabel,
+        Ножки: legsLabel,
+        Дополнения: extrasLabels || "нет",
+      },
+    }).catch(() => {})
   }
 
   return (
@@ -133,6 +149,7 @@ export function Constructor() {
               phone={phone}
               setPhone={setPhone}
               handleOrder={handleOrder}
+              handleAddToCart={handleAddToCart}
             />
           </div>
 

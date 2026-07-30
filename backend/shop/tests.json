@@ -1,0 +1,22 @@
+{
+  "tests": [
+    {
+      "name": "CORS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Public products list",
+      "method": "GET",
+      "path": "/?action=products",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Cart requires auth",
+      "method": "GET",
+      "path": "/?action=cart",
+      "expectedStatus": 401
+    }
+  ]
+}

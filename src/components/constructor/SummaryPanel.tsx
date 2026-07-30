@@ -1,4 +1,4 @@
-import { ArrowRight, Check, Copy } from "lucide-react"
+import { ArrowRight, Check, Copy, ShoppingCart } from "lucide-react"
 import { BASE_PRICE } from "./constructorData"
 
 export function SummaryPanel({
@@ -18,6 +18,7 @@ export function SummaryPanel({
   phone,
   setPhone,
   handleOrder,
+  handleAddToCart,
 }: {
   sizePrice: number
   coatingPrice: number
@@ -35,6 +36,7 @@ export function SummaryPanel({
   phone: string
   setPhone: (v: string) => void
   handleOrder: () => void
+  handleAddToCart: () => void
 }) {
   return (
     <div className="md:sticky md:top-8 space-y-2">
@@ -114,11 +116,19 @@ export function SummaryPanel({
       </div>
 
       <button
-        onClick={handleOrder}
+        onClick={handleAddToCart}
         className="btn-glow w-full inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg text-sm tracking-widest uppercase font-medium transition-all duration-300 group"
         style={{ background: "var(--gold, #c9a84c)", color: "#1a0f05" }}
       >
-        Заказать стол
+        <ShoppingCart className="w-4 h-4" />
+        В корзину
+      </button>
+
+      <button
+        onClick={handleOrder}
+        className="w-full inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-lg text-sm tracking-widest uppercase font-medium transition-all duration-300 group border border-[var(--gold)]/50 text-[#e8c87a] hover:bg-[var(--gold)]/10"
+      >
+        Заказать в 1 клик
         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
       </button>
 
