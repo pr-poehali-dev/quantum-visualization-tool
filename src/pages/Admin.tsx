@@ -209,6 +209,12 @@ function ProductsAdmin({ products, reload }: { products: Product[]; reload: () =
     toast.success("Товар скрыт")
   }
 
+  const restore = async (p: Product) => {
+    await api.adminUpdateProduct({ ...p, is_active: true })
+    await reload()
+    toast.success("Товар возвращён")
+  }
+
   return (
     <div>
       <button onClick={() => setEditing({ ...EMPTY })} className="mb-5 inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium" style={{ background: "var(--gold)", color: "#1a0f05" }}>
@@ -225,9 +231,13 @@ function ProductsAdmin({ products, reload }: { products: Product[]; reload: () =
               <p className="text-[#e8c87a] mt-2">{p.price.toLocaleString("ru")} ₽</p>
               <div className="flex gap-2 mt-3">
                 <button onClick={() => setEditing(p)} className="flex-1 py-2 rounded-full text-sm border border-[var(--gold)]/40 text-[#e8c87a]">Изменить</button>
-                {p.is_active && (
+                {p.is_active ? (
                   <button onClick={() => remove(p.id)} className="px-3 rounded-full border border-white/15 text-white/60 hover:text-red-400">
                     <Icon name="EyeOff" size={16} />
+                  </button>
+                ) : (
+                  <button onClick={() => restore(p)} className="px-3 rounded-full border border-white/15 text-white/60 hover:text-green-400">
+                    <Icon name="Eye" size={16} />
                   </button>
                 )}
               </div>
