@@ -2,11 +2,13 @@ import { useEffect, useRef, useState } from "react"
 import { ArrowDown } from "lucide-react"
 import Icon from "@/components/ui/icon"
 import { ContactModal } from "./ContactModal"
+import { useSiteContent } from "@/context/SiteContentContext"
 
 const heroImageDesktop = "/assets/hero-desk-desktop.jpg"
 const heroImageMobile = "/assets/hero-desk-mobile.jpg"
 
 export function Hero() {
+  const { get } = useSiteContent()
   const contentRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
@@ -218,14 +220,22 @@ export function Hero() {
           className="text-blur-behind hero-reveal hero-title hero-title-gold text-balance text-left leading-[1.05]"
           style={{ animationDelay: "0.3s", fontSize: "clamp(2.5rem, 10vw, 7rem)" }}
         >
-          Русский <span className="hero-title-accent">Стол</span>
+          {(() => {
+            const words = get("hero_title").split(" ")
+            const last = words.pop()
+            return (
+              <>
+                {words.join(" ")} <span className="hero-title-accent">{last}</span>
+              </>
+            )
+          })()}
         </h1>
 
         <p
           className="text-blur-behind text-blur-behind-strong hero-reveal mt-4 md:mt-24 text-base md:text-xl text-white text-left font-light max-w-md leading-relaxed"
           style={{ textShadow: "0 2px 14px rgba(0,0,0,0.9), 0 0 6px rgba(0,0,0,0.7)", animationDelay: "0.5s" }}
         >
-          Натуральная древесина + современные технологии — ваш идеальный стол
+          {get("hero_subtitle")}
         </p>
 
         <div className="hero-reveal mt-2 md:mt-6" style={{ animationDelay: "0.7s" }}>

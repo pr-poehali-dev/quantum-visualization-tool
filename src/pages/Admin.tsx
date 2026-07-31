@@ -9,6 +9,15 @@ import { toast } from "sonner"
 type Stats = { orders_count: number; revenue: number; users_count: number; new_orders: number }
 type AdminUser = { id: number; email: string; name?: string; phone?: string; address?: string; created_at: string; orders_count: number }
 
+const CONTENT_FIELDS: { key: string; label: string; multiline?: boolean }[] = [
+  { key: "hero_title", label: "Заголовок на главном экране" },
+  { key: "hero_subtitle", label: "Подзаголовок на главном экране", multiline: true },
+  { key: "philosophy_title", label: "Заголовок блока «О нас»" },
+  { key: "philosophy_description", label: "Текст блока «О нас»", multiline: true },
+  { key: "cta_title", label: "Заголовок призыва к заказу" },
+  { key: "cta_description", label: "Текст призыва к заказу", multiline: true },
+]
+
 const STATUSES = [
   { id: "new", label: "Новый" },
   { id: "processing", label: "В работе" },
@@ -19,7 +28,7 @@ const STATUSES = [
 export default function Admin() {
   const { user, loading } = useShop()
   const navigate = useNavigate()
-  const [tab, setTab] = useState<"stats" | "orders" | "users" | "products">("stats")
+  const [tab, setTab] = useState<"stats" | "orders" | "users" | "products" | "content">("stats")
   const [stats, setStats] = useState<Stats | null>(null)
   const [orders, setOrders] = useState<Order[]>([])
   const [users, setUsers] = useState<AdminUser[]>([])
@@ -58,6 +67,7 @@ export default function Admin() {
     { id: "orders", label: "Заказы", icon: "Package" },
     { id: "users", label: "Пользователи", icon: "Users" },
     { id: "products", label: "Товары", icon: "Table" },
+    { id: "content", label: "Контент", icon: "FileText" },
   ] as const
 
   return (
@@ -169,8 +179,65 @@ export default function Admin() {
         )}
 
         {tab === "products" && <ProductsAdmin products={products} reload={() => api.adminProducts().then((d) => setProducts(d.products))} />}
+
+        {tab === "content" && <ContentAdmin />}
       </main>
     </div>
+  )
+}
+
+function ContentAdmin() {
+  const [values, setValues] = useState<Record<string, string>>({})
+  const [saving, setSaving] = useState(false)
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    api.adminGetContent().then((d) => {
+      setValues(d.content)
+      setLoaded(true)
+    }).catch(() => setLoaded(true))
+  }, [])
+
+  const save = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setSaving(true)
+    try {
+      await api.adminUpdateContent(values)
+      toast.success("Тексты сохранены")
+    } catch {
+      toast.error("Ошибка сохранения")
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  if (!loaded) return <p className="text-white/50">Загрузка…</p>
+
+  return (
+    <form onSubmit={save} className="gold-frame p-6 max-w-2xl space-y-4" style={{ background: "rgba(12,8,4,0.6)" }}>
+      {CONTENT_FIELDS.map((f) => (
+        <div key={f.key}>
+          <label className="block text-white/60 text-sm mb-1.5">{f.label}</label>
+          {f.multiline ? (
+            <textarea
+              value={values[f.key] || ""}
+              onChange={(e) => setValues({ ...values, [f.key]: e.target.value })}
+              rows={3}
+              className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm resize-none focus:border-[var(--gold)]/50 focus:outline-none"
+            />
+          ) : (
+            <input
+              value={values[f.key] || ""}
+              onChange={(e) => setValues({ ...values, [f.key]: e.target.value })}
+              className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:border-[var(--gold)]/50 focus:outline-none"
+            />
+          )}
+        </div>
+      ))}
+      <button type="submit" disabled={saving} className="px-6 py-2.5 rounded-full font-medium disabled:opacity-60" style={{ background: "var(--gold)", color: "#1a0f05" }}>
+        {saving ? "Сохраняем…" : "Сохранить тексты"}
+      </button>
+    </form>
   )
 }
 
@@ -185,6 +252,107 @@ function StatCard({ icon, label, value }: { icon: string; label: string; value: 
 }
 
 const EMPTY = { name: "", category: "", description: "", price: 0, image_url: "" }
+
+function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve((reader.result as string).split(",")[1])
+    reader.onerror = reject
+    reader.readAsDataURL(file)
+  })
+}
+
+function ImageUploadField({ value, onChange, label }: { value: string; onChange: (url: string) => void; label: string }) {
+  const [uploading, setUploading] = useState(false)
+
+  const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    try {
+      const base64 = await fileToBase64(file)
+      const { url } = await api.adminUploadImage(base64, file.type)
+      onChange(url)
+      toast.success("Фото загружено")
+    } catch {
+      toast.error("Ошибка загрузки фото")
+    } finally {
+      setUploading(false)
+      e.target.value = ""
+    }
+  }
+
+  return (
+    <div>
+      <label className="block text-white/60 text-sm mb-1.5">{label}</label>
+      <div className="flex items-center gap-3">
+        {value && <img src={value} alt="" className="w-14 h-14 rounded-lg object-cover border border-white/10" />}
+        <label className="flex-1 cursor-pointer px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white/70 text-sm text-center hover:border-[var(--gold)]/50">
+          {uploading ? "Загрузка…" : "Загрузить фото"}
+          <input type="file" accept="image/*" className="hidden" onChange={handleFile} disabled={uploading} />
+        </label>
+      </div>
+    </div>
+  )
+}
+
+function ProductGallery({ productId }: { productId: number }) {
+  const [images, setImages] = useState<{ id: number; image_url: string }[]>([])
+  const [uploading, setUploading] = useState(false)
+
+  const load = () => api.adminGetProductImages(productId).then((d) => setImages(d.images)).catch(() => {})
+
+  useEffect(() => {
+    load()
+  }, [productId])
+
+  const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    try {
+      const base64 = await fileToBase64(file)
+      const { url } = await api.adminUploadImage(base64, file.type)
+      await api.adminAddProductImage(productId, url, images.length)
+      await load()
+      toast.success("Фото добавлено в коллекцию")
+    } catch {
+      toast.error("Ошибка загрузки фото")
+    } finally {
+      setUploading(false)
+      e.target.value = ""
+    }
+  }
+
+  const removeImage = async (id: number) => {
+    await api.adminDeleteProductImage(id)
+    await load()
+  }
+
+  return (
+    <div>
+      <label className="block text-white/60 text-sm mb-1.5">Фото в коллекции готовых столов</label>
+      <div className="flex flex-wrap gap-2 mb-2">
+        {images.map((img) => (
+          <div key={img.id} className="relative w-16 h-16 group">
+            <img src={img.image_url} alt="" className="w-full h-full object-cover rounded-lg border border-white/10" />
+            <button
+              type="button"
+              onClick={() => removeImage(img.id)}
+              className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-black/80 border border-white/20 text-white/70 hover:text-red-400 flex items-center justify-center"
+            >
+              <Icon name="X" size={11} />
+            </button>
+          </div>
+        ))}
+      </div>
+      <label className="inline-flex cursor-pointer px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white/70 text-sm hover:border-[var(--gold)]/50">
+        {uploading ? "Загрузка…" : "+ Добавить фото"}
+        <input type="file" accept="image/*" className="hidden" onChange={handleFile} disabled={uploading} />
+      </label>
+    </div>
+  )
+}
 
 function ProductsAdmin({ products, reload }: { products: Product[]; reload: () => Promise<unknown> }) {
   const [editing, setEditing] = useState<Partial<Product> | null>(null)
@@ -248,13 +416,14 @@ function ProductsAdmin({ products, reload }: { products: Product[]; reload: () =
 
       {editing && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70" onClick={() => setEditing(null)}>
-          <form onClick={(e) => e.stopPropagation()} onSubmit={save} className="gold-frame p-6 w-full max-w-md space-y-3" style={{ background: "#1a130c" }}>
+          <form onClick={(e) => e.stopPropagation()} onSubmit={save} className="gold-frame p-6 w-full max-w-md space-y-3 max-h-[90vh] overflow-y-auto" style={{ background: "#1a130c" }}>
             <h3 className="text-white font-medium">{editing.id ? "Редактировать товар" : "Новый товар"}</h3>
             <input required value={editing.name || ""} onChange={(e) => setEditing({ ...editing, name: e.target.value })} placeholder="Название" className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:border-[var(--gold)]/50 focus:outline-none" />
             <input value={editing.category || ""} onChange={(e) => setEditing({ ...editing, category: e.target.value })} placeholder="Категория" className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:border-[var(--gold)]/50 focus:outline-none" />
             <textarea value={editing.description || ""} onChange={(e) => setEditing({ ...editing, description: e.target.value })} placeholder="Описание" rows={2} className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm resize-none focus:border-[var(--gold)]/50 focus:outline-none" />
             <input required type="number" value={editing.price ?? 0} onChange={(e) => setEditing({ ...editing, price: Number(e.target.value) })} placeholder="Цена" className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:border-[var(--gold)]/50 focus:outline-none" />
-            <input value={editing.image_url || ""} onChange={(e) => setEditing({ ...editing, image_url: e.target.value })} placeholder="Ссылка на фото" className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:border-[var(--gold)]/50 focus:outline-none" />
+            <ImageUploadField value={editing.image_url || ""} onChange={(url) => setEditing({ ...editing, image_url: url })} label="Главное фото товара" />
+            {editing.id && <ProductGallery productId={editing.id} />}
             <div className="flex gap-2 pt-2">
               <button type="submit" className="flex-1 py-2.5 rounded-full font-medium" style={{ background: "var(--gold)", color: "#1a0f05" }}>Сохранить</button>
               <button type="button" onClick={() => setEditing(null)} className="px-5 py-2.5 rounded-full border border-white/15 text-white/70">Отмена</button>

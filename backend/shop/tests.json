@@ -17,6 +17,12 @@
       "method": "GET",
       "path": "/?action=cart",
       "expectedStatus": 401
+    },
+    {
+      "name": "Public content",
+      "method": "GET",
+      "path": "/?action=content",
+      "expectedStatus": 200
     }
   ]
 }

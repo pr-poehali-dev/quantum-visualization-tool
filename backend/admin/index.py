@@ -1,5 +1,8 @@
+import base64
 import json
 import os
+import uuid
+import boto3
 import psycopg2
 import psycopg2.extras
 
@@ -134,6 +137,64 @@ def handler(event, context):
             pid = int(params.get('id'))
             cur.execute("UPDATE products SET is_active = FALSE WHERE id = %s", (pid,))
             return _resp(200, {'ok': True})
+
+        # ---- Тексты сайта ----
+        if method == 'GET' and action == 'content':
+            cur.execute("SELECT key, value FROM site_content")
+            return _resp(200, {'content': {r['key']: r['value'] for r in cur.fetchall()}})
+
+        if method == 'PUT' and action == 'content':
+            body = json.loads(event.get('body') or '{}')
+            items = body.get('items') or {}
+            for key, value in items.items():
+                cur.execute(
+                    "INSERT INTO site_content (key, value, updated_at) VALUES (%s, %s, NOW()) "
+                    "ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()",
+                    (key, value),
+                )
+            return _resp(200, {'ok': True})
+
+        # ---- Фото товаров (коллекция) ----
+        if method == 'GET' and action == 'product_images':
+            pid = int(params.get('product_id'))
+            cur.execute(
+                "SELECT id, image_url, sort_order FROM product_images WHERE product_id = %s ORDER BY sort_order, id",
+                (pid,),
+            )
+            return _resp(200, {'images': cur.fetchall()})
+
+        if method == 'POST' and action == 'product_images':
+            body = json.loads(event.get('body') or '{}')
+            cur.execute(
+                "INSERT INTO product_images (product_id, image_url, sort_order) VALUES (%s, %s, %s) RETURNING id",
+                (int(body.get('product_id')), body.get('image_url'), int(body.get('sort_order') or 0)),
+            )
+            return _resp(200, {'id': cur.fetchone()['id']})
+
+        if method == 'DELETE' and action == 'product_images':
+            img_id = int(params.get('id'))
+            cur.execute("DELETE FROM product_images WHERE id = %s", (img_id,))
+            return _resp(200, {'ok': True})
+
+        # ---- Загрузка изображения в S3 ----
+        if method == 'POST' and action == 'upload_image':
+            body = json.loads(event.get('body') or '{}')
+            file_b64 = body.get('file')
+            content_type = body.get('content_type', 'image/jpeg')
+            ext = content_type.split('/')[-1] if '/' in content_type else 'jpg'
+            if not file_b64:
+                return _resp(400, {'error': 'Файл не передан'})
+            data = base64.b64decode(file_b64)
+            key = f"products/{uuid.uuid4()}.{ext}"
+            s3 = boto3.client(
+                's3',
+                endpoint_url='https://bucket.poehali.dev',
+                aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
+                aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
+            )
+            s3.put_object(Bucket='files', Key=key, Body=data, ContentType=content_type)
+            cdn_url = f"https://cdn.poehali.dev/projects/{os.environ['AWS_ACCESS_KEY_ID']}/bucket/{key}"
+            return _resp(200, {'url': cdn_url})
 
         return _resp(400, {'error': 'Неизвестное действие'})
     finally:

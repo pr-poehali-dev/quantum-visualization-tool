@@ -17,6 +17,12 @@
       "method": "GET",
       "path": "/?action=orders",
       "expectedStatus": 403
+    },
+    {
+      "name": "Content requires admin",
+      "method": "GET",
+      "path": "/?action=content",
+      "expectedStatus": 403
     }
   ]
 }

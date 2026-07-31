@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { HighlightedText } from "./HighlightedText"
+import { useSiteContent } from "@/context/SiteContentContext"
 
 const philosophyItems = [
   {
@@ -24,6 +25,7 @@ const philosophyItems = [
 ]
 
 export function Philosophy() {
+  const { get } = useSiteContent()
   const [visibleItems, setVisibleItems] = useState<number[]>([])
   const itemRefs = useRef<(HTMLDivElement | null)[]>([])
 
@@ -63,9 +65,18 @@ export function Philosophy() {
               <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase">Наша философия</p>
             </div>
             <h2 className="text-6xl md:text-6xl font-medium leading-[1.15] tracking-tight mb-6 text-balance lg:text-8xl">
-              Мебель с
-              <br />
-              <HighlightedText>душой дуба</HighlightedText>
+              {(() => {
+                const words = get("philosophy_title").split(" ")
+                const highlighted = words.slice(-2).join(" ")
+                const rest = words.slice(0, -2).join(" ")
+                return (
+                  <>
+                    {rest}
+                    <br />
+                    <HighlightedText>{highlighted}</HighlightedText>
+                  </>
+                )
+              })()}
             </h2>
 
             <div className="relative hidden lg:block">
@@ -80,7 +91,7 @@ export function Philosophy() {
           {/* Right column - Description and Philosophy items */}
           <div className="space-y-6 lg:pt-48">
             <p className="text-muted-foreground text-lg leading-relaxed max-w-md mb-12">
-              Умный и компьютерный стол из дуба — это больше, чем мебель. Это место, где семья собирается каждый день. Мы делаем столы из массива дуба, которые становятся центром вашего дома на десятилетия.
+              {get("philosophy_description")}
             </p>
 
             {philosophyItems.map((item, index) => (

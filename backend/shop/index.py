@@ -55,7 +55,22 @@ def handler(event, context):
         # Публичный каталог
         if method == 'GET' and action == 'products':
             cur.execute("SELECT id, name, category, description, price, image_url FROM products WHERE is_active = TRUE ORDER BY id")
-            return _resp(200, {'products': cur.fetchall()})
+            products = cur.fetchall()
+            cur.execute(
+                "SELECT product_id, image_url FROM product_images WHERE product_id IN "
+                "(SELECT id FROM products WHERE is_active = TRUE) ORDER BY sort_order, id"
+            )
+            images_by_product = {}
+            for row in cur.fetchall():
+                images_by_product.setdefault(row['product_id'], []).append(row['image_url'])
+            for p in products:
+                p['images'] = images_by_product.get(p['id'], [])
+            return _resp(200, {'products': products})
+
+        # Публичные тексты сайта
+        if method == 'GET' and action == 'content':
+            cur.execute("SELECT key, value FROM site_content")
+            return _resp(200, {'content': {r['key']: r['value'] for r in cur.fetchall()}})
 
         # Дальше нужен пользователь
         user = _user_by_token(cur, token)

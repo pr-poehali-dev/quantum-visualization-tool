@@ -16,11 +16,11 @@ export function clearToken() {
   localStorage.removeItem(TOKEN_KEY)
 }
 
-async function request(base: string, action: string, method: string, body?: unknown) {
+async function request(base: string, action: string, method: string, body?: unknown, extra = "") {
   const headers: Record<string, string> = { "Content-Type": "application/json" }
   const token = getToken()
   if (token) headers["X-Auth-Token"] = token
-  const res = await fetch(`${base}?action=${action}`, {
+  const res = await fetch(`${base}?action=${action}${extra}`, {
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
@@ -54,6 +54,13 @@ export type Product = {
   price: number
   image_url?: string
   is_active?: boolean
+  images?: string[]
+}
+
+export type ProductImage = {
+  id: number
+  image_url: string
+  sort_order: number
 }
 
 export type CartItem = {
@@ -92,6 +99,7 @@ export const api = {
 
   // shop
   getProducts: (): Promise<{ products: Product[] }> => request(SHOP_URL, "products", "GET"),
+  getContent: (): Promise<{ content: Record<string, string> }> => request(SHOP_URL, "content", "GET"),
   getCart: (): Promise<{ items: CartItem[] }> => request(SHOP_URL, "cart", "GET"),
   addToCart: (item: Partial<CartItem>) => request(SHOP_URL, "cart", "POST", item),
   updateCart: (id: number, quantity: number) => request(SHOP_URL, "cart", "PUT", { id, quantity }),
@@ -114,4 +122,13 @@ export const api = {
   adminAddProduct: (p: Partial<Product>) => request(ADMIN_URL, "products", "POST", p),
   adminUpdateProduct: (p: Partial<Product>) => request(ADMIN_URL, "products", "PUT", p),
   adminDeleteProduct: (id: number) => requestDelete(ADMIN_URL, "products", `&id=${id}`),
+  adminGetContent: (): Promise<{ content: Record<string, string> }> => request(ADMIN_URL, "content", "GET"),
+  adminUpdateContent: (items: Record<string, string>) => request(ADMIN_URL, "content", "PUT", { items }),
+  adminGetProductImages: (productId: number): Promise<{ images: ProductImage[] }> =>
+    request(ADMIN_URL, "product_images", "GET", undefined, `&product_id=${productId}`),
+  adminAddProductImage: (product_id: number, image_url: string, sort_order = 0) =>
+    request(ADMIN_URL, "product_images", "POST", { product_id, image_url, sort_order }),
+  adminDeleteProductImage: (id: number) => requestDelete(ADMIN_URL, "product_images", `&id=${id}`),
+  adminUploadImage: (fileBase64: string, contentType: string): Promise<{ url: string }> =>
+    request(ADMIN_URL, "upload_image", "POST", { file: fileBase64, content_type: contentType }),
 }

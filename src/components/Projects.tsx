@@ -2,69 +2,36 @@ import { useState, useEffect, useRef } from "react"
 import { ArrowUpRight, ChevronLeft, ChevronRight, Copy, Check, Heart, ShoppingCart } from "lucide-react"
 import { ContactModal } from "./ContactModal"
 import { useShop } from "@/context/ShopContext"
+import { api, Product } from "@/lib/api"
 
-const projects = [
-  {
-    id: 1,
-    productId: 1,
-    priceNum: 50000,
-    title: "Стол «Боярин»",
-    category: "Умный стол с подъёмным механизмом",
-    location: "Дуб сращенный, цвет Тик, Лак, 140×80×3",
-    year: "2024",
-    price: "50 000 ₽",
-    images: [
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/1e9ce664-0469-4b9c-8b63-08b74d90c803.jpeg",
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/dd04451b-ab1b-49a8-a374-6d2e4fb06b9b.jpeg",
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/652b0908-f3f5-415e-8f76-38a42303d210.webp",
-    ],
-  },
-  {
-    id: 2,
-    productId: 2,
-    priceNum: 45000,
-    title: "Стол «Купец»",
-    category: "Умный стол с подъёмным механизмом",
-    location: "Дуб сращенный, бесцветный, Лак, 130×70×3",
-    year: "2024",
-    price: "45 000 ₽",
-    images: [
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/b9317af5-aca6-40f6-8ed8-c6b99fdecf99.png",
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/8112ce8c-0fad-4d21-8a02-bfe9c334bff4.png",
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/d01c9d27-d4c3-409d-8c16-6990066676d2.png",
-    ],
-  },
-  {
-    id: 3,
-    productId: 3,
-    priceNum: 35000,
-    title: "Стол «Воевода»",
-    category: "Компьютерный стол на стационарном подстолье",
-    location: "Дуб сращенный, бесцветный лак, 140×70×3",
-    year: "2024",
-    price: "35 000 ₽",
-    images: [
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/14207a60-ff31-41bc-b485-213f1ac2aaee.jpeg",
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/046a542c-2411-4628-9c23-96bc48199cce.jpeg",
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/1211e4ea-304c-4e33-bc14-5a9ec894ac02.png",
-    ],
-  },
-  {
-    id: 4,
-    productId: 4,
-    priceNum: 45000,
-    title: "Стол «Витязь»",
-    category: "Умный стол с подъёмным механизмом",
-    location: "Дуб сращенный, бесцветный лак, 150×60×3",
-    year: "2024",
-    price: "45 000 ₽",
-    images: [
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/27618e2f-ba4f-4113-b909-79b3944b6d23.png",
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/10aac323-a61d-495a-851b-e7fda7bf3790.jpeg",
-      "https://cdn.poehali.dev/projects/53afd534-c4d4-4c1e-92b5-b59a5b871baa/bucket/76f7a00b-4889-4b76-bf81-747bfd075071.png",
-    ],
-  },
-]
+type ProjectItem = {
+  id: number
+  productId: number
+  priceNum: number
+  title: string
+  category: string
+  location: string
+  year: string
+  price: string
+  images: string[]
+}
+
+const YEAR = String(new Date().getFullYear())
+
+function toProject(p: Product): ProjectItem {
+  const images = [p.image_url, ...(p.images || [])].filter((v): v is string => Boolean(v))
+  return {
+    id: p.id,
+    productId: p.id,
+    priceNum: p.price,
+    title: p.name,
+    category: p.category || "",
+    location: p.description || "",
+    year: YEAR,
+    price: `${p.price.toLocaleString("ru")} ₽`,
+    images: images.length > 0 ? images : ["/placeholder.svg"],
+  }
+}
 
 const makeDust = () => Array.from({ length: 22 }, (_, i) => ({
   left: 4 + Math.random() * 92,
@@ -76,7 +43,7 @@ const makeDust = () => Array.from({ length: 22 }, (_, i) => ({
   key: i,
 }))
 
-function ProjectCard({ project, index, revealed }: { project: typeof projects[0]; index: number; revealed: boolean }) {
+function ProjectCard({ project, index, revealed }: { project: ProjectItem; index: number; revealed: boolean }) {
   const [photoIndex, setPhotoIndex] = useState(0)
   const [hovered, setHovered] = useState(false)
   const [copied, setCopied] = useState(false)
@@ -281,8 +248,13 @@ function ProjectCard({ project, index, revealed }: { project: typeof projects[0]
 }
 
 export function Projects() {
+  const [projects, setProjects] = useState<ProjectItem[]>([])
   const [revealedImages, setRevealedImages] = useState<Set<number>>(new Set())
   const imageRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  useEffect(() => {
+    api.getProducts().then((d) => setProjects(d.products.map(toProject))).catch(() => {})
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -290,7 +262,7 @@ export function Projects() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const index = imageRefs.current.indexOf(entry.target as HTMLDivElement)
-            if (index !== -1) {
+            if (index !== -1 && projects[index]) {
               setRevealedImages((prev) => new Set(prev).add(projects[index].id))
             }
           }
@@ -300,7 +272,7 @@ export function Projects() {
     )
     imageRefs.current.forEach((ref) => { if (ref) observer.observe(ref) })
     return () => observer.disconnect()
-  }, [])
+  }, [projects])
 
   return (
     <section id="projects" className="py-32 relative overflow-hidden"

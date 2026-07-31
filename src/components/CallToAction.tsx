@@ -2,8 +2,10 @@ import { useState } from "react"
 import { ArrowRight } from "lucide-react"
 import { HighlightedText } from "./HighlightedText"
 import { ContactModal } from "./ContactModal"
+import { useSiteContent } from "@/context/SiteContentContext"
 
 export function CallToAction() {
+  const { get } = useSiteContent()
   const [contactOpen, setContactOpen] = useState(false)
 
   return (
@@ -18,13 +20,21 @@ export function CallToAction() {
             <p className="text-sm tracking-[0.3em] uppercase mb-8" style={{ color: "var(--gold)" }}>Заказать стол</p>
 
             <h2 className="text-3xl md:text-4xl lg:text-6xl font-medium leading-[1.1] tracking-tight mb-8 text-balance">
-              Ваш стол из дуба —
-              <br />
-              на <HighlightedText>века</HighlightedText>
+              {(() => {
+                const words = get("cta_title").split(" ")
+                const last = words.pop()
+                return (
+                  <>
+                    {words.join(" ")}
+                    <br />
+                    <HighlightedText>{last}</HighlightedText>
+                  </>
+                )
+              })()}
             </h2>
 
             <p className="text-white/70 text-lg md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto">
-              Расскажите нам о своём пространстве — мы подберём размер, форму и покрытие. Каждый стол делается под конкретный дом.
+              {get("cta_description")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
