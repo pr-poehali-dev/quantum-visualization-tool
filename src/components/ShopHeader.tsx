@@ -33,9 +33,9 @@ export function ShopHeader() {
               {user.is_admin && (
                 <Link
                   to="/admin"
-                  className="hidden sm:inline-flex items-center gap-1.5 px-3 h-10 rounded-full border border-[var(--gold)]/40 text-[#e8c87a] text-sm hover:bg-[var(--gold)]/10 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 h-10 rounded-full border border-[var(--gold)]/40 text-[#e8c87a] text-sm hover:bg-[var(--gold)]/10 transition-colors"
                 >
-                  <Icon name="Shield" size={16} /> Админка
+                  <Icon name="Shield" size={16} /> <span className="hidden sm:inline">Админка</span>
                 </Link>
               )}
               <Link
