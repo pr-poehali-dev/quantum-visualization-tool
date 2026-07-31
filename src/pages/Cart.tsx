@@ -30,8 +30,14 @@ export default function Cart() {
 
   const total = cart.reduce((s, i) => s + i.price * i.quantity, 0)
 
+  const isPhoneValid = (value: string) => value.replace(/\D/g, "").length >= 11
+
   const checkout = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!isPhoneValid(phone)) {
+      toast.error("Введите полный номер телефона")
+      return
+    }
     setBusy(true)
     try {
       const { order_id } = await api.createOrder({ name, phone, address, comment })
@@ -119,14 +125,26 @@ export default function Cart() {
             <form onSubmit={checkout} className="gold-frame p-5 h-fit space-y-3" style={{ background: "rgba(12,8,4,0.6)" }}>
               <h3 className="text-white font-medium mb-2">Оформление</h3>
               <input value={name} onChange={(e) => setName(e.target.value)} required placeholder="Имя" className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/40 text-sm focus:border-[var(--gold)]/50 focus:outline-none" />
-              <input value={phone} onChange={(e) => setPhone(e.target.value)} required placeholder="Телефон" className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/40 text-sm focus:border-[var(--gold)]/50 focus:outline-none" />
+              <input
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+                type="tel"
+                placeholder="Телефон, например +7 900 000-00-00"
+                pattern="^[\d\s()+-]{11,}$"
+                title="Введите полный номер телефона"
+                className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/40 text-sm focus:border-[var(--gold)]/50 focus:outline-none"
+              />
+              {phone.length > 0 && !isPhoneValid(phone) && (
+                <p className="text-red-400 text-xs -mt-2">Введите полный номер телефона</p>
+              )}
               <input value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Адрес доставки" className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/40 text-sm focus:border-[var(--gold)]/50 focus:outline-none" />
               <textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Комментарий" rows={2} className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/40 text-sm focus:border-[var(--gold)]/50 focus:outline-none resize-none" />
               <div className="flex justify-between text-white pt-2 border-t border-white/10">
                 <span>Итого</span>
                 <span className="text-[#e8c87a] text-lg font-semibold">{total.toLocaleString("ru")} ₽</span>
               </div>
-              <button type="submit" disabled={busy} className="w-full py-3 rounded-full font-medium disabled:opacity-60" style={{ background: "var(--gold)", color: "#1a0f05" }}>
+              <button type="submit" disabled={busy || !isPhoneValid(phone)} className="w-full py-3 rounded-full font-medium disabled:opacity-60" style={{ background: "var(--gold)", color: "#1a0f05" }}>
                 {busy ? "Оформляем…" : "Оформить заказ"}
               </button>
             </form>
