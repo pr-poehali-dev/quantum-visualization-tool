@@ -222,7 +222,7 @@ export function Hero() {
         </h1>
 
         <p
-          className="text-blur-behind text-blur-behind-strong hero-reveal mt-4 md:mt-24 text-sm md:text-xl text-white text-left font-light max-w-md leading-relaxed"
+          className="text-blur-behind text-blur-behind-strong hero-reveal mt-4 md:mt-24 text-base md:text-xl text-white text-left font-light max-w-md leading-relaxed"
           style={{ textShadow: "0 2px 14px rgba(0,0,0,0.9), 0 0 6px rgba(0,0,0,0.7)", animationDelay: "0.5s" }}
         >
           Натуральная древесина + современные технологии — ваш идеальный стол
@@ -239,7 +239,7 @@ export function Hero() {
         </div>
 
         <div
-          className="hero-reveal mt-4 md:mt-10 grid grid-cols-2 gap-x-3 gap-y-2.5 md:flex md:flex-wrap md:gap-x-8 md:gap-y-4"
+          className="hero-reveal mt-5 md:mt-10 flex flex-col gap-2.5 md:flex md:flex-row md:flex-wrap md:gap-x-8 md:gap-y-4"
           style={{ animationDelay: "0.9s" }}
         >
           {[
@@ -247,15 +247,15 @@ export function Hero() {
             { icon: "Factory", label: "Собственное производство в Санкт-Петербурге" },
             { icon: "ShieldCheck", label: "Прочность и надёжность" },
           ].map((s) => (
-            <div key={s.label} className="flex items-center gap-2 md:gap-2.5">
+            <div key={s.label} className="flex items-center gap-2.5">
               <span
-                className="flex items-center justify-center w-6 h-6 md:w-9 md:h-9 rounded-full shrink-0"
+                className="flex items-center justify-center w-8 h-8 md:w-9 md:h-9 rounded-full shrink-0"
                 style={{ background: "rgba(232,200,122,0.15)", border: "1px solid rgba(232,200,122,0.4)" }}
               >
-                <Icon name={s.icon} size={12} className="md:w-4 md:h-4" style={{ color: "#e8c87a" }} />
+                <Icon name={s.icon} size={15} className="md:w-4 md:h-4" style={{ color: "#e8c87a" }} />
               </span>
               <span
-                className="text-[10px] md:text-sm text-white/85 leading-tight"
+                className="text-sm md:text-sm text-white/85 leading-tight"
                 style={{ textShadow: "0 1px 8px rgba(0,0,0,0.9)" }}
               >
                 {s.label}
@@ -266,7 +266,7 @@ export function Hero() {
 
         {/* преимущества — компактной строкой на мобильных, панелью справа снизу на десктопе */}
         <div
-          className="hero-reveal grid grid-cols-3 gap-1.5 mt-3 w-full max-w-md md:hidden"
+          className="hero-reveal grid grid-cols-3 gap-2 mt-4 w-full max-w-md md:hidden"
           style={{ animationDelay: "1.1s" }}
         >
           {[
@@ -276,11 +276,11 @@ export function Hero() {
           ].map((p) => (
             <div
               key={p.label}
-              className="flex flex-col items-center gap-1 text-center px-1.5 py-2 rounded-lg backdrop-blur-sm"
+              className="flex flex-col items-center gap-1.5 text-center px-2 py-3 rounded-lg backdrop-blur-sm"
               style={{ background: "rgba(12,8,4,0.5)", border: "1px solid rgba(232,200,122,0.3)" }}
             >
-              <Icon name={p.icon} size={14} style={{ color: "#e8c87a" }} />
-              <p className="text-white/85 text-[9px] leading-tight">{p.label}</p>
+              <Icon name={p.icon} size={18} style={{ color: "#e8c87a" }} />
+              <p className="text-white/85 text-[11px] leading-tight font-medium">{p.label}</p>
             </div>
           ))}
         </div>
