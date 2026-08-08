@@ -5,6 +5,7 @@ type ProductDetailData = {
   title: string
   category: string
   location: string
+  story?: string
   price: string
   images: string[]
 }
@@ -113,7 +114,10 @@ export function ProductDetailModal({ open, onClose, product, isFav, onAddToCart,
             <span className="text-xl font-bold tabular-nums shrink-0" style={{ color: "var(--gold)" }}>{product.price}</span>
           </div>
           <p className="text-white/60 text-sm leading-relaxed mb-1">{product.category}</p>
-          <p className="text-white/40 text-sm leading-relaxed">{product.location}</p>
+          <p className="text-white/40 text-xs leading-relaxed mb-4">{product.location}</p>
+          {product.story && (
+            <p className="text-white/70 text-sm leading-relaxed">{product.story}</p>
+          )}
 
           <div className="flex gap-2 mt-6">
             <button
