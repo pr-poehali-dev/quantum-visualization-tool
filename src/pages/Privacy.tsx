@@ -1,15 +1,20 @@
 import { Link } from "react-router-dom"
 import { useEffect } from "react"
 import { Logo } from "@/components/Logo"
+import { Seo } from "@/components/Seo"
 
 export default function Privacy() {
   useEffect(() => {
     window.scrollTo(0, 0)
-    document.title = "Политика конфиденциальности — Русский Стол"
   }, [])
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Политика конфиденциальности — Русский Стол"
+        description="Политика конфиденциальности и обработки персональных данных интернет-магазина «Русский Стол»."
+        path="/privacy"
+      />
       <header className="border-b border-border">
         <div className="container mx-auto px-6 md:px-12 py-6 flex items-center justify-between">
           <Link to="/">

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useShop } from "@/context/ShopContext"
 import { ShopHeader } from "@/components/ShopHeader"
 import Icon from "@/components/ui/icon"
+import { Seo } from "@/components/Seo"
 import { api, Order, Product } from "@/lib/api"
 import { toast } from "sonner"
 
@@ -22,10 +23,6 @@ export default function Account() {
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [address, setAddress] = useState("")
-
-  useEffect(() => {
-    document.title = "Личный кабинет — Русский Стол"
-  }, [])
 
   useEffect(() => {
     if (!loading && !user) navigate("/auth")
@@ -67,6 +64,7 @@ export default function Account() {
 
   return (
     <div className="min-h-screen" style={{ background: "linear-gradient(160deg, #1a130c 0%, #0d0906 100%)" }}>
+      <Seo title="Личный кабинет — Русский Стол" description="Личный кабинет покупателя: заказы, избранное и профиль." path="/account" noindex />
       <ShopHeader />
       <main className="container mx-auto px-4 md:px-8 py-10 max-w-4xl">
         <h1 className="text-2xl md:text-3xl font-light text-white mb-2">Личный кабинет</h1>
@@ -124,7 +122,7 @@ export default function Account() {
             ) : (
               favorites.map((p) => (
                 <div key={p.id} className="rounded-xl overflow-hidden border border-white/10" style={{ background: "rgba(255,255,255,0.03)" }}>
-                  {p.image_url && <img src={p.image_url} alt={p.name} className="w-full h-40 object-cover" />}
+                  {p.image_url && <img src={p.image_url} alt={p.name} loading="lazy" className="w-full h-40 object-cover" />}
                   <div className="p-4">
                     <h3 className="text-white font-medium">{p.name}</h3>
                     <p className="text-[#e8c87a] mt-1">{p.price.toLocaleString("ru")} ₽</p>

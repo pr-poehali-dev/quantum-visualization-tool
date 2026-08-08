@@ -141,6 +141,7 @@ function ProjectCard({ project, index, revealed }: { project: ProjectItem; index
         <img
           src={project.images[photoIndex]}
           alt={`${project.title} — фото ${photoIndex + 1}`}
+          loading="lazy"
           className={`w-full h-full object-cover transition-all duration-700 ${hovered ? "scale-105" : "scale-100"}`}
         />
 

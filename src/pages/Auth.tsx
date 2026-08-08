@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { useShop } from "@/context/ShopContext"
 import { Logo } from "@/components/Logo"
 import Icon from "@/components/ui/icon"
+import { Seo } from "@/components/Seo"
 import { toast } from "sonner"
 
 export default function Auth() {
@@ -15,7 +16,6 @@ export default function Auth() {
   const [busy, setBusy] = useState(false)
 
   useEffect(() => {
-    document.title = "Вход — Русский Стол"
     if (user) navigate(user.is_admin ? "/admin" : "/account")
   }, [user, navigate])
 
@@ -39,6 +39,12 @@ export default function Auth() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12" style={{ background: "linear-gradient(160deg, #1a130c 0%, #0d0906 100%)" }}>
+      <Seo
+        title="Вход и регистрация — Русский Стол"
+        description="Войдите в личный кабинет или зарегистрируйтесь, чтобы оформить заказ на стол из массива дуба."
+        path="/auth"
+        noindex
+      />
       <div className="w-full max-w-md">
         <Link to="/" className="flex justify-center mb-8">
           <Logo size={72} />

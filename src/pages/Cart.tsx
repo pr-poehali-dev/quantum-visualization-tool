@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useShop } from "@/context/ShopContext"
 import { ShopHeader } from "@/components/ShopHeader"
 import Icon from "@/components/ui/icon"
+import { Seo } from "@/components/Seo"
 import { api } from "@/lib/api"
 import { toast } from "sonner"
 
@@ -15,10 +16,6 @@ export default function Cart() {
   const [comment, setComment] = useState("")
   const [busy, setBusy] = useState(false)
   const [done, setDone] = useState<number | null>(null)
-
-  useEffect(() => {
-    document.title = "Корзина — Русский Стол"
-  }, [])
 
   useEffect(() => {
     if (user) {
@@ -53,6 +50,7 @@ export default function Cart() {
 
   return (
     <div className="min-h-screen" style={{ background: "linear-gradient(160deg, #1a130c 0%, #0d0906 100%)" }}>
+      <Seo title="Корзина — Русский Стол" description="Оформление заказа на стол из массива дуба." path="/cart" noindex />
       <ShopHeader />
       <main className="container mx-auto px-4 md:px-8 py-10 max-w-5xl">
         <h1 className="text-2xl md:text-3xl font-light text-white mb-8 flex items-center gap-3">
@@ -95,7 +93,7 @@ export default function Cart() {
               {cart.map((item) => (
                 <div key={item.id} className="flex gap-4 p-3 rounded-xl border border-white/10" style={{ background: "rgba(255,255,255,0.03)" }}>
                   {item.image_url && (
-                    <img src={item.image_url} alt={item.title} className="w-20 h-20 object-cover rounded-lg shrink-0" />
+                    <img src={item.image_url} alt={item.title} loading="lazy" className="w-20 h-20 object-cover rounded-lg shrink-0" />
                   )}
                   <div className="flex-1 min-w-0">
                     <h3 className="text-white text-sm font-medium">{item.title}</h3>

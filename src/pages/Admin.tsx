@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useShop } from "@/context/ShopContext"
 import { ShopHeader } from "@/components/ShopHeader"
 import Icon from "@/components/ui/icon"
+import { Seo } from "@/components/Seo"
 import { api, Order, Product } from "@/lib/api"
 import { toast } from "sonner"
 
@@ -33,10 +34,6 @@ export default function Admin() {
   const [orders, setOrders] = useState<Order[]>([])
   const [users, setUsers] = useState<AdminUser[]>([])
   const [products, setProducts] = useState<Product[]>([])
-
-  useEffect(() => {
-    document.title = "Админка — Русский Стол"
-  }, [])
 
   useEffect(() => {
     if (!loading && (!user || !user.is_admin)) navigate("/auth")
@@ -72,6 +69,7 @@ export default function Admin() {
 
   return (
     <div className="min-h-screen" style={{ background: "linear-gradient(160deg, #1a130c 0%, #0d0906 100%)" }}>
+      <Seo title="Админка — Русский Стол" description="Панель управления магазином." path="/admin" noindex />
       <ShopHeader />
       <main className="container mx-auto px-4 md:px-8 py-10 max-w-6xl">
         <h1 className="text-2xl md:text-3xl font-light text-white mb-8 flex items-center gap-3">
