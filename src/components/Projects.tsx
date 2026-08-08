@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react"
-import { ArrowUpRight, ChevronLeft, ChevronRight, Copy, Check, Heart, ShoppingCart } from "lucide-react"
+import { ArrowUpRight, ChevronLeft, ChevronRight, Copy, Check, Heart, ShoppingCart, Info } from "lucide-react"
 import { ContactModal } from "./ContactModal"
+import { ProductDetailModal } from "./ProductDetailModal"
 import { useShop } from "@/context/ShopContext"
 import { api, Product } from "@/lib/api"
 
@@ -50,6 +51,7 @@ function ProjectCard({ project, index, revealed }: { project: ProjectItem; index
   const [contactOpen, setContactOpen] = useState(false)
   const [dustKey, setDustKey] = useState(0)
   const [dust, setDust] = useState(makeDust)
+  const [detailOpen, setDetailOpen] = useState(false)
   const { addToCart, toggleFavorite, favoriteIds } = useShop()
   const isFav = favoriteIds.includes(project.productId)
 
@@ -61,8 +63,7 @@ function ProjectCard({ project, index, revealed }: { project: ProjectItem; index
     })
   }, [project.images])
 
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation()
+  const addProjectToCart = () => {
     addToCart({
       product_id: project.productId,
       title: project.title,
@@ -72,9 +73,16 @@ function ProjectCard({ project, index, revealed }: { project: ProjectItem; index
     }).catch(() => {})
   }
 
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    addProjectToCart()
+  }
+
+  const toggleProjectFav = () => toggleFavorite(project.productId)
+
   const handleFav = (e: React.MouseEvent) => {
     e.stopPropagation()
-    toggleFavorite(project.productId)
+    toggleProjectFav()
   }
 
   const orderMessage = `Привет! Хочу заказать стол.\nМодель: ${project.title}\n${project.category}\n${project.location}\nЦена: ${project.price}`
@@ -206,6 +214,16 @@ function ProjectCard({ project, index, revealed }: { project: ProjectItem; index
             style={{ color: "var(--gold)", transform: hovered ? "translate(1px,-1px)" : "none" }}
           />
         </div>
+
+        {/* кнопка «Подробнее» */}
+        <button
+          onClick={(e) => { e.stopPropagation(); setDetailOpen(true) }}
+          className="absolute left-3 bottom-14 z-10 inline-flex items-center gap-1.5 px-3 h-8 rounded-full backdrop-blur-sm text-white/90 text-[11px] tracking-wide uppercase font-medium transition-colors hover:text-white"
+          style={{ background: "rgba(12,8,4,0.6)", border: "1px solid rgba(201,168,76,0.5)" }}
+        >
+          <Info className="w-3.5 h-3.5" style={{ color: "var(--gold)" }} />
+          Подробнее
+        </button>
       </div>
 
       {/* инфо-блок */}
@@ -256,6 +274,14 @@ function ProjectCard({ project, index, revealed }: { project: ProjectItem; index
       </div>
       </div>
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} message={orderMessage} />
+      <ProductDetailModal
+        open={detailOpen}
+        onClose={() => setDetailOpen(false)}
+        product={project}
+        isFav={isFav}
+        onAddToCart={addProjectToCart}
+        onToggleFav={toggleProjectFav}
+      />
     </article>
   )
 }
