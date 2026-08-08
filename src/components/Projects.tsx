@@ -53,6 +53,14 @@ function ProjectCard({ project, index, revealed }: { project: ProjectItem; index
   const { addToCart, toggleFavorite, favoriteIds } = useShop()
   const isFav = favoriteIds.includes(project.productId)
 
+  // предзагружаем все фото товара, чтобы переключение было мгновенным
+  useEffect(() => {
+    project.images.forEach((src) => {
+      const img = new window.Image()
+      img.src = src
+    })
+  }, [project.images])
+
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation()
     addToCart({
@@ -168,11 +176,16 @@ function ProjectCard({ project, index, revealed }: { project: ProjectItem; index
         </button>
 
         {/* точки */}
-        <div className="absolute top-3 right-3 flex gap-1.5 z-10">
+        <div className="absolute top-3 right-3 flex gap-1 z-10">
           {project.images.map((_, i) => (
-            <button key={i} onClick={e => { e.stopPropagation(); if (i !== photoIndex) triggerDust(); setPhotoIndex(i) }}
-              className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${i === photoIndex ? "bg-white scale-125" : "bg-white/40"}`}
-            />
+            <button
+              key={i}
+              onClick={e => { e.stopPropagation(); if (i !== photoIndex) { triggerDust(); setPhotoIndex(i) } }}
+              className="w-6 h-6 flex items-center justify-center"
+              aria-label={`Фото ${i + 1}`}
+            >
+              <span className={`block w-1.5 h-1.5 rounded-full transition-all duration-200 ${i === photoIndex ? "bg-white scale-125" : "bg-white/40"}`} />
+            </button>
           ))}
         </div>
 
