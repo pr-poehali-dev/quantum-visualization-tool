@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { X, Phone, Mail } from "lucide-react"
 import { SiTelegram, SiVk } from "react-icons/si"
+import { reachGoal } from "@/lib/metrika"
 
 const MAX_URL = "https://max.ru/u/f9LHodD0cOK0cpbAk71R9WDFAnOL6VH7GD8IA4Uzvcn0QVi1HEGl562uJc0"
 const VK_URL = "https://vk.ru/club239485505"
@@ -32,7 +33,10 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
   }, [open])
 
   useEffect(() => {
-    if (open) setAgreed(false)
+    if (open) {
+      setAgreed(false)
+      reachGoal("contact_open")
+    }
   }, [open])
 
   if (!open) return null
@@ -40,6 +44,7 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
   const openMax = () => {
     if (!agreed) return
     if (message) navigator.clipboard.writeText(message).catch(() => {})
+    reachGoal("contact_max")
     window.open(MAX_URL, "_blank", "noopener,noreferrer")
     onClose()
   }
@@ -47,6 +52,7 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
   const openVk = () => {
     if (!agreed) return
     if (message) navigator.clipboard.writeText(message).catch(() => {})
+    reachGoal("contact_vk")
     window.open(VK_URL, "_blank", "noopener,noreferrer")
     onClose()
   }
@@ -54,18 +60,21 @@ export function ContactModal({ open, onClose, message }: ContactModalProps) {
   const openTelegram = () => {
     if (!agreed) return
     if (message) navigator.clipboard.writeText(message).catch(() => {})
+    reachGoal("contact_telegram")
     window.open(TELEGRAM_URL, "_blank", "noopener,noreferrer")
     onClose()
   }
 
   const openPhone = () => {
     if (!agreed) return
+    reachGoal("contact_phone")
     window.location.href = `tel:${PHONE_NUMBER}`
     onClose()
   }
 
   const openEmail = () => {
     if (!agreed) return
+    reachGoal("contact_email")
     window.location.href = `mailto:${EMAIL}`
     onClose()
   }

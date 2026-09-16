@@ -85,7 +85,8 @@ def handler(event, context):
         if method == 'GET' and action == 'orders':
             cur.execute(
                 "SELECT o.id, o.total, o.status, o.comment, o.created_at, "
-                "o.customer_name, o.customer_phone, o.customer_address, u.email "
+                "o.customer_name, o.customer_phone, o.customer_address, u.email, "
+                "o.utm_source, o.utm_medium, o.utm_campaign, o.utm_content, o.utm_term "
                 "FROM orders o LEFT JOIN users u ON u.id = o.user_id ORDER BY o.id DESC"
             )
             orders = cur.fetchall()

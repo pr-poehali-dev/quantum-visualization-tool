@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from "react"
 import { api, getToken, setToken, clearToken, User, CartItem } from "@/lib/api"
+import { reachGoal } from "@/lib/metrika"
 import { toast } from "sonner"
 
 type ShopContextType = {
@@ -106,6 +107,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     }
     await api.addToCart(item)
     await refreshCart()
+    reachGoal("add_to_cart", { title: item.title, price: item.price })
     toast.success("Добавлено в корзину")
   }
 

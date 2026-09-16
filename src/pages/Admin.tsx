@@ -125,6 +125,11 @@ export default function Admin() {
                     {o.customer_address && <div className="text-white/50">{o.customer_address}</div>}
                     {o.email && <div className="text-white/40 text-xs">{o.email}</div>}
                     {o.comment && <div className="text-white/50 italic">«{o.comment}»</div>}
+                    {o.utm_source && (
+                      <div className="text-[#e8c87a]/70 text-xs">
+                        Источник: {o.utm_source}{o.utm_medium ? ` / ${o.utm_medium}` : ""}{o.utm_campaign ? ` / ${o.utm_campaign}` : ""}
+                      </div>
+                    )}
                   </div>
                   <div className="space-y-1">
                     {o.items.map((it, i) => (

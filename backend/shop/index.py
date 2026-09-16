@@ -1,5 +1,7 @@
 import json
 import os
+import smtplib
+from email.mime.text import MIMEText
 import psycopg2
 import psycopg2.extras
 
@@ -22,6 +24,44 @@ def _resp(status, body):
 
 def _db():
     return psycopg2.connect(os.environ['DATABASE_URL'])
+
+
+def _notify_new_order(order_id, total, name, phone, address, comment, items, utm_source):
+    login = os.environ.get('SMTP_LOGIN')
+    password = os.environ.get('SMTP_PASSWORD')
+    if not login or not password:
+        return
+    lines = [
+        f"Новый заказ №{order_id}",
+        f"Сумма: {total} ₽",
+        f"Имя: {name or '-'}",
+        f"Телефон: {phone or '-'}",
+    ]
+    if address:
+        lines.append(f"Адрес: {address}")
+    if comment:
+        lines.append(f"Комментарий: {comment}")
+    if utm_source:
+        lines.append(f"Источник рекламы: {utm_source}")
+    lines.append("")
+    lines.append("Состав заказа:")
+    for i in items:
+        title = i.get('title', 'Товар') if isinstance(i, dict) else i['title']
+        qty = i.get('quantity') or 1 if isinstance(i, dict) else i['quantity']
+        price = i.get('price') if isinstance(i, dict) else i['price']
+        lines.append(f"— {title} × {qty} = {int(price) * int(qty)} ₽")
+
+    msg = MIMEText("\n".join(lines), _charset='utf-8')
+    msg['Subject'] = f"Новый заказ №{order_id} — Русский Стол"
+    msg['From'] = login
+    msg['To'] = login
+
+    try:
+        with smtplib.SMTP_SSL('smtp.mail.ru', 465, timeout=5) as server:
+            server.login(login, password)
+            server.sendmail(login, [login], msg.as_string())
+    except Exception:
+        pass
 
 
 def _user_by_token(cur, token):
@@ -154,8 +194,9 @@ def handler(event, context):
                 return _resp(400, {'error': 'Корзина пуста'})
             total = sum(int(i['price']) * int(i.get('quantity') or 1) for i in items)
             cur.execute(
-                "INSERT INTO orders (user_id, customer_name, customer_phone, customer_address, total, comment) "
-                "VALUES (%s, %s, %s, %s, %s, %s) RETURNING id, created_at",
+                "INSERT INTO orders (user_id, customer_name, customer_phone, customer_address, total, comment, "
+                "utm_source, utm_medium, utm_campaign, utm_content, utm_term) "
+                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id, created_at",
                 (
                     uid,
                     body.get('name') or user.get('name'),
@@ -163,6 +204,11 @@ def handler(event, context):
                     body.get('address') or user.get('address'),
                     total,
                     body.get('comment'),
+                    body.get('utm_source'),
+                    body.get('utm_medium'),
+                    body.get('utm_campaign'),
+                    body.get('utm_content'),
+                    body.get('utm_term'),
                 ),
             )
             order = cur.fetchone()
@@ -176,6 +222,15 @@ def handler(event, context):
                     (oid, i.get('title', 'Товар'), int(i['price']), int(i.get('quantity') or 1), i.get('image_url'), cfg),
                 )
             cur.execute("DELETE FROM cart_items WHERE user_id = %s", (uid,))
+            _notify_new_order(
+                oid, total,
+                body.get('name') or user.get('name'),
+                body.get('phone') or user.get('phone'),
+                body.get('address') or user.get('address'),
+                body.get('comment'),
+                items,
+                body.get('utm_source'),
+            )
             return _resp(200, {'order_id': oid, 'total': total})
 
         if method == 'GET' and action == 'orders':

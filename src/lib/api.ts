@@ -1,4 +1,5 @@
 import funcUrls from "../../backend/func2url.json"
+import { getStoredUtm } from "./utm"
 
 const AUTH_URL = funcUrls.auth
 const SHOP_URL = funcUrls.shop
@@ -84,6 +85,11 @@ export type Order = {
   customer_phone?: string
   customer_address?: string
   email?: string
+  utm_source?: string
+  utm_medium?: string
+  utm_campaign?: string
+  utm_content?: string
+  utm_term?: string
 }
 
 export const api = {
@@ -109,7 +115,7 @@ export const api = {
   addFavorite: (product_id: number) => request(SHOP_URL, "favorites", "POST", { product_id }),
   removeFavorite: (product_id: number) => requestDelete(SHOP_URL, "favorites", `&product_id=${product_id}`),
   createOrder: (data: { name?: string; phone?: string; address?: string; comment?: string }) =>
-    request(SHOP_URL, "order", "POST", data),
+    request(SHOP_URL, "order", "POST", { ...data, ...getStoredUtm() }),
   getOrders: (): Promise<{ orders: Order[] }> => request(SHOP_URL, "orders", "GET"),
 
   // admin

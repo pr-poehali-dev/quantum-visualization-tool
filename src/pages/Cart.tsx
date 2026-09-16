@@ -5,6 +5,7 @@ import { ShopHeader } from "@/components/ShopHeader"
 import Icon from "@/components/ui/icon"
 import { Seo } from "@/components/Seo"
 import { api } from "@/lib/api"
+import { reachGoal } from "@/lib/metrika"
 import { toast } from "sonner"
 
 export default function Cart() {
@@ -40,6 +41,7 @@ export default function Cart() {
       const { order_id } = await api.createOrder({ name, phone, address, comment })
       await refreshCart()
       setDone(order_id)
+      reachGoal("order_submit", { order_id, value: total })
       toast.success("Заказ оформлен!")
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Ошибка")
