@@ -9,6 +9,7 @@ import { ShopProvider } from "@/context/ShopContext";
 import { SiteContentProvider } from "@/context/SiteContentContext";
 import Index from "./pages/Index";
 import Privacy from "./pages/Privacy";
+import Offer from "./pages/Offer";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import Cart from "./pages/Cart";
@@ -29,6 +30,7 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/privacy" element={<Privacy />} />
+                <Route path="/offer" element={<Offer />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/account" element={<Account />} />

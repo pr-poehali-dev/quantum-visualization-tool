@@ -74,6 +74,9 @@ export function Footer() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <p>© 2026 Русский Стол. Все права защищены.</p>
             <div className="flex gap-6">
+              <Link to="/offer" className="hover:text-foreground transition-colors">
+                Публичная оферта
+              </Link>
               <Link to="/privacy" className="hover:text-foreground transition-colors">
                 Политика конфиденциальности
               </Link>
