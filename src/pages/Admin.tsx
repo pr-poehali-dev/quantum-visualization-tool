@@ -133,9 +133,18 @@ export default function Admin() {
                   </div>
                   <div className="space-y-1">
                     {o.items.map((it, i) => (
-                      <div key={i} className="flex justify-between text-sm text-white/80">
-                        <span>{it.title} × {it.quantity}</span>
-                        <span className="text-[#e8c87a]">{(it.price * it.quantity).toLocaleString("ru")} ₽</span>
+                      <div key={i} className="text-sm text-white/80">
+                        <div className="flex justify-between">
+                          <span>{it.title} × {it.quantity}</span>
+                          <span className="text-[#e8c87a]">{(it.price * it.quantity).toLocaleString("ru")} ₽</span>
+                        </div>
+                        {it.config && typeof it.config === "object" && (
+                          <div className="text-white/45 text-xs mt-0.5 pl-1">
+                            {Object.entries(it.config as Record<string, unknown>)
+                              .map(([k, v]) => `${k}: ${v}`)
+                              .join(" · ")}
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>

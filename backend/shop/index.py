@@ -48,6 +48,16 @@ def _order_notification_text(order_id, total, name, phone, address, comment, ite
         qty = i.get('quantity') or 1 if isinstance(i, dict) else i['quantity']
         price = i.get('price') if isinstance(i, dict) else i['price']
         lines.append(f"— {title} × {qty} = {int(price) * int(qty)} ₽")
+        cfg = i.get('config') if isinstance(i, dict) else None
+        if cfg:
+            if isinstance(cfg, str):
+                try:
+                    cfg = json.loads(cfg)
+                except Exception:
+                    cfg = None
+            if isinstance(cfg, dict) and cfg:
+                cfg_line = ", ".join(f"{k}: {v}" for k, v in cfg.items())
+                lines.append(f"   {cfg_line}")
     return "\n".join(lines)
 
 
