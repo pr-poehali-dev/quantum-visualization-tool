@@ -75,6 +75,7 @@ def _notify_telegram(order_id, text):
         return
     # api.telegram.org может быть недоступен напрямую из облака — используем прокси, если задан
     api_base = os.environ.get('TELEGRAM_API_BASE', 'https://api.telegram.org').rstrip('/')
+    print(f"[telegram_debug] order_id={order_id} api_base={api_base}")
     try:
         data = urllib.parse.urlencode({'chat_id': chat_id, 'text': text}).encode()
         req = urllib.request.Request(f"{api_base}/bot{token}/sendMessage", data=data)
