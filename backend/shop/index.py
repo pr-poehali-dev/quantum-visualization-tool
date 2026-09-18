@@ -1,6 +1,8 @@
 import json
 import os
 import smtplib
+import urllib.request
+import urllib.parse
 from email.mime.text import MIMEText
 import psycopg2
 import psycopg2.extras
@@ -26,11 +28,7 @@ def _db():
     return psycopg2.connect(os.environ['DATABASE_URL'])
 
 
-def _notify_new_order(order_id, total, name, phone, address, comment, items, utm_source):
-    login = os.environ.get('SMTP_LOGIN')
-    password = os.environ.get('SMTP_PASSWORD')
-    if not login or not password:
-        return
+def _order_notification_text(order_id, total, name, phone, address, comment, items, utm_source):
     lines = [
         f"Новый заказ №{order_id}",
         f"Сумма: {total} ₽",
@@ -50,18 +48,43 @@ def _notify_new_order(order_id, total, name, phone, address, comment, items, utm
         qty = i.get('quantity') or 1 if isinstance(i, dict) else i['quantity']
         price = i.get('price') if isinstance(i, dict) else i['price']
         lines.append(f"— {title} × {qty} = {int(price) * int(qty)} ₽")
+    return "\n".join(lines)
 
-    msg = MIMEText("\n".join(lines), _charset='utf-8')
+
+def _notify_email(order_id, text):
+    login = os.environ.get('SMTP_LOGIN')
+    password = os.environ.get('SMTP_PASSWORD')
+    if not login or not password:
+        return
+    msg = MIMEText(text, _charset='utf-8')
     msg['Subject'] = f"Новый заказ №{order_id} — Русский Стол"
     msg['From'] = login
     msg['To'] = login
-
     try:
         with smtplib.SMTP_SSL('smtp.mail.ru', 465, timeout=5) as server:
             server.login(login, password)
             server.sendmail(login, [login], msg.as_string())
     except Exception as e:
-        print(f"[order_notify_error] order_id={order_id} error={type(e).__name__}: {e}")
+        print(f"[order_notify_email_error] order_id={order_id} error={type(e).__name__}: {e}")
+
+
+def _notify_telegram(order_id, text):
+    token = os.environ.get('TELEGRAM_BOT_TOKEN')
+    chat_id = os.environ.get('TELEGRAM_CHAT_ID')
+    if not token or not chat_id:
+        return
+    try:
+        data = urllib.parse.urlencode({'chat_id': chat_id, 'text': text}).encode()
+        req = urllib.request.Request(f"https://api.telegram.org/bot{token}/sendMessage", data=data)
+        urllib.request.urlopen(req, timeout=5)
+    except Exception as e:
+        print(f"[order_notify_telegram_error] order_id={order_id} error={type(e).__name__}: {e}")
+
+
+def _notify_new_order(order_id, total, name, phone, address, comment, items, utm_source):
+    text = _order_notification_text(order_id, total, name, phone, address, comment, items, utm_source)
+    _notify_email(order_id, text)
+    _notify_telegram(order_id, text)
 
 
 def _user_by_token(cur, token):
