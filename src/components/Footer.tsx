@@ -2,12 +2,14 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import { Logo } from "./Logo"
 import { ContactModal } from "./ContactModal"
+import { TableHeroEasterEgg } from "./TableHeroEasterEgg"
 
 export function Footer() {
   const [contactOpen, setContactOpen] = useState(false)
   return (
     <>
     <footer className="py-16 md:py-24 border-t border-border relative overflow-hidden">
+      <TableHeroEasterEgg />
       <div
         className="absolute top-0 left-0 right-0 h-1"
         style={{ background: "linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold) 80%, transparent)", opacity: 0.5 }}
