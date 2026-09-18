@@ -73,9 +73,11 @@ def _notify_telegram(order_id, text):
     chat_id = os.environ.get('TELEGRAM_CHAT_ID')
     if not token or not chat_id:
         return
+    # api.telegram.org может быть недоступен напрямую из облака — используем прокси, если задан
+    api_base = os.environ.get('TELEGRAM_API_BASE', 'https://api.telegram.org').rstrip('/')
     try:
         data = urllib.parse.urlencode({'chat_id': chat_id, 'text': text}).encode()
-        req = urllib.request.Request(f"https://api.telegram.org/bot{token}/sendMessage", data=data)
+        req = urllib.request.Request(f"{api_base}/bot{token}/sendMessage", data=data)
         urllib.request.urlopen(req, timeout=5)
     except Exception as e:
         print(f"[order_notify_telegram_error] order_id={order_id} error={type(e).__name__}: {e}")
