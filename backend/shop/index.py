@@ -60,8 +60,8 @@ def _notify_new_order(order_id, total, name, phone, address, comment, items, utm
         with smtplib.SMTP_SSL('smtp.mail.ru', 465, timeout=5) as server:
             server.login(login, password)
             server.sendmail(login, [login], msg.as_string())
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"[order_notify_error] order_id={order_id} error={type(e).__name__}: {e}")
 
 
 def _user_by_token(cur, token):
